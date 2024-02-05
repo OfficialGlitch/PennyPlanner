@@ -1,4 +1,4 @@
-package org.yorku.pennyplannerorg;
+package pennyplanner.gui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

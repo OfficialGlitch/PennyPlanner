@@ -1,4 +1,4 @@
-package org.yorku.pennyplannerorg;
+package pennyplanner.gui;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
