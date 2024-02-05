@@ -6,8 +6,8 @@
     <version>1.0-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
     </properties>
     <dependencies>
         <dependency>
@@ -18,6 +18,21 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
+            <version>21</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>21</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>21</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
             <version>21</version>
         </dependency>
     </dependencies>
@@ -41,7 +56,7 @@
                         <!-- Usage: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>pennyplanner.App</mainClass>
+                            <mainClass>GUI.App</mainClass>
                         </configuration>
                     </execution>
                 </executions>
