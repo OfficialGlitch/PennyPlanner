@@ -1,9 +1,11 @@
 package models;
 
 import jakarta.persistence.*;
+import models.money.Expense;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "users")
 @Access(AccessType.PROPERTY)
@@ -14,16 +16,9 @@ public class User {
     private String country;
     private String username;
 
-
-
-
-
-
-
-
-    private ArrayList<Category> expenseCategories = new ArrayList<>();
-    private ArrayList<Expense> expenseTypes = new ArrayList<>();
-    private ArrayList<TimePeriod> history = new ArrayList<>();
+    private List<Category> expenseCategories = new ArrayList<>();
+    private List<Expense> expenseTypes = new ArrayList<>();
+    private List<TimePeriod> history = new ArrayList<>();
 
 
 
@@ -67,29 +62,29 @@ public class User {
     }
 
     @OneToMany(fetch = FetchType.EAGER)
-    public ArrayList<Category> getExpenseCategories() {
+    public List<Category> getExpenseCategories() {
         return expenseCategories;
     }
 
-    public void setExpenseCategories(ArrayList<Category> expenseCategories) {
+    public void setExpenseCategories(List<Category> expenseCategories) {
         this.expenseCategories = expenseCategories;
     }
 
     @OneToMany(fetch = FetchType.EAGER)
-    public ArrayList<Expense> getExpenseTypes() {
+    public List<Expense> getExpenseTypes() {
         return expenseTypes;
     }
 
-    public void setExpenseTypes(ArrayList<Expense> expenses) {
+    public void setExpenseTypes(List<Expense> expenses) {
         this.expenseTypes = expenses;
     }
 
     @OneToMany(fetch = FetchType.EAGER)
-    public ArrayList<TimePeriod> getHistory() {
+    public List<TimePeriod> getHistory() {
         return history;
     }
 
-    public void setHistory(ArrayList<TimePeriod> history) {
+    public void setHistory(List<TimePeriod> history) {
         this.history = history;
     }
 }
