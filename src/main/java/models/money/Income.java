@@ -47,7 +47,7 @@ public class Income {
         if (other == null || other.getClass() != getClass()) {
             return false;
         }
-        return ID == ((models.IncomeSource) other).ID;
+        return ID == ((models.money.Income) other).ID;
     }
 
 }
