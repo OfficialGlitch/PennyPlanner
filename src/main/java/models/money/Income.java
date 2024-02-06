@@ -1,22 +1,53 @@
 package models.money;
 
-abstract class Income{
-    private double amount;
-    private String source;
+import jakarta.persistence.*;
+import javafx.beans.property.*;
+import models.User;
 
-    public double getAmount() {
-        return amount;
+@Entity(name = "incomeTypes")
+@Access(AccessType.PROPERTY)
+public class Income {
+    public final IntegerProperty ID = new SimpleIntegerProperty();
+
+    public final StringProperty name = new SimpleStringProperty();
+    public final ObjectProperty<User> user = new SimpleObjectProperty<>();
+
+    public Income() {
+
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    @Column(nullable = false)
+    public String getName() {
+        return name.get();
+    }
+    public void setName(String newName) {
+        name.set(newName);
     }
 
-    public String getSource() {
-        return source;
+    @Id
+    @GeneratedValue
+    public int getID() {
+        return ID.get();
+    }
+    public void setID(int nid) {
+        ID.set(nid);
     }
 
-    public void setSource(String source) {
-        this.source = source;
+    @ManyToOne
+    public User getUser() {
+        return user.get();
     }
+
+    public void setUser(User user) {
+        this.user.set(user);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == null || other.getClass() != getClass()) {
+            return false;
+        }
+        return ID == ((models.IncomeSource) other).ID;
+    }
+
 }
