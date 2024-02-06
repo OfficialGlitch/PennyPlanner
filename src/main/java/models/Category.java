@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import models.money.Expense;
 
 @Entity(name = "categories")
 @Access(AccessType.PROPERTY)
