@@ -72,10 +72,6 @@ public class TimePeriod {
         this.user.set(user);
     }
 
-    public int month() {
-        return Integer.parseInt(ID.get().split("-")[1]);
-    }
-
     public double projectedIncome() {
         double total = 0d;
         for (IncomeInstance ii : incomeSources) {
