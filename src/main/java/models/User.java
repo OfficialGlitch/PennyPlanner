@@ -12,6 +12,10 @@ public class User {
     private String password;
     private String email;
     private String country;
+    private String username;
+
+
+
 
 
 
@@ -23,13 +27,17 @@ public class User {
 
 
 
+
     @Column
-    public String getCountry() {
-        return country;
+    public String getUsername() {
+        return username;
     }
-    public void setCountry(String country) {
-        this.country = country;
+    public void setUsername(String username) {
+        this.username = username;
     }
+    @Column
+    public String getCountry() {return country;}
+    public void setCountry(String country) {this.country = country;}
 
     @Column
     public String getEmail() {
