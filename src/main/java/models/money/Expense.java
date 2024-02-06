@@ -1,6 +1,6 @@
-package money;
+package models.money;
 
-abstract class Expense{
+public class Expense{
     private double amount;
     private String source;
 

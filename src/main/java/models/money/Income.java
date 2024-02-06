@@ -1,4 +1,4 @@
-package money;
+package models.money;
 
 abstract class Income{
     private double amount;
