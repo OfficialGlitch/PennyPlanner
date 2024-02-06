@@ -8,15 +8,28 @@ import java.util.ArrayList;
 @Entity(name = "users")
 @Access(AccessType.PROPERTY)
 public class User {
-
     private String name;
     private String password;
     private String email;
+    private String country;
+
+
+
+
+
     private ArrayList<Category> expenseCategories = new ArrayList<>();
     private ArrayList<Expense> expenseTypes = new ArrayList<>();
     private ArrayList<TimePeriod> history = new ArrayList<>();
 
 
+
+    @Column
+    public String getCountry() {
+        return country;
+    }
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
     @Column
     public String getEmail() {
