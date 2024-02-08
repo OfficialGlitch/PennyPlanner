@@ -91,24 +91,6 @@ public class ExpenseTableController {
 		differenceCol.setCellFactory(new GenericTableCellFactory<>(s -> String.format("%.2f", s)));
 		differenceCol.setEditable(false);
 		updateRows();
-		
-//		ObservableList<ExpenseTreeTableItem> data = FXCollections.observableArrayList();
-//		for (Expense e : category.getExpenses()) {
-//			var q = App.s().createQuery(
-//							"select e from expenses e " +
-//									"inner join fetch e.expense ec " +
-//									"inner join fetch e.month em " +
-//									"where em.ID = :curMonth and ec.ID = :curEID", ExpenseInstance.class)
-//					.setParameter("curMonth", timePeriod.getID())
-//					.setParameter("curEID", e.getID());
-//			var list = q.getResultList();
-//			data.addAll(list);
-//		}
-//        data.addListener((ListChangeListener<? super ExpenseInstance>) ov -> {
-//            for(ExpenseInstance ei : ov.getList()) {
-//                App.s().createQuery("update expenses e set e = :thing", ExpenseInstance.class).setParameter("thing", ei).executeUpdate();
-//            }
-//        });
 		mainTable.setRoot(troot);
 	}
 	
