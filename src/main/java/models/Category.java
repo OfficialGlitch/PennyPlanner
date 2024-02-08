@@ -8,9 +8,15 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.money.Expense;
+import org.hibernate.annotations.NamedQuery;
 
 @Entity(name = "categories")
 @Access(AccessType.PROPERTY)
+@org.hibernate.annotations.NamedQueries({
+		@NamedQuery(name = "getAllCategories", query = "select c from categories c " +
+				"full join fetch c.user as u " +
+				"where u = :user")
+})
 public class Category {
     public final IntegerProperty ID = new SimpleIntegerProperty();
     public final StringProperty name = new SimpleStringProperty();

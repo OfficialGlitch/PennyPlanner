@@ -5,10 +5,23 @@ import models.money.Expense;
 import models.TimePeriod;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 
 @Entity(name = "expenses")
 @Access(AccessType.PROPERTY)
-public class ExpenseInstance {
+@NamedQueries({
+		@NamedQuery(name = "getExpenseInstancesForCategory", query = "select e from expenses e " +
+				"full join fetch e.expense as et " +
+				"full join fetch e.month as em " +
+				"full join fetch et.category as ec " +
+				"where (em.ID = :tp and ec.ID = :cat)"),
+		@NamedQuery(name = "getExpenseInstancesForExpenseType", query = "select e from expenses e " +
+				"full join fetch e.expense ec " +
+				"full join fetch e.month em " +
+				"where em.ID = :curMonth and ec.ID = :curEID")
+})
+public class ExpenseInstance implements ExpenseTreeTableItem {
 	public final IntegerProperty ID = new SimpleIntegerProperty();
 	
 	public final DoubleProperty projectedCost = new SimpleDoubleProperty(0d);
