@@ -51,7 +51,7 @@ public class CategoryIntermediate implements ExpenseTreeTableItem {
 	@Override
 	public double getCost(TimePeriod timePeriod) {
 		double result = 0d;
-		for(ExpenseInstance i : expenseInstances) {
+		for(ExpenseInstance i : getExpenseInstances(timePeriod)) {
 			result += i.getCost();
 		}
 		return result;
@@ -60,7 +60,7 @@ public class CategoryIntermediate implements ExpenseTreeTableItem {
 	@Override
 	public double getProjectedCost(TimePeriod timePeriod) {
 		double result = 0d;
-		for(ExpenseInstance i : expenseInstances) {
+		for(ExpenseInstance i : getExpenseInstances(timePeriod)) {
 			result += i.getProjectedCost();
 		}
 		return result;
