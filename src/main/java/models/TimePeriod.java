@@ -128,7 +128,7 @@ public class TimePeriod {
 	@Override
 	public boolean equals(Object other) {
 		if (other instanceof TimePeriod o) {
-			return o.ID.equals(this.ID);
+			return o.ID.get().equals(this.ID.get());
 		}
 		return false;
 	}
