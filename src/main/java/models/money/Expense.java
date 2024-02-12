@@ -9,10 +9,10 @@ import org.hibernate.annotations.NamedQuery;
 @Entity(name = "expenseTypes")
 @Access(AccessType.PROPERTY)
 @NamedQueries({
-		@NamedQuery(name = "getExpensesForCategory", query = "select e from expenseTypes e " +
-				"full join fetch e.category as ec " +
-				"full join fetch ec.user as eu " +
-				"where (ec.ID = :cat and eu.id = :us)"),
+	@NamedQuery(name = "getExpensesForCategory", query = "select e from expenseTypes e " +
+		"full join fetch e.category as ec " +
+		"full join fetch ec.user as eu " +
+		"where (ec.ID = :cat and eu.id = :us)"),
 })
 public class Expense {
 	public final IntegerProperty ID = new SimpleIntegerProperty();

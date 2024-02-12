@@ -11,9 +11,11 @@ import java.util.function.Function;
 
 public class GenericTableCellFactory<T> implements javafx.util.Callback<TreeTableColumn<ExpenseTreeTableItem, T>, TreeTableCell<ExpenseTreeTableItem, T>> {
 	private Function<T, String> textGetter;
+	
 	public GenericTableCellFactory(Function<T, String> textFun) {
 		this.textGetter = textFun;
 	}
+	
 	@Override
 	public TreeTableCell<ExpenseTreeTableItem, T> call(TreeTableColumn<ExpenseTreeTableItem, T> param) {
 		TreeTableCell<ExpenseTreeTableItem, T> cell = new TreeTableCell<>() {
@@ -22,7 +24,7 @@ public class GenericTableCellFactory<T> implements javafx.util.Callback<TreeTabl
 				super.updateItem(item, empty);
 				this.setItem(item);
 				this.setText(GenericTableCellFactory.this.textGetter.apply(item));
-				if(item instanceof CategoryIntermediate) {
+				if (item instanceof CategoryIntermediate) {
 					this.setEditable(false);
 				}
 			}

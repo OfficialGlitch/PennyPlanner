@@ -67,13 +67,13 @@ public class App extends Application {
 	public static Session s() {
 		if (sessionFactory == null) {
 			final Configuration configuration = new Configuration()
-					.addAnnotatedClass(User.class)
-					.addAnnotatedClass(Expense.class)
-					.addAnnotatedClass(ExpenseInstance.class)
-					.addAnnotatedClass(Income.class)
-					.addAnnotatedClass(IncomeInstance.class)
-					.addAnnotatedClass(TimePeriod.class)
-					.addAnnotatedClass(Category.class);
+				.addAnnotatedClass(User.class)
+				.addAnnotatedClass(Expense.class)
+				.addAnnotatedClass(ExpenseInstance.class)
+				.addAnnotatedClass(Income.class)
+				.addAnnotatedClass(IncomeInstance.class)
+				.addAnnotatedClass(TimePeriod.class)
+				.addAnnotatedClass(Category.class);
 //			var props = configuration.getProperties();
 			sessionFactory = configuration.buildSessionFactory(new StandardServiceRegistryBuilder().build());
 		}

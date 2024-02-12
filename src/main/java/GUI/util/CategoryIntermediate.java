@@ -19,8 +19,8 @@ public class CategoryIntermediate implements ExpenseTreeTableItem {
 	public CategoryIntermediate(Category cat) {
 		this.category.set(cat);
 	}
-  
-  private final ObservableList<ExpenseInstance> expenseInstances = FXCollections.observableArrayList();
+	
+	private final ObservableList<ExpenseInstance> expenseInstances = FXCollections.observableArrayList();
 	
 	@Override
 	public String getName() {
@@ -34,24 +34,25 @@ public class CategoryIntermediate implements ExpenseTreeTableItem {
 	
 	@Override
 	public void updateExpenses(TimePeriod timePeriod) {
-		try(Session s = App.s()) {
+		try (Session s = App.s()) {
 			var listy = s.createNamedQuery("getExpenseInstancesForCategory", ExpenseInstance.class)
-					.setParameter("tp", timePeriod.getID())
-					.setParameter("cat", category.get().ID)
-					.getResultList();
+				.setParameter("tp", timePeriod.getID())
+				.setParameter("cat", category.get().ID)
+				.getResultList();
 			expenseInstances.setAll(listy);
 		}
 	}
+	
 	@Override
 	public ObservableList<ExpenseInstance> getExpenseInstances(TimePeriod timePeriod) {
 		updateExpenses(timePeriod);
-      return expenseInstances;
+		return expenseInstances;
 	}
 	
 	@Override
 	public double getCost(TimePeriod timePeriod) {
 		double result = 0d;
-		for(ExpenseInstance i : getExpenseInstances(timePeriod)) {
+		for (ExpenseInstance i : getExpenseInstances(timePeriod)) {
 			result += i.getCost();
 		}
 		return result;
@@ -60,7 +61,7 @@ public class CategoryIntermediate implements ExpenseTreeTableItem {
 	@Override
 	public double getProjectedCost(TimePeriod timePeriod) {
 		double result = 0d;
-		for(ExpenseInstance i : getExpenseInstances(timePeriod)) {
+		for (ExpenseInstance i : getExpenseInstances(timePeriod)) {
 			result += i.getProjectedCost();
 		}
 		return result;

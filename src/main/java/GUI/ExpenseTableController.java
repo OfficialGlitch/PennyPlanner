@@ -52,6 +52,7 @@ public class ExpenseTableController {
 	private TimePeriod timePeriod;
 	
 	private final TreeItem<ExpenseTreeTableItem> troot = new TreeItem<>(null);
+	
 	public void setFields(TimePeriod tp) {
 		this.timePeriod = tp;
 		this.setupTable();
@@ -70,7 +71,7 @@ public class ExpenseTableController {
 	}
 	
 	public <T> Callback<TreeTableColumn.CellDataFeatures<ExpenseTreeTableItem, T>, ObservableValue<T>> cellFactory(
-			Function<TreeTableColumn.CellDataFeatures<ExpenseTreeTableItem, T>, T> getter
+		Function<TreeTableColumn.CellDataFeatures<ExpenseTreeTableItem, T>, T> getter
 	) {
 		ObjectProperty<T> prop = new SimpleObjectProperty<>();
 		prop.addListener(createListener());
@@ -101,14 +102,14 @@ public class ExpenseTableController {
 		
 		try (Session s = App.s()) {
 			categories = s.createNamedQuery("getAllCategories", Category.class)
-					.setParameter("user", App.getCurrentUser()).getResultList();
+				.setParameter("user", App.getCurrentUser()).getResultList();
 		}
 		
 		for (Category cat : categories) {
 			TreeItem<ExpenseTreeTableItem> ti = new TreeItem<>(new CategoryIntermediate(cat));
 			try (Session s = App.s()) {
 				List<ExpenseInstance> eis = s.createNamedQuery("getExpenseInstancesForCategory", ExpenseInstance.class)
-						.setParameter("tp", timePeriod.ID).setParameter("ec", cat.ID).getResultList();
+					.setParameter("tp", timePeriod.ID).setParameter("ec", cat.ID).getResultList();
 				List<TreeItem<ExpenseTreeTableItem>> list = new ArrayList<>();
 				eis.forEach(e -> {
 					list.add(new TreeItem<>(e));
