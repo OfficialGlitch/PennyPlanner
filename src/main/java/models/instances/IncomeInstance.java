@@ -37,7 +37,7 @@ public class IncomeInstance {
 		projected.set(projectedAmt);
 	}
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	public TimePeriod getMonth() {
 		return month.get();
 	}

@@ -2,6 +2,7 @@ package models;
 
 import jakarta.persistence.*;
 import models.money.Expense;
+import models.money.Income;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class User {
 	private String email;
 	private String country;
 	private String username;
+	private List<Income> incomeTypes = new ArrayList<>();
 	private List<Category> expenseCategories = new ArrayList<>();
 	private List<Expense> expenseTypes = new ArrayList<>();
 	private List<TimePeriod> history = new ArrayList<>();
@@ -75,7 +77,7 @@ public class User {
 		this.password = BCrypt.hashpw(password, BCrypt.gensalt());
 	}
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	public List<Category> getExpenseCategories() {
 		return expenseCategories;
 	}
@@ -84,7 +86,7 @@ public class User {
 		this.expenseCategories = expenseCategories;
 	}
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	public List<Expense> getExpenseTypes() {
 		return expenseTypes;
 	}
@@ -93,11 +95,18 @@ public class User {
 		this.expenseTypes = expenses;
 	}
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	public List<TimePeriod> getHistory() {
 		return history;
 	}
 	
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	public List<Income> getIncomeTypes() {
+		return incomeTypes;
+	}
+	public void setIncomeTypes(List<Income> it) {
+		incomeTypes = it;
+	}
 	public void setHistory(List<TimePeriod> history) {
 		this.history = history;
 	}

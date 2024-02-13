@@ -14,15 +14,16 @@ import org.hibernate.annotations.NamedQuery;
 @Access(AccessType.PROPERTY)
 @org.hibernate.annotations.NamedQueries({
 	@NamedQuery(name = "getAllCategories", query = "select c from categories c " +
-		"full join fetch c.user as u " +
-		"where u = :user")
+		"full join c.user as u " +
+		"full join c.expenses as ee " +
+		"where u.ID = :user")
 })
 public class Category {
 	public final IntegerProperty ID = new SimpleIntegerProperty();
 	public final StringProperty name = new SimpleStringProperty();
 	public final ObjectProperty<User> user = new SimpleObjectProperty<>();
 	public final ReadOnlyBooleanProperty builtIn;
-	ObservableList<Expense> expenses = FXCollections.observableArrayList();
+	private ObservableList<Expense> expenses = FXCollections.observableArrayList();
 	
 	protected Category(boolean isDefault, String name) {
 		builtIn = new ReadOnlyBooleanWrapper(isDefault);
@@ -47,14 +48,13 @@ public class Category {
 		this.name.set(name);
 	}
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "category")
 	public ObservableList<Expense> getExpenses() {
 		return expenses;
 	}
 	
 	public void setExpenses(List<Expense> expenses) {
-		this.expenses.clear();
-		this.expenses.addAll(expenses);
+		this.expenses.setAll(expenses);
 	}
 	
 	@Id
@@ -85,7 +85,7 @@ public class Category {
 	}
 	
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	public User getUser() {
 		return user.get();
 	}

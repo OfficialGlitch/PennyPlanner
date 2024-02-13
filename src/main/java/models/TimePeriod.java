@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import GUI.App;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,11 +12,12 @@ import models.instances.ExpenseInstance;
 import models.instances.IncomeInstance;
 
 import jakarta.persistence.*;
+import models.money.Expense;
 
 @Entity(name = "time_periods")
 @Access(AccessType.PROPERTY)
 public class TimePeriod {
-	public final StringProperty ID = new SimpleStringProperty();
+	public SimpleLongProperty ID = new SimpleLongProperty();
 	private ObservableList<ExpenseInstance> expenses = FXCollections.observableArrayList();
 	private ObservableList<IncomeInstance> incomeSources = FXCollections.observableArrayList();
 	private IntegerProperty year = new SimpleIntegerProperty();
@@ -30,11 +32,10 @@ public class TimePeriod {
 	
 	@Id
 	@GeneratedValue
-	public String getID() {
+	public long getID() {
 		return ID.get();
 	}
-	
-	public void setID(String nid) {
+	public void setID(long nid) {
 		ID.set(nid);
 	}
 	
@@ -42,7 +43,7 @@ public class TimePeriod {
 		return String.format("%d-%d", year, month);
 	}
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	public ObservableList<ExpenseInstance> getExpenses() {
 		return expenses;
 	}
@@ -52,7 +53,7 @@ public class TimePeriod {
 		expenses.addAll(eis);
 	}
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	public List<IncomeInstance> getIncomeSources() {
 		return incomeSources;
 	}
@@ -71,7 +72,14 @@ public class TimePeriod {
 		this.year.set(year);
 	}
 	
-	@ManyToOne
+	@Column
+	public int getMonth() {
+		return month.get();
+	}
+	public void setMonth(int month) {
+		this.month.set(month);
+	}
+	@ManyToOne(cascade = CascadeType.ALL)
 	public User getUser() {
 		return user.get();
 	}
@@ -128,9 +136,63 @@ public class TimePeriod {
 	@Override
 	public boolean equals(Object other) {
 		if (other instanceof TimePeriod o) {
-			return o.ID.get().equals(this.ID.get());
+			return o.ID.get() == (this.ID.get());
 		}
 		return false;
+	}
+	
+	public static TimePeriod generateNewMonth() {
+		User u = App.getCurrentUser();
+		TimePeriod tp;
+		if(u != null) {
+			tp = new TimePeriod();
+			Calendar instance = Calendar.getInstance();
+			tp.setMonth(instance.get(Calendar.MONTH) + 1);
+			tp.setYear(instance.get(Calendar.YEAR));
+			try(var sess = App.s()) {
+				var categories = sess.createNamedQuery("getAllCategories", Category.class).setParameter("user", u.getID()).getResultList();
+				categories.forEach(c -> {
+//					sess.refresh(c);
+					var exps = sess.createNamedQuery("getExpensesForCategory", Expense.class).setParameter("cat", c.getID()).getResultList();
+					exps.forEach(e -> {
+						ExpenseInstance i = new ExpenseInstance();
+						i.setExpense(e);
+						App.doWork(s -> {
+							i.setMonth(tp);
+							s.persist(i);
+						});
+						tp.getExpenses().add(i);
+					});
+				});
+			}
+			u.getIncomeTypes().forEach(it -> {
+				IncomeInstance ii = new IncomeInstance();
+				ii.setIncomeSource(it);
+				App.doWork(s -> {
+					s.persist(ii);
+				});
+				tp.getIncomeSources().add(ii);
+			});
+//			App.doWork(s -> {
+//				s.persist(tp);
+//			});
+			tp.getExpenses().forEach(x -> {
+				x.setMonth(tp);
+				App.doWork(s -> {
+					s.merge(x);
+				});
+			});
+			tp.getIncomeSources().forEach(x -> {
+				x.setMonth(tp);
+				App.doWork(s -> {
+					s.merge(x);
+				});
+			});
+		} else {
+			tp = null;
+		}
+		
+		return tp;
 	}
 }
 

@@ -35,7 +35,7 @@ public class Income {
 		ID.set(nid);
 	}
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	public User getUser() {
 		return user.get();
 	}
