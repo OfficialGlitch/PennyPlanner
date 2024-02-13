@@ -14,8 +14,9 @@ import org.hibernate.annotations.NamedQuery;
 @Access(AccessType.PROPERTY)
 @org.hibernate.annotations.NamedQueries({
 	@NamedQuery(name = "getAllCategories", query = "select c from categories c " +
-		"full join fetch c.user as u " +
-		"where u = :user")
+		"full join c.user as u " +
+		"full join c.expenses as ee " +
+		"where u.ID = :user")
 })
 public class Category {
 	public final IntegerProperty ID = new SimpleIntegerProperty();
@@ -47,7 +48,7 @@ public class Category {
 		this.name.set(name);
 	}
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "category")
 	public ObservableList<Expense> getExpenses() {
 		return expenses;
 	}
