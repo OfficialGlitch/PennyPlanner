@@ -1,13 +1,12 @@
 package GUI.util;
 
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.TimePeriod;
 import models.instances.ExpenseInstance;
 
 public interface ExpenseTreeTableItem {
-	public String getName();
+	public String name();
 	
 	public StringProperty nameProperty();
 	

@@ -8,26 +8,20 @@ import javafx.beans.WeakInvalidationListener;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import models.Category;
 import models.TimePeriod;
 import models.instances.ExpenseInstance;
-import models.money.Expense;
 import org.hibernate.Session;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class ExpenseTableController {
@@ -55,6 +49,8 @@ public class ExpenseTableController {
 	
 	public void setFields(TimePeriod tp) {
 		this.timePeriod = tp;
+		mainTable.setEditable(true);
+		mainTable.setShowRoot(false);
 		this.setupTable();
 	}
 	
@@ -74,19 +70,45 @@ public class ExpenseTableController {
 		Function<TreeTableColumn.CellDataFeatures<ExpenseTreeTableItem, T>, T> getter
 	) {
 		ObjectProperty<T> prop = new SimpleObjectProperty<>();
-		prop.addListener(createListener());
 		return (cdf) -> {
 			prop.set(getter.apply(cdf));
+			if(cdf.getValue().getValue() instanceof ExpenseInstance) {
+				cdf.getTreeTableColumn().setEditable(true);
+			}
+			cdf.getValue().valueProperty().addListener(createListener());
 			return prop;
 		};
 	}
 	
 	public void setupTable() {
-		nameCol.setCellValueFactory(cellFactory(cdf -> cdf.getValue().getValue().getName()));
-		projectedCostCol.setCellValueFactory(cellFactory(cdf -> cdf.getValue().getValue().getProjectedCost(timePeriod)));
-		actualCostCol.setCellValueFactory(cellFactory(cdf -> cdf.getValue().getValue().getCost(timePeriod)));
-		differenceCol.setCellValueFactory(cellFactory(cdf -> cdf.getValue().getValue().difference(timePeriod)));
-		nameCol.setCellFactory(new GenericTableCellFactory<>(s -> s));
+		updateRows();
+		nameCol.setCellValueFactory(cellFactory(cdf -> {
+			if(cdf.getValue().getValue() == null) {
+				return "";
+			}
+			return cdf.getValue().getValue().name();
+		}));
+		projectedCostCol.setCellValueFactory(cellFactory(cdf -> {
+			if(cdf.getValue().getValue() == null) {
+				return 0.0d;
+			}
+			return cdf.getValue().getValue().getProjectedCost(timePeriod);
+		}));
+		actualCostCol.setCellValueFactory(cellFactory(cdf -> {
+			if(cdf.getValue().getValue() == null) {
+				return 0.0d;
+			}
+			return cdf.getValue().getValue().getCost(timePeriod);
+		}));
+		differenceCol.setCellValueFactory(cellFactory(cdf -> {
+			if(cdf.getValue().getValue() == null) {
+				return 0.0d;
+			}
+			return cdf.getValue().getValue().difference(timePeriod);
+		}));
+		nameCol.setCellFactory(new GenericTableCellFactory<>(s -> {
+			return s;
+		}));
 		projectedCostCol.setCellFactory(new GenericTableCellFactory<>(s -> String.format("%.2f", s)));
 		actualCostCol.setCellFactory(new GenericTableCellFactory<>(s -> String.format("%.2f", s)));
 		differenceCol.setCellFactory(new GenericTableCellFactory<>(s -> String.format("%.2f", s)));
@@ -102,14 +124,15 @@ public class ExpenseTableController {
 		
 		try (Session s = App.s()) {
 			categories = s.createNamedQuery("getAllCategories", Category.class)
-				.setParameter("user", App.getCurrentUser()).getResultList();
+				.setParameter("user", App.getCurrentUser().getID()).getResultList();
+//			s.refresh(timePeriod);
 		}
 		
 		for (Category cat : categories) {
 			TreeItem<ExpenseTreeTableItem> ti = new TreeItem<>(new CategoryIntermediate(cat));
 			try (Session s = App.s()) {
 				List<ExpenseInstance> eis = s.createNamedQuery("getExpenseInstancesForCategory", ExpenseInstance.class)
-					.setParameter("tp", timePeriod.ID).setParameter("ec", cat.ID).getResultList();
+					.setParameter("tp", timePeriod.ID.get()).setParameter("cat", cat.ID.get()).getResultList();
 				List<TreeItem<ExpenseTreeTableItem>> list = new ArrayList<>();
 				eis.forEach(e -> {
 					list.add(new TreeItem<>(e));

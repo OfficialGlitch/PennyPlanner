@@ -23,7 +23,7 @@ public class CategoryIntermediate implements ExpenseTreeTableItem {
 	private final ObservableList<ExpenseInstance> expenseInstances = FXCollections.observableArrayList();
 	
 	@Override
-	public String getName() {
+	public String name() {
 		return this.category.get().getName();
 	}
 	
@@ -37,7 +37,7 @@ public class CategoryIntermediate implements ExpenseTreeTableItem {
 		try (Session s = App.s()) {
 			var listy = s.createNamedQuery("getExpenseInstancesForCategory", ExpenseInstance.class)
 				.setParameter("tp", timePeriod.getID())
-				.setParameter("cat", category.get().ID)
+				.setParameter("cat", category.get().ID.get())
 				.getResultList();
 			expenseInstances.setAll(listy);
 		}
@@ -45,7 +45,7 @@ public class CategoryIntermediate implements ExpenseTreeTableItem {
 	
 	@Override
 	public ObservableList<ExpenseInstance> getExpenseInstances(TimePeriod timePeriod) {
-		updateExpenses(timePeriod);
+//		updateExpenses(timePeriod);
 		return expenseInstances;
 	}
 	

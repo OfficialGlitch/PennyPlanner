@@ -24,9 +24,7 @@ public class GenericTableCellFactory<T> implements javafx.util.Callback<TreeTabl
 				super.updateItem(item, empty);
 				this.setItem(item);
 				this.setText(GenericTableCellFactory.this.textGetter.apply(item));
-				if (item instanceof CategoryIntermediate) {
-					this.setEditable(false);
-				}
+				this.setEditable(!(item instanceof CategoryIntermediate));
 			}
 		};
 		return cell;
