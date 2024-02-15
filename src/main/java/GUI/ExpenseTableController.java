@@ -275,6 +275,7 @@ public class ExpenseTableController implements Initializable {
 			if(!res.get().isEmpty()) {
 				Category cat = new Category();
 				cat.setName(res.get());
+				cat.setUser(App.getCurrentUser());
 				App.doWork(x -> {
 					x.persist(cat);
 				});
