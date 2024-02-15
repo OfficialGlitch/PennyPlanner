@@ -110,4 +110,15 @@ public class User {
 	public void setHistory(List<TimePeriod> history) {
 		this.history = history;
 	}
+	@Override
+	public int hashCode() {
+		return (int) ID;
+	}
+	@Override
+	public boolean equals(Object other) {
+		if (other == null || other.getClass() != getClass()) {
+			return false;
+		}
+		return ID == ((User) other).ID;
+	}
 }
