@@ -77,11 +77,14 @@ public class App extends Application {
 				.addAnnotatedClass(TimePeriod.class)
 				.addAnnotatedClass(Category.class);
 //			var props = configuration.getProperties();
-			sessionFactory = configuration.buildSessionFactory(new StandardServiceRegistryBuilder().build());
+			sessionFactory = configuration.buildSessionFactory(
+				new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()
+			).build());
 		}
 		if(session == null || ((SessionImpl) session).isClosed()) {
 			Session openedSession = sessionFactory.openSession();
-			openedSession.setHibernateFlushMode(FlushMode.ALWAYS);
+			openedSession.setCacheMode(CacheMode.REFRESH);
+			openedSession.setHibernateFlushMode(FlushMode.COMMIT);
 			session = openedSession;
 		}
 		
