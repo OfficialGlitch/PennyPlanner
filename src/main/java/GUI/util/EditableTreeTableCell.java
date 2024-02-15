@@ -2,6 +2,7 @@ package GUI.util;
 
 import GUI.App;
 import GUI.ExpenseTableController;
+import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -85,8 +86,6 @@ public class EditableTreeTableCell<T> extends TextFieldTreeTableCell<ExpenseTree
 				setText(null);
 				setGraphic(field);
 			} else {
-//				if(this.getTableRow().getTreeItem() != null)
-//					setter.accept(this.getTableRow().getTreeItem().getValue(), item);
 				if (field != null) {
 					field.setText(getCurrentText());
 				}
