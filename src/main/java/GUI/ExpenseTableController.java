@@ -241,6 +241,7 @@ public class ExpenseTableController implements Initializable {
 	}
 	public void addExpense(ActionEvent ev) {
 		Dialog<ButtonType> dialog = new Dialog<>();
+		dialog.setTitle("Add new expense");
 		FXMLLoader loader = new FXMLLoader(this.getClass().getResource("dialogs/AddExpenseTypeDialog.fxml"));
 		AddExpenseTypeDialog controller;
 		dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
@@ -267,6 +268,18 @@ public class ExpenseTableController implements Initializable {
 	}
 	
 	public void addCategory(ActionEvent event) {
-	
+		TextInputDialog dialog = new TextInputDialog();
+		dialog.setTitle("Add new category");
+		Optional<String> res = dialog.showAndWait();
+		if(res.isPresent()) {
+			if(!res.get().isEmpty()) {
+				Category cat = new Category();
+				cat.setName(res.get());
+				App.doWork(x -> {
+					x.persist(cat);
+				});
+				updateRows();
+			}
+		}
 	}
 }
