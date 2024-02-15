@@ -12,8 +12,8 @@
                 <TreeTableView fx:id="mainTable" editable="true">
                     <columns>
                         <TreeTableColumn fx:id="nameCol" prefWidth="152.00000035762787" resizable="false" text="Name" />
-                        <TreeTableColumn fx:id="projectedCostCol" prefWidth="121.60005187988281" text="Projected Cost" />
                         <TreeTableColumn fx:id="actualCostCol" prefWidth="123.199951171875" text="Actual Cost" />
+                        <TreeTableColumn fx:id="projectedCostCol" prefWidth="121.60005187988281" text="Projected Cost" />
                         <TreeTableColumn fx:id="differenceCol" editable="false" prefWidth="186.39993286132812" resizable="false" text="Difference" />
                     </columns>
                     <columnResizePolicy>
