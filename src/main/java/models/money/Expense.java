@@ -42,6 +42,9 @@ public class Expense {
 	}
 	
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinTable(name = "expenseTypes_categories", joinColumns = {
+		@JoinColumn(name = "expenseID", referencedColumnName = "ID")
+	}, inverseJoinColumns = @JoinColumn(name = "category", referencedColumnName = "ID"))
 	public Category getCategory() {
 		return category.get();
 	}
