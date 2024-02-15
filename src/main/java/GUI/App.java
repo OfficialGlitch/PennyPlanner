@@ -1,5 +1,6 @@
 package GUI;
 
+import jakarta.transaction.Transactional;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,10 +14,7 @@ import models.instances.ExpenseInstance;
 import models.instances.IncomeInstance;
 import models.money.Expense;
 import models.money.Income;
-import org.hibernate.FlushMode;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.internal.SessionImpl;
@@ -87,10 +85,9 @@ public class App extends Application {
 			openedSession.setHibernateFlushMode(FlushMode.COMMIT);
 			session = openedSession;
 		}
-		
 		return session;
 	}
-	
+	@Transactional
 	public static void doWork(Consumer<Session> consumer) {
 		Session sess = s();
 		Transaction tx = null;
@@ -102,6 +99,19 @@ public class App extends Application {
 		if(tx != null)
 			tx.commit();
 	}
+	@Transactional
+	public static void doThreadWork(Consumer<Session> consumer) {
+		Session sess = sf().openSession();
+		Transaction tx = null;
+		try {
+			tx = sess.beginTransaction();
+		} catch(Exception none) {}
+//		tx.begin();
+		consumer.accept(sess);
+		if(tx != null)
+			tx.commit();
+	}
+	@Transactional
 	public static void doNonSessionWork(Consumer<Session> consumer) {
 		Session s = s();
 		consumer.accept(s);
