@@ -1,5 +1,6 @@
 package GUI;
 
+import GUI.dialogs.AddExpenseTypeDialog;
 import GUI.util.CategoryIntermediate;
 import GUI.util.EditableTreeTableCell;
 import GUI.util.ExpenseTreeTableItem;
@@ -12,12 +13,11 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.ScheduledService;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableCell;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
@@ -27,11 +27,14 @@ import javafx.util.converter.DoubleStringConverter;
 import models.Category;
 import models.TimePeriod;
 import models.instances.ExpenseInstance;
+import models.money.Expense;
 import org.hibernate.Session;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Function;
 
@@ -54,6 +57,11 @@ public class ExpenseTableController implements Initializable {
 	public Text dollarSign;
 	@FXML
 	public Text subtotal;
+	@FXML
+	private Button addExpenseBtn;
+	@FXML
+	private Button addCategoryBtn;
+	
 	private TimePeriod timePeriod;
 	
 	private final TreeItem<ExpenseTreeTableItem> troot = new TreeItem<>(null);
@@ -230,6 +238,35 @@ public class ExpenseTableController implements Initializable {
 		};
 		service.setPeriod(Duration.seconds(1));
 		service.start();
-		
+	}
+	public void addExpense(ActionEvent ev) {
+		Dialog<ButtonType> dialog = new Dialog<>();
+		FXMLLoader loader = new FXMLLoader(this.getClass().getResource("dialogs/AddExpenseTypeDialog.fxml"));
+		AddExpenseTypeDialog controller;
+		dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+		try {
+			dialog.getDialogPane().setContent(loader.load());
+		} catch(IOException e) {
+			throw new RuntimeException("Failed to instantiate dialog");
+		}
+		controller = loader.getController();
+		Optional<ButtonType> res = dialog.showAndWait();
+		if(res.get() == ButtonType.OK) {
+			Expense expense = controller.getData();
+			App.doWork(x -> {
+				x.persist(expense);
+			});
+			ExpenseInstance ei = new ExpenseInstance();
+			ei.setExpense(expense);
+			ei.setMonth(timePeriod);
+			App.doWork(x -> {
+				x.persist(ei);
+			});
+			updateRows();
+		}
+	}
+	
+	public void addCategory(ActionEvent event) {
+	
 	}
 }
