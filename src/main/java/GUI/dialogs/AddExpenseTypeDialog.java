@@ -18,7 +18,7 @@ public class AddExpenseTypeDialog
 	
 	@FXML
     public void initialize() {
-			List<Category> categories = App.s().createNamedQuery("getAllCategories", Category.class)
+			List<Category> categories = App.sf().openSession().createNamedQuery("getAllCategories", Category.class)
 				.setParameter("user", App.getCurrentUser().getID()).getResultList();
 			categoryPicker.getItems().setAll(categories);
     }

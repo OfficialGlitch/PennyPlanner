@@ -255,6 +255,9 @@ public class ExpenseTableController implements Initializable {
 		if(res.get() == ButtonType.OK) {
 			Expense expense = controller.getData();
 			App.doWork(x -> {
+				expense.setCategory(x.merge(expense.getCategory()));
+			});
+			App.doWork(x -> {
 				x.persist(expense);
 			});
 			ExpenseInstance ei = new ExpenseInstance();
