@@ -14,8 +14,8 @@ public class DataGenerator {
 		for (String el : expenses) {
 			Expense e = new Expense();
 			e.setName(el);
-			e.setCategory(val);
 			val.getExpenses().add(e);
+			e.setCategory(val);
 			App.doWork(x -> x.persist(e));
 		}
 		return val;
@@ -92,13 +92,16 @@ public class DataGenerator {
 		
 		
 		sample.setExpenseCategories(cats);
-/*		for (Category c : cats) {
+		for (Category c : cats) {
+			App.doWork(x -> {
+				x.persist(c);
+			});
 			for (Expense e : c.getExpenses()) {
-				App.doWork(x -> {
+				App.doNonSessionWork(x -> {
 					x.persist(e);
 				});
 			}
-		}*/
+		}
 		App.doWork(ss -> {
 			ss.persist(sample);
 		});
