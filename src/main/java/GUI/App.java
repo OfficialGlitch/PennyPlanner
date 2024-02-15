@@ -37,6 +37,7 @@ public class App extends Application {
 		ExpenseTableController controller = loader.getController();
 		controller.setFields(TimePeriod.generateNewMonth());
 		scene = new Scene(p, 640, 480);
+		scene.setUserAgentStylesheet(getClass().getResource("style.css").toString());
 		stage.setScene(scene);
 		stage.show();
 	}
