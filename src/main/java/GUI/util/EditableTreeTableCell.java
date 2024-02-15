@@ -21,62 +21,67 @@ public class EditableTreeTableCell<T> extends TextFieldTreeTableCell<ExpenseTree
 	private StringConverter<T> converter;
 	private boolean escPressed = false;
 	private TextField field;
+	
 	public EditableTreeTableCell(Function<T, String> textFun, StringConverter<T> converter, BiConsumer<ExpenseTreeTableItem, T> setter) {
 		super(converter);
 		this.setter = setter;
 		this.converter = converter;
-		if(getTableColumn() != null)
+		if (getTableColumn() != null)
 			this.getTableColumn().setOnEditCommit(e -> {
 				setter.accept(e.getRowValue().getValue(), e.getNewValue());
 			});
 	}
+	
 	@Override
 	public void startEdit() {
-		if(!getTableColumn().isEditable()) return;
-		if(this.getTableRow().getTreeItem().getValue() instanceof CategoryIntermediate &&
+		if (!getTableColumn().isEditable()) return;
+		if (this.getTableRow().getTreeItem().getValue() instanceof CategoryIntermediate &&
 			!getTableColumn().getId().equals(ExpenseTableController.NAME_COLUMN)) return;
 		super.startEdit();
-		if(field == null) {
+		if (field == null) {
 			field = getTextField();
 		}
-		if(isEditing()) {
+		if (isEditing()) {
 			escPressed = false;
 			
 			beginEdit(field);
 		}
 	}
+	
 	@Override
 	public void cancelEdit() {
-		if(escPressed) {
+		if (escPressed) {
 			super.cancelEdit();
 			setText(getCurrentText());
 		} else {
-			if(field != null)
+			if (field != null)
 				commitEdit(getConverter().fromString(field.getText()));
 		}
 		setGraphic(null);
 	}
+	
 	@Override
 	public void commitEdit(T newValue) {
-		if(!isEditing()) return;
+		if (!isEditing()) return;
 		final TreeTableView<ExpenseTreeTableItem> table = getTreeTableView();
 		updateItem(newValue, false);
 		
 		super.commitEdit(newValue);
 		setter.accept(this.getTableRow().getTreeItem().getValue(), newValue);
-		if(table != null) {
+		if (table != null) {
 			table.edit(-1, null);
 		}
 		
 	}
+	
 	@Override
 	public void updateItem(T item, boolean empty) {
 		super.updateItem(item, empty);
-		if(isEmpty()) {
+		if (isEmpty()) {
 			setText(null);
 			setGraphic(null);
 		} else {
-			if(isEditing()) {
+			if (isEditing()) {
 				setText(null);
 				setGraphic(field);
 			} else {
@@ -87,6 +92,11 @@ public class EditableTreeTableCell<T> extends TextFieldTreeTableCell<ExpenseTree
 				}
 				setText(getCurrentText());
 				setGraphic(null);
+				if (this.getTableRow().getTreeItem().getParent().getValue() == null && !this.getTableColumn().getId().equals(ExpenseTableController.NAME_COLUMN)) {
+					this.setAlignment(Pos.CENTER);
+				} else {
+					this.setAlignment(Pos.CENTER_LEFT);
+				}
 			}
 		}
 	}
@@ -101,12 +111,14 @@ public class EditableTreeTableCell<T> extends TextFieldTreeTableCell<ExpenseTree
 		});
 		return textField;
 	}
+	
 	private void beginEdit(final TextField field) {
 		field.setText(getCurrentText());
 		setText(null);
 		setGraphic(field);
 		field.requestFocus();
 	}
+	
 	private String getCurrentText() {
 		return getConverter().toString(getItem());
 	}

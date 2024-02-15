@@ -1,6 +1,7 @@
 package GUI.util;
 
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TreeTableCell;
@@ -25,6 +26,13 @@ public class GenericTableCellFactory<T> implements javafx.util.Callback<TreeTabl
 				this.setItem(item);
 				this.setText(GenericTableCellFactory.this.textGetter.apply(item));
 				this.setEditable(!(item instanceof CategoryIntermediate));
+				if(this.getTableRow().getTreeItem() != null) {
+					if(this.getTableRow().getTreeItem().getValue() instanceof CategoryIntermediate) {
+						this.setAlignment(Pos.CENTER);
+					} else {
+						this.setAlignment(Pos.CENTER_LEFT);
+					}
+				}
 			}
 		};
 		return cell;
