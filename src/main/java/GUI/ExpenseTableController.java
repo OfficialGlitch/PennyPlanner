@@ -270,6 +270,8 @@ public class ExpenseTableController implements Initializable {
 	public void addCategory(ActionEvent event) {
 		TextInputDialog dialog = new TextInputDialog();
 		dialog.setTitle("Add new category");
+		dialog.setGraphic(null);
+		dialog.setHeaderText(null);
 		Optional<String> res = dialog.showAndWait();
 		if(res.isPresent()) {
 			if(!res.get().isEmpty()) {
