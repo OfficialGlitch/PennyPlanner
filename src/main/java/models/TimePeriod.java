@@ -149,7 +149,7 @@ public class TimePeriod {
 			Calendar instance = Calendar.getInstance();
 			tp.setMonth(instance.get(Calendar.MONTH) + 1);
 			tp.setYear(instance.get(Calendar.YEAR));
-			try(var sess = App.s()) {
+			try(var sess = App.sf().openSession()) {
 				var categories = sess.createNamedQuery("getAllCategories", Category.class).setParameter("user", u.getID()).getResultList();
 				categories.forEach(c -> {
 //					sess.refresh(c);
@@ -177,17 +177,18 @@ public class TimePeriod {
 //				s.persist(tp);
 //			});
 			tp.getExpenses().forEach(x -> {
-				x.setMonth(tp);
 				App.doWork(s -> {
+					x.setMonth(tp);
 					s.merge(x);
 				});
 			});
-			tp.getIncomeSources().forEach(x -> {
-				x.setMonth(tp);
-				App.doWork(s -> {
+			for (int i = 0; i < tp.getIncomeSources().size(); i++) {
+				var x = tp.getIncomeSources().get(i);
+				App.doNonSessionWork(s -> {
+					x.setMonth(tp);
 					s.merge(x);
 				});
-			});
+			}
 		} else {
 			tp = null;
 		}
