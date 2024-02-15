@@ -48,7 +48,7 @@ public class Category {
 		this.name.set(name);
 	}
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "category")
+	@OneToMany(fetch = FetchType.EAGER)
 	public ObservableList<Expense> getExpenses() {
 		return expenses;
 	}
