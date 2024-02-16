@@ -91,11 +91,12 @@ public class EditableTreeTableCell<T> extends TextFieldTreeTableCell<ExpenseTree
 				}
 				setText(getCurrentText());
 				setGraphic(null);
-				if (this.getTableRow().getTreeItem().getParent().getValue() == null && !this.getTableColumn().getId().equals(ExpenseTableController.NAME_COLUMN)) {
-					this.setAlignment(Pos.CENTER);
-				} else {
-					this.setAlignment(Pos.CENTER_LEFT);
-				}
+				if(this.getTableRow().getTreeItem().getParent() != null)
+					if (this.getTableRow().getTreeItem().getParent().getValue() == null && !this.getTableColumn().getId().equals(ExpenseTableController.NAME_COLUMN)) {
+						this.setAlignment(Pos.CENTER);
+					} else {
+						this.setAlignment(Pos.CENTER_LEFT);
+					}
 			}
 		}
 	}
