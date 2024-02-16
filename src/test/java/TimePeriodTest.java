@@ -68,6 +68,30 @@ TimePeriod	timePeriod = new TimePeriod();
 
 		assertEquals(500.0, timePeriod.projectedExpense());
 	}
+
+	@Test
+	public void testProjectedBalance() {
+		// Initialize income and expense instances
+		List<IncomeInstance> incomeInstances = new ArrayList<>();
+		IncomeInstance incomeInstance1 = new IncomeInstance();
+		incomeInstance1.setProjected(1000.0);
+		IncomeInstance incomeInstance2 = new IncomeInstance();
+		incomeInstance2.setProjected(2000.0);
+		incomeInstances.add(incomeInstance1);
+		incomeInstances.add(incomeInstance2);
+		timePeriod.setIncomeSources(incomeInstances);
+
+		List<ExpenseInstance> expenseInstances = new ArrayList<>();
+		ExpenseInstance expenseInstance1 = new ExpenseInstance();
+		expenseInstance1.setProjectedCost(200.0);
+		ExpenseInstance expenseInstance2 = new ExpenseInstance();
+		expenseInstance2.setProjectedCost(300.0);
+		expenseInstances.add(expenseInstance1);
+		expenseInstances.add(expenseInstance2);
+		timePeriod.setExpenses(expenseInstances);
+
+		assertEquals(2500.0, timePeriod.projectedBalance());
+	}
 	@Test
 	public void testActualExpense() {
 		// Initialize expense instances
