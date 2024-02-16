@@ -55,4 +55,14 @@ public class ExpenseInstanceTest {
 		expense.setName("Test Expense");
 		expenseInstance.setExpense(expense);
 		assertEquals("Test Expense", expenseInstance.name());
+	}
+
+	@Test
+	public void testNameProperty() {
+		Expense expense = new Expense();
+		expense.setName("Test Expense");
+		expenseInstance.setExpense(expense);
+		assertEquals("Test Expense", expenseInstance.nameProperty().get());
+	}
+
 }
