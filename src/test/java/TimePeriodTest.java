@@ -1,5 +1,8 @@
+import models.instances.IncomeInstance;
 import org.testng.annotations.Test;
 import java.util.ArrayList;
+import java.util.List;
+
 import static org.testng.Assert.assertEquals;
 
 import models.TimePeriod;
@@ -20,5 +23,19 @@ TimePeriod	timePeriod = new TimePeriod();
 		int month = 5;
 		timePeriod.setMonth(month);
 		assertEquals(month, timePeriod.getMonth());
+	}
+	@Test
+	public void testProjectedIncome() {
+		// Initialize income sources
+		List<IncomeInstance> incomeSources = new ArrayList<>();
+		IncomeInstance incomeInstance1 = new IncomeInstance();
+		incomeInstance1.setProjected(1000.0);
+		IncomeInstance incomeInstance2 = new IncomeInstance();
+		incomeInstance2.setProjected(2000.0);
+		incomeSources.add(incomeInstance1);
+		incomeSources.add(incomeInstance2);
+		timePeriod.setIncomeSources(incomeSources);
+
+		assertEquals(3000.0, timePeriod.projectedIncome());
 	}
 }
