@@ -49,4 +49,10 @@ public class ExpenseInstanceTest {
 		expenseInstance.setExpense(expense);
 		assertEquals(expense, expenseInstance.getExpense());
 	}
+	@Test
+	public void testName() {
+		Expense expense = new Expense();
+		expense.setName("Test Expense");
+		expenseInstance.setExpense(expense);
+		assertEquals("Test Expense", expenseInstance.name());
 }
