@@ -1,3 +1,4 @@
+import models.instances.ExpenseInstance;
 import models.instances.IncomeInstance;
 import org.testng.annotations.Test;
 import java.util.ArrayList;
@@ -51,5 +52,19 @@ TimePeriod	timePeriod = new TimePeriod();
 		timePeriod.setIncomeSources(incomeSources);
 
 		assertEquals(1500.0, timePeriod.actualIncome());
+	}
+	@Test
+	public void testActualExpense() {
+		// Initialize expense instances
+		List<ExpenseInstance> expenseInstances = new ArrayList<>();
+		ExpenseInstance expenseInstance1 = new ExpenseInstance();
+		expenseInstance1.setCost(100.0);
+		ExpenseInstance expenseInstance2 = new ExpenseInstance();
+		expenseInstance2.setCost(150.0);
+		expenseInstances.add(expenseInstance1);
+		expenseInstances.add(expenseInstance2);
+		timePeriod.setExpenses(expenseInstances);
+
+		assertEquals(250.0, timePeriod.actualExpense());
 	}
 }
