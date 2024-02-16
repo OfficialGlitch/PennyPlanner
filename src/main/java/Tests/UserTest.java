@@ -17,5 +17,10 @@ public class UserTest {
 		user.setUsername(username);
 		assertEquals(username, user.getUsername());
 	}
-
+	@Test
+	public void testSetAndGetCountry() {
+		String country = "TestCountry";
+		user.setCountry(country);
+		assertEquals(country, user.getCountry());
+	}
 }
