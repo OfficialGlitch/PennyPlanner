@@ -1,5 +1,3 @@
-package Tests;
-
 import models.money.User;
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
