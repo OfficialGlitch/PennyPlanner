@@ -22,4 +22,10 @@ public class ExpenseInstanceTest {
 		expenseInstance.setMonth(timePeriod);
 		assertEquals(timePeriod, expenseInstance.getMonth());
 	}
+	@Test
+	public void testSetAndGetCost() {
+		double cost = 50.0;
+		expenseInstance.setCost(cost);
+		assertEquals(cost, expenseInstance.getCost());
+	}
 }
