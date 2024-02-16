@@ -34,12 +34,12 @@ public class User {
 	@Column
 	public String getCountry() {
 		return country;
-	}
 	
-	public void setCountry(String country) {
+	
+	}public void setCountry(String country) {
 		this.country = country;
-	}
 	
+	}
 	@Column
 	public String getEmail() {
 		return email;
