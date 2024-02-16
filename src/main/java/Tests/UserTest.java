@@ -23,4 +23,12 @@ public class UserTest {
 		user.setCountry(country);
 		assertEquals(country, user.getCountry());
 	}
+	@Test
+	public void testSetAndGetEmail() {
+		String email = "test@example.com";
+		user.setEmail(email);
+		assertEquals(email, user.getEmail());
+	}
+
+
 }
