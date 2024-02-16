@@ -1,3 +1,4 @@
+import models.TimePeriod;
 import models.instances.ExpenseInstance;
 import org.testng.annotations.Test;
 import java.util.ArrayList;
@@ -15,4 +16,10 @@ public class ExpenseInstanceTest {
 		assertEquals(id, expenseInstance.getID());
 	}
 
+	@Test
+	public void testSetAndGetMonth() {
+		TimePeriod timePeriod = new TimePeriod();
+		expenseInstance.setMonth(timePeriod);
+		assertEquals(timePeriod, expenseInstance.getMonth());
+	}
 }
