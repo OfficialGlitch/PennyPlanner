@@ -1,5 +1,7 @@
 import models.Category;
 import models.money.Expense;
+import models.TimePeriod;
+
 import models.money.User;
 import org.testng.annotations.Test;
 
@@ -55,5 +57,13 @@ public class UserTest {
 		assertEquals(expenses, user.getExpenseTypes());
 	}
 
+	@Test
+	public void testSetAndGetHistory() {
+		ArrayList<TimePeriod> history = new ArrayList<>();
+		TimePeriod timePeriod = new TimePeriod();
+		history.add(timePeriod);
+		user.setHistory(history);
+		assertEquals(history, user.getHistory());
+	}
 
 }
