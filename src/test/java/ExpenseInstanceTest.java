@@ -34,4 +34,12 @@ public class ExpenseInstanceTest {
 		expenseInstance.setProjectedCost(projectedCost);
 		assertEquals(projectedCost, expenseInstance.getProjectedCost());
 	}
+	@Test
+	public void testDifference() {
+		double projectedCost = 100.0;
+		double cost = 50.0;
+		expenseInstance.setProjectedCost(projectedCost);
+		expenseInstance.setCost(cost);
+		assertEquals(projectedCost - cost, expenseInstance.difference());
+	}
 }
