@@ -1,5 +1,6 @@
 import models.TimePeriod;
 import models.instances.ExpenseInstance;
+import models.money.Expense;
 import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,5 +42,11 @@ public class ExpenseInstanceTest {
 		expenseInstance.setProjectedCost(projectedCost);
 		expenseInstance.setCost(cost);
 		assertEquals(projectedCost - cost, expenseInstance.difference());
+	}
+	@Test
+	public void testSetAndGetExpense() {
+		Expense expense = new Expense();
+		expenseInstance.setExpense(expense);
+		assertEquals(expense, expenseInstance.getExpense());
 	}
 }
