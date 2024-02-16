@@ -32,7 +32,10 @@ import org.hibernate.Session;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
 import java.util.function.Function;
 
 public class ExpenseTableController implements Initializable {
@@ -189,11 +192,6 @@ public class ExpenseTableController implements Initializable {
 				.setParameter("user", App.getCurrentUser().getID()).getResultList();
 //			s.refresh(timePeriod);
 		}
-		HashMap<Integer, Boolean> openMap = new HashMap<>();
-		for(TreeItem<ExpenseTreeTableItem> it : troot.getChildren()) {
-			var val = (CategoryIntermediate) it.getValue();
-			openMap.put(val.category.getID(), it.isExpanded());
-		}
 		
 		for (Category cat : categories) {
 			TreeItem<ExpenseTreeTableItem> ti = new TreeItem<>(new CategoryIntermediate(cat));
@@ -204,7 +202,6 @@ public class ExpenseTableController implements Initializable {
 				list.add(new TreeItem<>(e));
 			});
 			ti.getChildren().setAll(list);
-			ti.setExpanded(openMap.getOrDefault(cat.getID(), false));
 			items.add(ti);
 		}
 		troot.getChildren().setAll(items);
