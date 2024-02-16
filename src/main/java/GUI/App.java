@@ -35,9 +35,9 @@ public class App extends Application {
 		FXMLLoader loader = loadFXML("ExpenseTable");
 		Parent p = loader.load();
 		ExpenseTableController controller = loader.getController();
+		App.setUserAgentStylesheet(getClass().getResource("style.css").toString());
 		controller.setFields(TimePeriod.generateNewMonth());
 		scene = new Scene(p, 640, 480);
-		scene.setUserAgentStylesheet(getClass().getResource("style.css").toString());
 		stage.setScene(scene);
 		stage.show();
 	}
