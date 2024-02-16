@@ -53,6 +53,21 @@ TimePeriod	timePeriod = new TimePeriod();
 
 		assertEquals(1500.0, timePeriod.actualIncome());
 	}
+
+	@Test
+	public void testProjectedExpense() {
+		// Initialize expense instances
+		List<ExpenseInstance> expenseInstances = new ArrayList<>();
+		ExpenseInstance expenseInstance1 = new ExpenseInstance();
+		expenseInstance1.setProjectedCost(200.0);
+		ExpenseInstance expenseInstance2 = new ExpenseInstance();
+		expenseInstance2.setProjectedCost(300.0);
+		expenseInstances.add(expenseInstance1);
+		expenseInstances.add(expenseInstance2);
+		timePeriod.setExpenses(expenseInstances);
+
+		assertEquals(500.0, timePeriod.projectedExpense());
+	}
 	@Test
 	public void testActualExpense() {
 		// Initialize expense instances
