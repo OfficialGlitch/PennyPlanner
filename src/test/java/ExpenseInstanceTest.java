@@ -28,4 +28,10 @@ public class ExpenseInstanceTest {
 		expenseInstance.setCost(cost);
 		assertEquals(cost, expenseInstance.getCost());
 	}
+	@Test
+	public void testSetAndGetProjectedCost() {
+		double projectedCost = 100.0;
+		expenseInstance.setProjectedCost(projectedCost);
+		assertEquals(projectedCost, expenseInstance.getProjectedCost());
+	}
 }
