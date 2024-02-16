@@ -32,11 +32,10 @@ public class App extends Application {
 	@Override
 	public void start(Stage stage) throws IOException {
 		DataGenerator.generate();
-		FXMLLoader loader = loadFXML("ExpenseTable");
+		FXMLLoader loader = loadFXML("Login");
 		Parent p = loader.load();
-		ExpenseTableController controller = loader.getController();
-		controller.setFields(TimePeriod.generateNewMonth());
-		scene = new Scene(p, 640, 480);
+		LoginController controller = loader.getController();
+		scene = new Scene(p, 600, 400);
 		scene.setUserAgentStylesheet(getClass().getResource("style.css").toString());
 		stage.setScene(scene);
 		stage.show();

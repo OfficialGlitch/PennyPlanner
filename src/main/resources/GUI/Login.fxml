@@ -15,7 +15,6 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <left>
       <AnchorPane prefHeight="407.0" prefWidth="228.0" style="-fx-background-color: #40E0D0;" BorderPane.alignment="CENTER">
@@ -89,7 +88,7 @@
                   <InnerShadow />
                </effect>
             </Label>
-            <PasswordField fx:id="passwordField" layoutX="115.0" layoutY="214.0" promptText="password" />
+            <PasswordField fx:id="passwordField" layoutX="120.0" layoutY="213.0" promptText="password" />
             <Button fx:id="loginButton" layoutX="120.0" layoutY="286.0" mnemonicParsing="false" style="-fx-background-color: #40E0D0;" text="Login" />
             <Button fx:id="registerButton" layoutX="191.0" layoutY="286.0" mnemonicParsing="false" style="-fx-background-color: #40E0D0;" text="Register" />
             <TextField fx:id="usernameTextField" layoutX="120.0" layoutY="157.0" promptText="username" />
