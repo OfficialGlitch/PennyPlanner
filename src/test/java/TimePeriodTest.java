@@ -15,4 +15,10 @@ TimePeriod	timePeriod = new TimePeriod();
 		assertEquals(year, timePeriod.getYear());
 	}
 
+	@Test
+	public void testSetAndGetMonth() {
+		int month = 5;
+		timePeriod.setMonth(month);
+		assertEquals(month, timePeriod.getMonth());
+	}
 }
