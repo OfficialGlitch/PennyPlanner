@@ -29,6 +29,13 @@ public class UserTest {
 		user.setEmail(email);
 		assertEquals(email, user.getEmail());
 	}
+	@Test
+	public void testSetAndGetName() {
+		String name = "TestName";
+		user.setName(name);
+		assertEquals(name, user.getName());
+	}
+
 
 
 }
