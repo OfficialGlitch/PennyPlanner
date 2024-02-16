@@ -15,25 +15,25 @@ public class UserTest {
 	public void testSetAndGetUsername() {
 		String username = "testUser";
 		user.setUsername(username);
-		assertEquals(username, user.getUsername());
+		Assert.assertEquals(username, user.getUsername());
 	}
 	@Test
 	public void testSetAndGetCountry() {
 		String country = "TestCountry";
 		user.setCountry(country);
-		assertEquals(country, user.getCountry());
+		Assert.assertEquals(country, user.getCountry());
 	}
 	@Test
 	public void testSetAndGetEmail() {
 		String email = "test@example.com";
 		user.setEmail(email);
-		assertEquals(email, user.getEmail());
+		Assert.assertEquals(email, user.getEmail());
 	}
 	@Test
 	public void testSetAndGetName() {
 		String name = "TestName";
 		user.setName(name);
-		assertEquals(name, user.getName());
+		Assert.assertEquals(name, user.getName());
 	}
 
 
