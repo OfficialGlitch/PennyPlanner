@@ -38,4 +38,18 @@ TimePeriod	timePeriod = new TimePeriod();
 
 		assertEquals(3000.0, timePeriod.projectedIncome());
 	}
+	@Test
+	public void testActualIncome() {
+		// Initialize income sources
+		List<IncomeInstance> incomeSources = new ArrayList<>();
+		IncomeInstance incomeInstance1 = new IncomeInstance();
+		incomeInstance1.setAmount(500.0);
+		IncomeInstance incomeInstance2 = new IncomeInstance();
+		incomeInstance2.setAmount(1000.0);
+		incomeSources.add(incomeInstance1);
+		incomeSources.add(incomeInstance2);
+		timePeriod.setIncomeSources(incomeSources);
+
+		assertEquals(1500.0, timePeriod.actualIncome());
+	}
 }
