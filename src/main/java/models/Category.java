@@ -8,6 +8,7 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.money.Expense;
+import models.money.User;
 import org.hibernate.annotations.NamedQuery;
 
 @Entity(name = "categories")

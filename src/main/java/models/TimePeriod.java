@@ -13,6 +13,7 @@ import models.instances.IncomeInstance;
 
 import jakarta.persistence.*;
 import models.money.Expense;
+import models.money.User;
 
 @Entity(name = "time_periods")
 @Access(AccessType.PROPERTY)

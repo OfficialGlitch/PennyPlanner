@@ -4,6 +4,7 @@ import GUI.App;
 import models.instances.ExpenseInstance;
 import models.money.Expense;
 import models.money.Income;
+import models.money.User;
 
 import java.util.ArrayList;
 
