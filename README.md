@@ -13,7 +13,7 @@ The overall aim of our Finance Tracking application is to create a user-friendly
 
 ### Project include:
 - Architecture sketch.pdf
-- Log file.pdf
+- Log-2311-Group-2.txt
 - Planning document.pdf
   - Itr 0
   - Itr 1
