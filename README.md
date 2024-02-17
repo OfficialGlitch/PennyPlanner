@@ -22,6 +22,8 @@ The overall aim of our Finance Tracking application is to create a user-friendly
   - Expense Table with functionality
   - User Summary Page
   - Stub DataBase
-  - Investment page 
+  - Investment page
+  - saving calculator
+  - Tests
    	 	 
 
