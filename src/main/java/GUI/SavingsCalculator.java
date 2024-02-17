@@ -1,4 +1,4 @@
-package savings;
+package GUI;
 
 import javafx.application.Application;
 import javafx.geometry.HPos;
@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import savings.Savings;
 
 public class SavingsCalculator extends Application {
 	private TextField tfIncome = new TextField();
