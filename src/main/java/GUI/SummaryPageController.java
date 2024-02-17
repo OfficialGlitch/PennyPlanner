@@ -75,7 +75,7 @@ public class SummaryPageController {
     }
 
     public void addStubData() {
-        Database d = new Database();
+//        Database d = new Database();
 
         // EXAMPLE FUNCTIONS
 
@@ -93,7 +93,7 @@ public class SummaryPageController {
         ArrayList<Object> Investments = new ArrayList<Object>();
         Investments.add(100.1);Investments.add(200.1);added.add(Investments);
 
-        d.addPerson(added);
+//        d.addPerson(added);
 
         addPointToLineChart("Jan", (double)Expenses.get(0), "E");
         addPointToLineChart("Feb", (double)Expenses.get(1), "E");
