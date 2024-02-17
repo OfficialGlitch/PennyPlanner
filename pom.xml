@@ -81,9 +81,9 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.2.5</version>
 				<configuration>
-					<includes>
-						<include>src/test/**/*.java</include>
-					</includes>
+<!--					<includes>-->
+<!--						<include>src/test/**/*.java</include>-->
+<!--					</includes>-->
 				</configuration>
 			</plugin>
 			<plugin>
