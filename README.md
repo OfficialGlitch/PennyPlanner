@@ -17,8 +17,11 @@ The overall aim of our Finance Tracking application is to create a user-friendly
 - Planning document.pdf
   - Itr 0
   - Itr 1
-
-### Code
-
-
+- code
+  - LoginGUI
+  - Expense Table with functionality
+  - User Summary Page
+  - Stub DataBase
+  - Investment page 
+   	 	 
 
