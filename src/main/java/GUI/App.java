@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * JavaFX App
@@ -17,7 +18,8 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        scene = new Scene(loadFXML("SummaryPage"), 840, 480);
+        scene.setUserAgentStylesheet(getClass().getResource("style.css").toString());
         stage.setScene(scene);
         stage.show();
     }
@@ -28,7 +30,14 @@ public class App extends Application {
 
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
+        Parent p = fxmlLoader.load();
+
+        //LOADING DATA
+        SummaryPageController controller = fxmlLoader.getController();
+        controller.initialize();
+        controller.addStubData();
+
+        return p;
     }
 
     public static void main(String[] args) {
