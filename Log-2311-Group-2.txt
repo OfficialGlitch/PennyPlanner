@@ -1,0 +1,304 @@
+﻿Log file requirements: Log file (including meetings minutes, rationale behind changes on plan and big design decisions, any concern with the project or group members, task assignments, the development tasks per user story and the times originally allocated per development task and the actual time spent on each task)
+
+
+EECS 2311 Group 2 Meeting Notes
+
+
+Friday, 1/26/2024 (Meeting One)
+Things to do:
+* Iteration 0:
+   * 1. Describe your project topic and the proposed scope of your project
+      * In the form of a vision statement and user stories
+   * 2. Big user stories
+      * 3 - 4 big stories
+      * 5 to 6 user stories per iteration.
+   * Feature 1: Sign in page
+* Create remote server
+Feature 2: Monthly expenses (Income, recurring bills eg. rent, utilities, etc, savings)
+* Fully editable spreadsheet view
+Feature 3: Cutting advisor
+Customer: Student at York
+
+
+Extra features: 
+* Spending charts
+   * Pie chart (Big red/ big green)
+   * Bar graph
+* Future planning/look in the future to give advice on spending on spending patterns.
+        
+- Vision 1 page long: Kennie, Nabeela
+- Update group Log File: Sarimah, Nabeela
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Friday, 2/04/2024 (Meeting Two):
+We've renamed the application to "PennyPlanner." We've got our GitHub repo up and running, and we're planning to use GitHub's Kanban for Agile methodology task management.
+
+
+What does a user story look like?
+As a new user,  (fill in)
+
+
+Ahmed:
+Original:
+User Story: 
+As a new user, 
+I want to be able to create and own an account on the platform 
+so that I can personalize my experience and access exclusive features.
+        New:
+* User Story for Registration:
+As a new user,
+I want to be able to create an account on the platform,
+so that I can register my personal details and become a member of the community.
+        New:
+* User Story for Login:
+As a registered user,
+I want to be able to log into my account on the platform,
+so that I can personalize my experience and access exclusive features available only to members.
+Farzin:
+As a new user,
+I want the application to analyze my spending patterns and provide future spending advice,
+so that I can make informed financial decisions and plan my budget more effectively.
+Oubai:
+User story:
+I would like to see how I could invest my savings and have options for my investment strategies.
+1.Portfolio → iter 1
+2.Investment Page(buy, sell)
+3.Future Prediction
+Kennie:
+User Story:
+As a new user,
+I want to receive an alert from the application when my expenses exceed my budget so that I can adjust my spending and stay on track with my savings goals.
+New:
+1.Calculate Actual Savings
+2.Compare user savings goal with actual savings
+3.Display the categories(eg, food, entertainment, transportation) where I'm spending the most
+
+
+Corinthe:
+User Story:
+As a new user,
+I want the app to be able to track my total monthly expenditure, yearly income and savings. So I want to be able to put in my monthly income gross and net and also put in my daily expenditures based on categories like food, transport, entertainment and wellness. Also, input how much of my monthly income I want to save.
+
+
+Sarimah:
+As a new user,
+I want the ability to choose a currency in the app
+So I can work and plan with my native currency seamlessly.
+
+
+Nabeela
+As a new user,
+I want to be able to see a drop down menu on the page
+So I can easily navigate where I want to go and keep my tabs organized. 
+Team split:
+
+
+GUI:
+* Planning the entire GUI system. Moving between pages, UML diagrams, objects. Farzin
+
+
+Iteration 0 Unrevised Draft: Kennie
+Design sketch of application GUI on figma: Kennie and Sarimah
+
+
+
+
+Monday, 2/5/2024 (Meeting 3)
+Meeting in class
+Discussed the structure of our project and concluded on a working strategy for completing the user story tasks in Iteration 1.
+
+
+
+
+Tuesday, 2/13/2024 (Meeting 4)
+Deadline: Friday Feb 16, 2024 by 11.59 pm 
+
+
+Team Parts for itr1(User stories): Write down if done
+
+
+Ahmed: Login page 
+(Time dedicated to task: 1 week  Time spent on task:   )
+
+
+Sarimah: Income table
+(Time dedicated to task: 1 week  Time spent on task: In progress   )
+
+
+Corinthe: Expense Table
+(Time dedicated to task:   Time spent on task:  1 week )
+
+
+Nabeela: Drop Down Menu
+(Time dedicated to task:  2 hrs; Time spent on task:  in progress )
+
+
+Oubai: Investment Page; Missing stub database
+(Time dedicated to task: 3hrs   Time spent on task: 1 week(in progress)   )
+
+
+Farzin: Summary Page
+(Time dedicated to task: 5 days  Time spent on task:  1 week(still in progress) )
+
+
+Kennie: Saving Page
+(Time dedicated to task: 1 week   Time spent on task: In progress)
+
+
+
+
+ Task distribution for Iteration 1:
+
+
+-User video - farzin
+- Stub database: Oubai, Corithe 
+- Unit tests: Relative.
+- Log.txt: Farzin, Ahmed
+-Revision from iteration 0: Oubai
+Vision Statement Page: Kennie, Nabeela
+- Wiki: Corinthe, Ahmed, Farzin
+
+
+ Implementation requirements: 
+
+
+* A stub implementation that uses non-persistent storage (say, an ArrayList) with a set of initial contents. It will also need additional classes to connect components in the system and for calculations or logic. 
+* You must implement automated unit tests for your domain-specific and business logic classes using the JUnit test framework. Construct a very thorough set of unit test cases as described in class (introduction to testing week). Ensure that your code passes all tests. 
+* You must also implement a basic GUI for all user stories in ITR1.s. 
+
+
+* Create a Wiki for your Github repository to describe the content of your submission. Identify the packages and major source code files. Sketch out the overall architecture of your system (internal and external components with their dependencies). 
+* Include a copy of the sketch with your submission. 
+
+
+
+
+
+
+Group Concerns:
+ Initially our team faced challenges with task allocation and communication leading to confusion and inefficiencies, however we overcame the obstacles by implementing regular meetings and working on transparent communication. This strategy helped us significantly improve clarity and teamwork. 
+
+
+Individual team members progress:
+
+
+
+
+Ahmed Ali:
+
+
+User Story: Login page
+Environment Setup and Troubleshooting:
+* Fixed most team members' GitHub environments, dedicating countless hours to ensure everyone could contribute effectively.
+Workflow Integration and Structure:
+* Integrated a Kanban board to establish a clear work structure for task management.
+* Set up a structured pull request process to streamline code integration, using a specific branch naming convention: type/issue number/<description>, e.g., feature/110/logging-improvement.
+Communication and Collaboration:
+* Established a recurring weekly meeting to maintain consistent communication and progress tracking among team members.
+* Engaged with every team member individually to address project challenges and ensure alignment with project goals.
+* Invested hours in teaching team members to bridge learning gaps, ensuring all members had the necessary knowledge to contribute to the project.
+Project Management and Planning:
+
+
+* Restructured and replanned the project multiple times, aiming to accommodate all team members and keep the project on track.
+Task Management and Delegation:
+
+
+* Created multiple user stories and assigned them as tasks to team members, facilitating clear and organized project progression.
+
+
+
+
+
+
+Oubai Al-khimi:
+User Story: Investment Page; stub database
+
+
+* Plan of iteration 0
+* Version 1 of investment page
+* Updated investment page GUI
+* Helped Farzin with FXML
+* Stub Database basic functionality
+* Updated Stub Database with more functionalities
+* Updated plan of iteration 1
+* Worked on log file
+* Updated iteration 1 document with screenshots of progress.
+* Merged code with main
+
+
+
+
+
+
+Kennie Oraka:
+
+
+User Story: Saving Page
+* Created dummy GUI using figma for a quick visualization of the platform
+* Started Savings class( first Implementation for user story)
+* Modified Draft for Iteration 0
+* Did some research on java fx
+* Started Savings calculator GUI using java fx
+* Updated Savings calculator GUI using java fx (the whole process took about 4 days)
+* Finalized Draft for Iteration 1
+* Worked on Vision Statement for the application
+* Created Test for Savings calculator
+* Updated IT1 document with demo screenshot for GUI
+
+
+
+
+Farzin Aliverdi:
+
+
+User Story: Summary Page
+* Started planning with group 
+* Created and assigned tasks on the KANDAM board for smoother workflow
+* Helped group members with issues        
+   * Oubai - Helped explain about the workflow of the project.
+   * Sarimah - Some issues regarding github and getting started using FXML for her ExpenseTable (her expense table was by far the most complicated user story out of all of the user stories we had for Iteration 1)
+* Did research on FXML and how it all works since Corinthe said it would be the best option.
+   * This task took much longer than I thought, I spent about 1.5 days “programming time” to mess around and understand it on my own
+* Designed and created SummaryPage.fxml using SceneBuilder
+   * The page has a LineChart and PieChart
+* Created SummaryPageController.java
+* Added some functionality to the SummaryPageController:
+   * Displaying 2 graphs on the LineGraph, 1 for expenses, 1 for income
+      * Had some minor issues where the lines would intersect 
+* Added, committed and pushed to my branch
+* Merged to the main branch
+
+
+Sarimah Chindah
+User Story: Income Table
+* Updated the group log file.
+* Created Dummy GUI on figma
+* Started working on the Income table
+* Due to technical issues with Javafx, as well as some personal(illness), I was unable to complete my user story for Iteration 1.
+
+
+NOTE!!!!:
+Due to merges with the main branch, our code does not run at all. Individually the user stories inside their branches all ran perfectly and displayed a GUI. These can be seen inside our Planning Document for Iteration 1 beside each corresponding User Story. By merging to the main we encountered a problem where our IDE’s displayed a message saying we do not have a main method inside java/GUI/App.java. We will solve this conflict in Iteration 2 ASAP since we can have a basic functioning program if we solve this issue. The issue does seem more structural rather than something being wrong with our code but we will look into this before our Delivery 1 presentation.
