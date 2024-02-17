@@ -14,7 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import util.Database;
+import GUI.util.Database;
 public class Portfolio extends Application {
 
 		
