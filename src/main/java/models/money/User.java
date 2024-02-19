@@ -34,10 +34,13 @@ public class User {
 	@Column
 	public String getCountry() {
 		return country;
+		
+		
 	}
 	
 	public void setCountry(String country) {
 		this.country = country;
+		
 	}
 	
 	@Column
@@ -99,21 +102,28 @@ public class User {
 	public List<TimePeriod> getHistory() {
 		return history;
 	}
+	public void setHistory(List<TimePeriod> list) {
+		history = list;
+	}
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	public List<Income> getIncomeTypes() {
 		return incomeTypes;
 	}
+	
 	public void setIncomeTypes(List<Income> it) {
 		incomeTypes = it;
 	}
+	
 	public void setHistory(ArrayList<TimePeriod> history) {
 		this.history = history;
 	}
+	
 	@Override
 	public int hashCode() {
 		return (int) ID;
 	}
+	
 	@Override
 	public boolean equals(Object other) {
 		if (other == null || other.getClass() != getClass()) {

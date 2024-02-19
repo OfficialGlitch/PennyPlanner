@@ -31,6 +31,7 @@ public class Income {
 		return ID.get();
 	}
 	
+	
 	public void setID(int nid) {
 		ID.set(nid);
 	}
