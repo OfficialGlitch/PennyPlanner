@@ -2,14 +2,17 @@ package GUI;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Tooltip;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class SummaryPageController {
+public class SummaryPageController implements Initializable {
     @FXML
     public LineChart LineGraph;
     @FXML
@@ -18,7 +21,7 @@ public class SummaryPageController {
     public XYChart.Series<String, Number> income;
     public XYChart.Series<String, Number> expenses;
 
-    public void initialize() {
+    public void initialize(URL url, ResourceBundle bundle) {
         //LineGraph
         expenses = new XYChart.Series<>();
         expenses.setName("Expenses");
