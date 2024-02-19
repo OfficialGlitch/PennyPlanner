@@ -17,6 +17,13 @@ import models.money.User;
 
 @Entity(name = "time_periods")
 @Access(AccessType.PROPERTY)
+@NamedQueries({
+	@NamedQuery(name = "findTimePeriod", query = "from time_periods t " +
+		"join t.user as user " +
+		"where user.id = :uid and " +
+		"t.month = :month and " +
+		"t.year = :year")
+})
 public class TimePeriod {
 	public SimpleLongProperty ID = new SimpleLongProperty();
 	private ObservableList<ExpenseInstance> expenses = FXCollections.observableArrayList();
@@ -144,13 +151,17 @@ public class TimePeriod {
 	
 	public static TimePeriod generateNewMonth() {
 		User u = App.getCurrentUser();
-		TimePeriod tp;
-		if(u != null) {
-			tp = new TimePeriod();
-			Calendar instance = Calendar.getInstance();
+		Calendar instance = Calendar.getInstance();
+		TimePeriod ctp = App.s()
+			.createNamedQuery("findTimePeriod", TimePeriod.class)
+			.setParameter("uid", u.getID())
+			.setParameter("month", instance.get(Calendar.MONTH) + 1)
+			.setParameter("year", instance.get(Calendar.YEAR)).getSingleResultOrNull();
+		if(ctp == null) {
+			TimePeriod tp = new TimePeriod();
 			tp.setMonth(instance.get(Calendar.MONTH) + 1);
 			tp.setYear(instance.get(Calendar.YEAR));
-			try(var sess = App.sf().openSession()) {
+			try (var sess = App.sf().openSession()) {
 				var categories = sess.createNamedQuery("getAllCategories", Category.class).setParameter("user", u.getID()).getResultList();
 				categories.forEach(c -> {
 //					sess.refresh(c);
@@ -190,11 +201,9 @@ public class TimePeriod {
 					s.merge(x);
 				});
 			}
-		} else {
-			tp = null;
+			return tp;
 		}
-		
-		return tp;
+		return ctp;
 	}
 }
 
