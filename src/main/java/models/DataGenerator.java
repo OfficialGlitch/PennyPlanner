@@ -5,6 +5,7 @@ import models.instances.ExpenseInstance;
 import models.money.Expense;
 import models.money.Income;
 import models.money.User;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.ArrayList;
 
@@ -26,7 +27,7 @@ public class DataGenerator {
 		ArrayList<Category> cats = new ArrayList<>();
 		User sample = new User();
 		sample.setUsername("test");
-		sample.setPassword("Testing123!");
+		sample.setPassword(BCrypt.hashpw("Testing123!", BCrypt.gensalt()));
 		sample.setEmail("test@testi.ng");
 		var pi = new Income();
 		pi.setName("Primary");
@@ -106,6 +107,6 @@ public class DataGenerator {
 		App.doWork(ss -> {
 			ss.persist(sample);
 		});
-		App.setCurrentUser(sample);
+//		App.setCurrentUser(sample);
 	}
 }
