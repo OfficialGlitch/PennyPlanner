@@ -25,7 +25,7 @@ import org.hibernate.annotations.NamedQuery;
 		"join e.month em " +
 		"where em.ID = :curMonth and ec.ID = :curEID")
 })
-public class ExpenseInstance {
+public class ExpenseInstance implements ExpenseTreeTableItem {
 	public final IntegerProperty ID = new SimpleIntegerProperty();
 	
 	public final DoubleProperty projectedCost = new SimpleDoubleProperty(0d);

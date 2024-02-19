@@ -28,7 +28,8 @@ public class Income {
 	@Id
 	@GeneratedValue
 	public int getID() {
-		return ID.get();}
+		return ID.get();
+	}
 	
 	
 	public void setID(int nid) {
