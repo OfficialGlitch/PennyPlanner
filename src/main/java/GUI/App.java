@@ -28,6 +28,7 @@ import java.util.function.Consumer;
 public class App extends Application {
 	
 	private static Scene scene;
+	private static Stage stage;
 	
 	@Override
 	public void start(Stage stage) throws IOException {
@@ -35,6 +36,7 @@ public class App extends Application {
 		FXMLLoader loader = loadFXML("Login");
 		Parent p = loader.load();
 		LoginController controller = loader.getController();
+		App.stage = stage;
 		scene = new Scene(p, 600, 400);
 		scene.setUserAgentStylesheet(getClass().getResource("style.css").toString());
 //		ExpenseTableController controller = loader.getController();
@@ -66,6 +68,11 @@ public class App extends Application {
 			throw new IllegalStateException("Cannot overwrite logged-in user.");
 		}
 		currentUser = newUser;
+	}
+	
+	public static void setCurrentScene(Parent parent) {
+		scene.setRoot(parent);
+		stage.setScene(scene);
 	}
 	
 	public static Session s() {
