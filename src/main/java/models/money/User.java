@@ -115,10 +115,6 @@ public class User {
 		incomeTypes = it;
 	}
 	
-	public void setHistory(ArrayList<TimePeriod> history) {
-		this.history = history;
-	}
-	
 	@Override
 	public int hashCode() {
 		return (int) ID;
