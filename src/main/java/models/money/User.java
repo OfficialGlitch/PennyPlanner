@@ -1,8 +1,8 @@
-package models;
+package models.money;
 
 import jakarta.persistence.*;
-import models.money.Expense;
-import models.money.Income;
+import models.Category;
+import models.TimePeriod;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.ArrayList;
@@ -107,7 +107,7 @@ public class User {
 	public void setIncomeTypes(List<Income> it) {
 		incomeTypes = it;
 	}
-	public void setHistory(List<TimePeriod> history) {
+	public void setHistory(ArrayList<TimePeriod> history) {
 		this.history = history;
 	}
 	@Override

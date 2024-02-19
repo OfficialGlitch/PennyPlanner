@@ -2,7 +2,7 @@ package models.money;
 
 import jakarta.persistence.*;
 import javafx.beans.property.*;
-import models.User;
+import models.money.User;
 
 @Entity(name = "incomeTypes")
 @Access(AccessType.PROPERTY)
