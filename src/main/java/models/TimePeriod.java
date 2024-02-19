@@ -159,6 +159,7 @@ public class TimePeriod {
 			.setParameter("year", instance.get(Calendar.YEAR)).getSingleResultOrNull();
 		if(ctp == null) {
 			TimePeriod tp = new TimePeriod();
+			tp.setUser(u);
 			tp.setMonth(instance.get(Calendar.MONTH) + 1);
 			tp.setYear(instance.get(Calendar.YEAR));
 			try (var sess = App.sf().openSession()) {
@@ -201,6 +202,7 @@ public class TimePeriod {
 					s.merge(x);
 				});
 			}
+			
 			return tp;
 		}
 		return ctp;

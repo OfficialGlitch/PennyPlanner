@@ -54,19 +54,37 @@ public class ExpenseTableController implements Initializable {
 	@FXML
 	public Text subtotalLabel;
 	@FXML
-	public Text dollarSign;
+	public Text actualTotalCurrency;
 	@FXML
-	public Text subtotal;
+	public Text actualTotal;
+	
+	@FXML
+	private Text differenceCurrencySign;
+	@FXML
+	private Text projectedTotal;
+	@FXML
+	private Text differenceLabel;
+	@FXML
+	private Text projectedLabel;
+	@FXML
+	private Text projectedCurrency;
+	@FXML
+	private Text totalDifference;
+	@FXML
+	private AnchorPane differenceWrapper;
+	@FXML
+	private AnchorPane projectedWrapper;
+	
 	@FXML
 	private Button addExpenseBtn;
 	@FXML
 	private Button addCategoryBtn;
 	
 	private TimePeriod timePeriod;
-	
 	private final TreeItem<ExpenseTreeTableItem> troot = new TreeItem<>(null);
 	
 	public static final String NAME_COLUMN = "expnse.name";
+	
 	
 	public void setFields(TimePeriod tp) {
 		this.timePeriod = tp;
@@ -209,11 +227,23 @@ public class ExpenseTableController implements Initializable {
 	}
 	
 	public void updateSubtotal() {
-		double st = 0d;
+		double actualTotal = 0d;
+		double difference = 0d;
+		double projectedTotal = 0d;
 		for (var it : troot.getChildren()) {
-			st += it.getValue().getCost(timePeriod);
+			actualTotal += it.getValue().getCost(timePeriod);
+			difference += it.getValue().difference(timePeriod);
+			projectedTotal += it.getValue().getProjectedCost(timePeriod);
 		}
-		subtotal.setText(String.format("%.2f", st));
+		totalDifference.getStyleClass().clear();
+		if(difference < 0) {
+			totalDifference.getStyleClass().addAll("text", "danger");
+		} else if(difference > 0) {
+			totalDifference.getStyleClass().addAll("text", "success");
+		}
+		this.actualTotal.setText(String.format("%.2f", actualTotal));
+		this.totalDifference.setText(String.format("%.2f", difference));
+		this.projectedTotal.setText(String.format("%.2f", projectedTotal));
 	}
 	
 	@Override
@@ -239,6 +269,7 @@ public class ExpenseTableController implements Initializable {
 		service.setPeriod(Duration.seconds(1));
 		service.start();
 	}
+	@FXML
 	public void addExpense(ActionEvent ev) {
 		Dialog<ButtonType> dialog = new Dialog<>();
 		dialog.setTitle("Add new expense");
@@ -271,6 +302,7 @@ public class ExpenseTableController implements Initializable {
 		}
 	}
 	
+	@FXML
 	public void addCategory(ActionEvent event) {
 		TextInputDialog dialog = new TextInputDialog();
 		dialog.getDialogPane().getStylesheets().add(App.getUserAgentStylesheet());

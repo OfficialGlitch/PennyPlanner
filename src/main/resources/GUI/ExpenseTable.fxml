@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ExpenseTableController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ExpenseTableController">
     <children>
         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -14,7 +14,7 @@
                     <columns>
                         <TreeTableColumn fx:id="nameCol" prefWidth="152.00000035762787" resizable="false" text="Name" />
                         <TreeTableColumn fx:id="actualCostCol" prefWidth="123.199951171875" text="Actual Cost" />
-                        <TreeTableColumn fx:id="projectedCostCol" prefWidth="121.60005187988281" text="Projected Cost" />
+                        <TreeTableColumn fx:id="projectedCostCol" prefWidth="121.60005187988281" text="Budget" />
                         <TreeTableColumn fx:id="differenceCol" editable="false" prefWidth="186.39993286132812" resizable="false" text="Difference" />
                     </columns>
                     <columnResizePolicy>
@@ -54,29 +54,79 @@
                         <Insets bottom="7.0" />
                     </padding>
                 </Separator>
-                <AnchorPane fx:id="subtotalWrapper" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="NEVER">
-                    <children>
-                        <Text fx:id="subtotalLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Subtotal" AnchorPane.leftAnchor="0.0">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
+            <VBox VBox.vgrow="NEVER">
+               <children>
+                      <AnchorPane fx:id="actualTotalWrapper" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                          <children>
+                              <Text fx:id="actualTotalLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Actual" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <font>
+                                      <Font size="14.0" />
+                                  </font>
+                              </Text>
+                              <HBox alignment="CENTER" layoutX="529.5999755859375" layoutY="-12.369791030883789" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                      <Text fx:id="actualTotalCurrency" strokeType="OUTSIDE" strokeWidth="0.0" text="\$">
+                                          <font>
+                                              <Font size="14.0" />
+                                          </font>
+                                      </Text>
+                                      <Text fx:id="actualTotal" layoutX="10.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00">
+                                          <font>
+                                              <Font size="17.0" />
+                                          </font>
+                                      </Text>
+                                  </children>
+                              </HBox>
+                          </children>
+                      </AnchorPane>
+                  <AnchorPane fx:id="projectedWrapper" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                     <children>
+                        <Text fx:id="projectedLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Budget" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
                         </Text>
-                        <HBox layoutX="529.5999755859375" layoutY="-12.369791030883789" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="2.0" AnchorPane.rightAnchor="0.0">
-                            <children>
-                                <Text fx:id="dollarSign" strokeType="OUTSIDE" strokeWidth="0.0" text="\$">
-                                    <font>
-                                        <Font size="14.0" />
-                                    </font>
-                                </Text>
-                                <Text fx:id="subtotal" layoutX="10.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00">
-                                    <font>
-                                        <Font size="17.0" />
-                                    </font>
-                                </Text>
-                            </children>
+                        <HBox alignment="CENTER" layoutX="529.5999755859375" layoutY="-12.369791030883789" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Text fx:id="projectedCurrency" strokeType="OUTSIDE" strokeWidth="0.0" text="\$">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="projectedTotal" layoutX="10.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Text>
+                           </children>
                         </HBox>
-                    </children>
-                </AnchorPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="differenceWrapper" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                     <children>
+                        <Text fx:id="differenceLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Difference" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <HBox alignment="CENTER" layoutX="529.5999755859375" layoutY="-12.369791030883789" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Text fx:id="differenceCurrencySign" strokeType="OUTSIDE" strokeWidth="0.0" text="\$">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="totalDifference" layoutX="10.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
             </children>
         </VBox>
     </children>

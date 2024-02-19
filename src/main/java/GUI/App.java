@@ -25,6 +25,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.internal.SessionImpl;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -38,7 +39,9 @@ public class App extends Application {
 	
 	@Override
 	public void start(Stage stage) throws IOException {
-		DataGenerator.generate();
+		File db = new File("Accounts.db");
+		if(!db.exists())
+			DataGenerator.generate();
 		FXMLLoader rootLoader = loadFXML("Root");
 		root = rootLoader.load();
 		var scene = new Scene(root, 600, 400);
