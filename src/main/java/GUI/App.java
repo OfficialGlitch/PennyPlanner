@@ -1,11 +1,17 @@
 package GUI;
 
 import jakarta.transaction.Transactional;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import models.Category;
 import models.DataGenerator;
 import models.TimePeriod;
@@ -20,6 +26,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.internal.SessionImpl;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
@@ -27,22 +34,17 @@ import java.util.function.Consumer;
  */
 public class App extends Application {
 	
-	private static Scene scene;
-	private static Stage stage;
+	private static StackPane root;
 	
 	@Override
 	public void start(Stage stage) throws IOException {
 		DataGenerator.generate();
-		FXMLLoader loader = loadFXML("Login");
-		Parent p = loader.load();
-		LoginController controller = loader.getController();
-		App.stage = stage;
-		scene = new Scene(p, 600, 400);
+		FXMLLoader rootLoader = loadFXML("Root");
+		root = rootLoader.load();
+		var scene = new Scene(root, 600, 400);
 		scene.setUserAgentStylesheet(getClass().getResource("style.css").toString());
-//		ExpenseTableController controller = loader.getController();
-//    controller.setFields(TimePeriod.generateNewMonth());
-//		scene = new Scene(p, 640, 480);
-//		App.setUserAgentStylesheet(getClass().getResource("style.css").toString());
+		Parent p = loadFXML("Login").load();
+		root.getChildren().add(p);
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -71,8 +73,22 @@ public class App extends Application {
 	}
 	
 	public static void setCurrentScene(Parent parent) {
-		scene.setRoot(parent);
-		stage.setScene(scene);
+		parent.getStylesheets().clear();
+		parent.getStylesheets().add(Objects.requireNonNull(App.class.getResource("style.css")).toExternalForm());
+		var current = root.getChildren().getFirst();
+		
+		parent.translateXProperty().set(root.getWidth());
+		root.getChildren().addFirst(parent);
+		
+		var keyValue = new KeyValue(parent.translateXProperty(), 0, Interpolator.LINEAR);
+		var keyFrame = new KeyFrame(Duration.millis(500), keyValue);
+		var timeline = new Timeline(keyFrame);
+		timeline.setOnFinished(evt -> {
+			root.getChildren().remove(current);
+		});
+		timeline.play();
+//		scene.setRoot(parent);
+//		stage.setScene(scene);
 	}
 	
 	public static Session s() {
