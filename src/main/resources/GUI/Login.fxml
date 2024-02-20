@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LoginController">
    <children>
@@ -85,7 +97,7 @@
                   <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="1031.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="219.20001220703125" minWidth="10.0" percentWidth="22.0" prefWidth="83.19997396469117" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="304.6000260353088" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="50.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="3.40008544921875" percentWidth="3.0" prefWidth="14.400146484375" />
                     </columnConstraints>
                     <rowConstraints>
@@ -113,8 +125,8 @@
                               <InnerShadow />
                            </effect>
                         </Label>
-                        <TextField fx:id="usernameTextField" promptText="Username" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <PasswordField fx:id="passwordField" alignment="TOP_LEFT" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="usernameTextField" prefHeight="26.0" prefWidth="185.0" promptText="Username" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <PasswordField fx:id="passwordField" alignment="TOP_LEFT" prefHeight="26.0" prefWidth="160.0" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label fx:id="errorMessage" alignment="CENTER" prefHeight="18.0" prefWidth="215.0" textFill="#f80000" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.vgrow="NEVER" />
                         <HBox alignment="CENTER" spacing="20.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.vgrow="NEVER">
                            <children>
