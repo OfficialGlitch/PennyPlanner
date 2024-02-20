@@ -10,6 +10,11 @@ import java.util.List;
 
 @Entity(name = "users")
 @Access(AccessType.PROPERTY)
+@NamedQueries({
+	@NamedQuery(name = "UserByUsername", query = "from users " +
+		"where username = :username"
+	)
+})
 public class User {
 	private long ID;
 	private String name;
@@ -22,7 +27,7 @@ public class User {
 	private List<Expense> expenseTypes = new ArrayList<>();
 	private List<TimePeriod> history = new ArrayList<>();
 	
-	@Column
+	@Column(unique = true)
 	public String getUsername() {
 		return username;
 	}
@@ -77,7 +82,7 @@ public class User {
 	}
 	
 	public void setPassword(String password) {
-		this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+		this.password = password;
 	}
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
