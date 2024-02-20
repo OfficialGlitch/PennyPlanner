@@ -277,7 +277,7 @@ public class ExpenseTableController implements Initializable {
 		AddExpenseTypeDialog controller;
 		dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 		try {
-			dialog.getDialogPane().getStylesheets().add(App.getUserAgentStylesheet());
+			dialog.getDialogPane().getStylesheets().add(App.class.getResource("style.css").toExternalForm());
 			dialog.getDialogPane().setContent(loader.load());
 		} catch(IOException e) {
 			throw new RuntimeException("Failed to instantiate dialog");
@@ -305,7 +305,7 @@ public class ExpenseTableController implements Initializable {
 	@FXML
 	public void addCategory(ActionEvent event) {
 		TextInputDialog dialog = new TextInputDialog();
-		dialog.getDialogPane().getStylesheets().add(App.getUserAgentStylesheet());
+		dialog.getDialogPane().getStylesheets().add(App.class.getResource("style.css").toExternalForm());
 		dialog.setTitle("Add new category");
 		dialog.setGraphic(null);
 		dialog.setHeaderText(null);

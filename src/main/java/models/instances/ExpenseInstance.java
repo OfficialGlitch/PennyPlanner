@@ -73,7 +73,7 @@ public class ExpenseInstance implements ExpenseTreeTableItem {
 	public void setProjectedCost(double newCost) {
 		projectedCost.set(newCost);
 	}
-	
+ 
 	public double difference() {
 		return projectedCost.get() - cost.get();
 	}
