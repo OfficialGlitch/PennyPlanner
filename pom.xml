@@ -61,6 +61,11 @@
 			<artifactId>atlantafx-base</artifactId>
 			<version>2.0.1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>5.9.3</version> <!-- Use the latest or a specific version of JUnit 5 -->
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -71,7 +76,7 @@
 				<configuration>
 					<useSystemClassLoader>false</useSystemClassLoader>
 					<includes>
-						<include>src/test/**/*.java</include>
+						<include>src/test/*.java</include>
 					</includes>
 				</configuration>
 				<dependencies>
@@ -81,9 +86,9 @@
 						<version>1.3.2</version>
 					</dependency>
 					<dependency>
-						<groupId>org.junit.jupiter</groupId>
-						<artifactId>junit-jupiter</artifactId>
-						<version>5.9.3</version> <!-- Use the latest or a specific version of JUnit 5 -->
+						<groupId>org.apache.maven.surefire</groupId>
+						<artifactId>surefire-api</artifactId>
+						<version>3.2.5</version>
 					</dependency>
 					<dependency>
 						<groupId>org.junit.platform</groupId>
