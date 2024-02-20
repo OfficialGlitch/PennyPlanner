@@ -305,7 +305,7 @@ public class ExpenseTableController implements Initializable {
 	@FXML
 	public void addCategory(ActionEvent event) {
 		TextInputDialog dialog = new TextInputDialog();
-		dialog.getDialogPane().getStylesheets().add(App.getUserAgentStylesheet());
+		dialog.getDialogPane().getStylesheets().add(App.class.getResource("style.css").toExternalForm());
 		dialog.setTitle("Add new category");
 		dialog.setGraphic(null);
 		dialog.setHeaderText(null);
