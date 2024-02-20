@@ -3,12 +3,11 @@ import models.money.Expense;
 import models.TimePeriod;
 
 import models.money.User;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.testng.Assert.assertEquals;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class UserTest {

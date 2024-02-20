@@ -1,13 +1,14 @@
 import models.TimePeriod;
 import models.instances.ExpenseInstance;
 import models.money.Expense;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.testng.Assert.assertEquals;
-public class ExpenseInstanceTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+public class ExpenseInstanceTest {
 	ExpenseInstance expenseInstance = new ExpenseInstance();
 
 	@Test

@@ -2,9 +2,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import savings.Savings;
 
-//import org.junit.Test;
-//import static org.junit.Assert.*;
-
 public class SavingsTest {
 
 	@Test
