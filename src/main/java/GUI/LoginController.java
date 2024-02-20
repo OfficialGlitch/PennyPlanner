@@ -33,6 +33,11 @@ public class LoginController implements Initializable {
 		public Label errorMessage;
 		
 		public void login(ActionEvent ae) {
+			if (usernameTextField.getText().isEmpty()) {
+				errorMessage.setText("Please enter username");
+				return; // Exit the method early
+			}
+
 			User user = App.s().createNamedQuery("UserByUsername", User.class).setParameter("username", usernameTextField.getText()).getSingleResultOrNull();
 			if(user == null) {
 				errorMessage.setText("User not found");
