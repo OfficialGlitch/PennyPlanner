@@ -36,7 +36,7 @@ import java.util.function.Consumer;
 public class App extends Application {
 	
 	private static StackPane root;
-	
+
 	@Override
 	public void start(Stage stage) throws IOException {
 		File db = new File("Accounts.db");
@@ -51,23 +51,23 @@ public class App extends Application {
 		stage.setScene(scene);
 		stage.show();
 	}
-	
+
 	public static FXMLLoader loadFXML(String fxml) throws IOException {
 		return new FXMLLoader(App.class.getResource(fxml + ".fxml"));
 	}
-	
+
 	private static User currentUser;
 	private static Session session;
 	private static SessionFactory sessionFactory;
-	
+
 	public static SessionFactory sf() {
 		return sessionFactory;
 	}
-	
+
 	public static User getCurrentUser() {
 		return currentUser;
 	}
-	
+
 	public static void setCurrentUser(User newUser) {
 		if (currentUser != null) {
 			throw new IllegalStateException("Cannot overwrite logged-in user.");
@@ -97,17 +97,17 @@ public class App extends Application {
 	public static Session s() {
 		if (sessionFactory == null) {
 			final Configuration configuration = new Configuration()
-				.addAnnotatedClass(User.class)
-				.addAnnotatedClass(Expense.class)
-				.addAnnotatedClass(ExpenseInstance.class)
-				.addAnnotatedClass(Income.class)
-				.addAnnotatedClass(IncomeInstance.class)
-				.addAnnotatedClass(TimePeriod.class)
-				.addAnnotatedClass(Category.class);
+					.addAnnotatedClass(User.class)
+					.addAnnotatedClass(Expense.class)
+					.addAnnotatedClass(ExpenseInstance.class)
+					.addAnnotatedClass(Income.class)
+					.addAnnotatedClass(IncomeInstance.class)
+					.addAnnotatedClass(TimePeriod.class)
+					.addAnnotatedClass(Category.class);
 //			var props = configuration.getProperties();
 			sessionFactory = configuration.buildSessionFactory(
-				new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()
-			).build());
+					new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()
+					).build());
 		}
 		if(session == null || ((SessionImpl) session).isClosed()) {
 			Session openedSession = sessionFactory.openSession();
@@ -146,9 +146,9 @@ public class App extends Application {
 		Session s = s();
 		consumer.accept(s);
 	}
-	
+
 	public static void main(String[] args) {
 		launch();
 	}
-	
+
 }
