@@ -37,7 +37,10 @@ public class LoginController implements Initializable {
 				errorMessage.setText("Please enter username");
 				return; // Exit the method early
 			}
-
+		 if (passwordField.getText().isEmpty()) {
+			 errorMessage.setText("Please enter password");
+			 return; // Exit the method early
+		 }
 			User user = App.s().createNamedQuery("UserByUsername", User.class).setParameter("username", usernameTextField.getText()).getSingleResultOrNull();
 			if(user == null) {
 				errorMessage.setText("User not found");
