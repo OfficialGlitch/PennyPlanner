@@ -26,5 +26,8 @@ The overall aim of our Finance Tracking application is to create a user-friendly
   - Investment page
   - saving calculator
   - Tests
-   	 	 
+
+### How to use:
+To run the project use the command "mvn javafx:run" on the terminal.
+
 
