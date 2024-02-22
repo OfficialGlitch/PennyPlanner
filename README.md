@@ -29,6 +29,8 @@ The overall aim of our Finance Tracking application is to create a user-friendly
 
 ## ⚡️ Quick start
 ### <ins>run</ins>
-run the project using the command "mvn javafx:run" on your IDE terminal.
+run the project using the command _**mvn javafx:run**_ on your IDE terminal.
 
+### <ins>run tests</ins>
+run all unit tests in the project using the command _**mvn test**_ on your IDE terminal.
 
