@@ -16,6 +16,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -54,10 +55,10 @@ public class LoginController implements Initializable {
 			if(correctPassword) {
 				App.setCurrentUser(user);
 				try {
-					FXMLLoader loader = App.loadFXML("ExpenseTable");
+					FXMLLoader loader = App.loadFXML("MainPage");
 					Parent p = loader.load();
-					ExpenseTableController controller = loader.getController();
-					controller.setFields(TimePeriod.generateNewMonth());
+					MainPageController controller = loader.getController();
+					controller.setYear(Calendar.getInstance().get(Calendar.YEAR));
 					App.setCurrentScene(p);
 				} catch(IOException err) {
 					System.err.println("Couldn't change scene: " + err.toString());
