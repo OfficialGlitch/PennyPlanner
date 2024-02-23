@@ -78,7 +78,7 @@
 									 </HBox>
 								 </children>
 							 </AnchorPane>
-							 <AnchorPane fx:id="differenceWrapper" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+							 <AnchorPane fx:id="differenceWrapper" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" visible="false">
 								 <children>
 									 <Text fx:id="differenceLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Difference" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 										 <font>
