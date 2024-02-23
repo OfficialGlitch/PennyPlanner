@@ -72,8 +72,11 @@ public class IncomeTableController implements Initializable
 	@FXML
 	private Text differenceCurrencySign;
 	private TimePeriod timePeriod;
-	public void setFields(TimePeriod tp) {
+	private MonthTabContentController monthTabContentController;
+	
+	public void setFields(TimePeriod tp, MonthTabContentController mtc) {
 		this.timePeriod = tp;
+		monthTabContentController = mtc;
 		this.setup();
 	}
 	public void setup() {
@@ -224,6 +227,7 @@ public class IncomeTableController implements Initializable
 		this.actualTotal.setText(String.format("%.2f", actualTotal));
 		this.totalDifference.setText(String.format("%.2f", difference));
 		this.projectedTotal.setText(String.format("%.2f", projectedTotal));
+		monthTabContentController.setBalances(actualTotal, projectedTotal);
 	}
 	
 	@FXML

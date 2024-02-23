@@ -81,10 +81,11 @@ public class ExpenseTableController implements Initializable {
 	private final TreeItem<ExpenseTreeTableItem> troot = new TreeItem<>(null);
 	
 	public static final String NAME_COLUMN = "expnse.name";
+	private MonthTabContentController monthTabContentController;
 	
-	
-	public void setFields(TimePeriod tp) {
+	public void setFields(TimePeriod tp, MonthTabContentController mtc) {
 		this.timePeriod = tp;
+		monthTabContentController = mtc;
 		this.setupTable();
 	}
 	
@@ -243,6 +244,7 @@ public class ExpenseTableController implements Initializable {
 		this.actualTotal.setText(String.format("%.2f", actualTotal));
 		this.totalDifference.setText(String.format("%.2f", difference));
 		this.projectedTotal.setText(String.format("%.2f", projectedTotal));
+		monthTabContentController.setBalances(actualTotal, projectedTotal);
 	}
 	
 	@Override
