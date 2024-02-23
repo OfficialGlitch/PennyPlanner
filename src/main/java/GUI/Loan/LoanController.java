@@ -1,4 +1,4 @@
-package GUI.com.example.loan;
+package GUI.Loan;
 
 import GUI.App;
 import GUI.ExpenseTableController;
@@ -12,15 +12,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.scene.control.SelectionMode;
 import models.TimePeriod;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class LoanController {

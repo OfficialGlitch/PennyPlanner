@@ -1,4 +1,4 @@
-package GUI.com.example.loan;
+package GUI.Loan;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

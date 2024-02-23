@@ -1,4 +1,4 @@
-package GUI.com.example.loan;
+package GUI.Loan;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
