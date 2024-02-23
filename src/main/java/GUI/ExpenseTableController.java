@@ -82,7 +82,20 @@ public class ExpenseTableController implements Initializable {
 	
 	public static final String NAME_COLUMN = "expnse.name";
 	private MonthTabContentController monthTabContentController;
-	
+	public double getActualExpense() {
+		double ret = 0d;
+		for(var it : troot.getChildren()) {
+			ret += it.getValue().getCost(timePeriod);
+		}
+		return ret;
+	}
+	public double getProjectedExpense() {
+		double ret = 0d;
+		for(var it : troot.getChildren()) {
+			ret += it.getValue().getProjectedCost(timePeriod);
+		}
+		return ret;
+	}
 	public void setFields(TimePeriod tp, MonthTabContentController mtc) {
 		this.timePeriod = tp;
 		monthTabContentController = mtc;
@@ -227,13 +240,11 @@ public class ExpenseTableController implements Initializable {
 	}
 	
 	public void updateSubtotal() {
-		double actualTotal = 0d;
+		double actualTotal = getActualExpense();
+		double projectedTotal = getProjectedExpense();
 		double difference = 0d;
-		double projectedTotal = 0d;
 		for (var it : troot.getChildren()) {
-			actualTotal += it.getValue().getCost(timePeriod);
 			difference += it.getValue().difference(timePeriod);
-			projectedTotal += it.getValue().getProjectedCost(timePeriod);
 		}
 		totalDifference.getStyleClass().clear();
 		if(difference < 0) {
@@ -244,7 +255,6 @@ public class ExpenseTableController implements Initializable {
 		this.actualTotal.setText(String.format("%.2f", actualTotal));
 		this.totalDifference.setText(String.format("%.2f", difference));
 		this.projectedTotal.setText(String.format("%.2f", projectedTotal));
-		monthTabContentController.setBalances(actualTotal, projectedTotal);
 	}
 	
 	@Override

@@ -1,6 +1,9 @@
 package GUI;
 
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.concurrent.ScheduledService;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import models.TimePeriod;
 
 public class MonthTabContentController implements Initializable
@@ -55,16 +59,38 @@ public class MonthTabContentController implements Initializable
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-	
+		var ss = new ScheduledService<Void>() {
+			@Override
+			protected Task<Void> createTask() {
+				return new Task<>() {
+					@Override
+					protected Void call() throws Exception {
+						Platform.runLater(() -> {
+							setBalances(
+								expenseTableController.getActualExpense(),
+								expenseTableController.getProjectedExpense(),
+								incomeTableController.getIncomeAmount(),
+								incomeTableController.getProjectedIncomeAmount()
+							);
+						});
+						return null;
+					}
+				};
+			}
+		};
+		ss.setPeriod(Duration.millis(500));
+		ss.start();
 	}
-	public void setBalances(double actual, double projected) {
+	public void setBalances(double actualExpense, double projectedExpense, double actualIncome, double projectedIncome) {
+		double actual = actualIncome - actualExpense;
+		double projected = projectedIncome - projectedExpense;
 		var diffVal = actual - projected;
 		actualTotal.setText(String.format("%.2f", actual));
 		projectedTotal.setText(String.format("%.2f", projected));
 		difference.setText(String.format("%.2f", diffVal));
 		difference.getStyleClass().clear();
 		if(diffVal < 0) {
-			difference.getStyleClass().addAll("text", "danger", "bold");
+			difference.getStyleClass().addAll("text", "danger");
 		} else if(diffVal > 0) {
 			difference.getStyleClass().addAll("text", "success");
 		}

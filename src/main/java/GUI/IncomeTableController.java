@@ -210,12 +210,18 @@ public class IncomeTableController implements Initializable
 			}
 			return ret;
 	}
+	public double getProjectedIncomeAmount() {
+		double ret = 0d;
+		for(var it : mainTable.getItems()) {
+			ret += it.getProjected();
+		}
+		return ret;
+	}
 	public void updateTotal() {
 		double actualTotal = getIncomeAmount();
+		double projectedTotal = getProjectedIncomeAmount();
 		double difference = 0d;
-		double projectedTotal = 0d;
 		for (var it : mainTable.getItems()) {
-			projectedTotal += it.getProjected();
 			difference += it.getAmount() - it.getProjected() ;
 		}
 		totalDifference.getStyleClass().clear();
@@ -227,7 +233,6 @@ public class IncomeTableController implements Initializable
 		this.actualTotal.setText(String.format("%.2f", actualTotal));
 		this.totalDifference.setText(String.format("%.2f", difference));
 		this.projectedTotal.setText(String.format("%.2f", projectedTotal));
-		monthTabContentController.setBalances(actualTotal, projectedTotal);
 	}
 	
 	@FXML
