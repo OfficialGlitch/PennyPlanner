@@ -4,7 +4,7 @@ import GUI.dialogs.AddExpenseTypeDialog;
 import GUI.util.CategoryIntermediate;
 import GUI.util.EditableTreeTableCell;
 import GUI.util.ExpenseTreeTableItem;
-import GUI.util.GenericTableCellFactory;
+import GUI.util.GenericTreeTableCellFactory;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.WeakInvalidationListener;
@@ -47,9 +47,9 @@ public class ExpenseTableController implements Initializable {
 	@FXML
 	public TreeTableColumn<ExpenseTreeTableItem, Double> differenceCol;
 	@FXML
-	public AnchorPane subtotalWrapper;
+	public AnchorPane actualTotalWrapper;
 	@FXML
-	public Text subtotalLabel;
+	public Text actualTotalLabel;
 	@FXML
 	public Text actualTotalCurrency;
 	@FXML
@@ -85,7 +85,6 @@ public class ExpenseTableController implements Initializable {
 	
 	public void setFields(TimePeriod tp) {
 		this.timePeriod = tp;
-//		mainTable.setEditable(true);
 		this.setupTable();
 	}
 	
@@ -180,7 +179,7 @@ public class ExpenseTableController implements Initializable {
 				}
 			})
 		);
-		differenceCol.setCellFactory(new GenericTableCellFactory<>(s -> String.format("%.1f", s)));
+		differenceCol.setCellFactory(new GenericTreeTableCellFactory<>(s -> String.format("%.1f", s)));
 		updateRows();
 	}
 	
@@ -201,12 +200,9 @@ public class ExpenseTableController implements Initializable {
 		List<Category> categories;
 		
 		List<TreeItem<ExpenseTreeTableItem>> items = new ArrayList<>();
+		categories = App.s().createNamedQuery("getAllCategories", Category.class)
+			.setParameter("user", App.getCurrentUser().getID()).getResultList();
 		
-		try (Session s = App.sf().openSession()) {
-			categories = s.createNamedQuery("getAllCategories", Category.class)
-				.setParameter("user", App.getCurrentUser().getID()).getResultList();
-//			s.refresh(timePeriod);
-		}
 		HashMap<Integer, Boolean> openMap = new HashMap<>();
 		for(TreeItem<ExpenseTreeTableItem> it : troot.getChildren()) {
 			var val = (CategoryIntermediate) it.getValue();
@@ -269,7 +265,7 @@ public class ExpenseTableController implements Initializable {
 				};
 			}
 		};
-		service.setPeriod(Duration.seconds(1));
+		service.setPeriod(Duration.millis(500));
 		service.start();
 	}
 	@FXML
