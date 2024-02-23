@@ -205,6 +205,7 @@ Individual team members progress:
 
 
 Ahmed Ali:
+12 hrs +
 User Story: Login page
 Environment Setup and Troubleshooting:
 * Fixed most team members' GitHub environments, dedicating countless hours to ensure everyone could contribute effectively.
@@ -314,3 +315,7 @@ Feb 22, 2024 - 45min:
 Ahmed: Had a meeting with sarimah to help determine her user story after giving the income table task to corrinth.
 Ahmed: Sarimah and I came up with a new page that she could possibly include into the document which is a loan calculator.
 
+Feb 23, 2024 - 1hr:
+*reviewed kennie's new savings calculator.
+*Fixed branch issues and merge conflicts.
+*Fixed Kennie's Enviroment setup.
