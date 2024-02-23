@@ -1,5 +1,7 @@
 package GUI;
 
+import javafx.beans.WeakInvalidationListener;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,6 +23,7 @@ public class MainPageController implements Initializable
 	
 	private int year;
 	private final Calendar iCal = Calendar.getInstance();
+	public TabPane getTabs() {return tabs;}
 	
 	public void setYear(int nyear) {
 		year = nyear;
@@ -40,13 +43,13 @@ public class MainPageController implements Initializable
 			try {
 				root = loader.load();
 				controller = loader.getController();
-				newTab.setUserData(controller);
+				newTab.setUserData(tp);
 			} catch(IOException e) {
 				throw new RuntimeException("Couldn't load tab: " + e.getMessage());
 			}
 			newTab.setClosable(false);
 			newTab.setContent(root);
-			controller.setTimePeriod(tp);
+			controller.setFields(tp, this);
 			tabs.getTabs().add(newTab);
 		}
 	}
