@@ -22,7 +22,11 @@ import models.money.User;
 		"full join t.user as user " +
 		"where user.id = :uid and " +
 		"t.month = :month and " +
-		"t.year = :year")
+		"t.year = :year"),
+	@NamedQuery(name = "timePeriodsForYear", query = "from time_periods t " +
+		"full join t.user as user " +
+		"where user.id = :uid " +
+		"and t.year = :year")
 })
 public class TimePeriod {
 	public SimpleLongProperty ID = new SimpleLongProperty();
