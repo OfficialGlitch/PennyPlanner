@@ -7,6 +7,7 @@ import javafx.beans.WeakInvalidationListener;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.concurrent.ScheduledService;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -77,6 +78,9 @@ public class IncomeTableController implements Initializable
 	}
 	public void setup() {
 		setRows();
+		nameCol.setEditable(true);
+		actualCol.setEditable(true);
+		projectedCol.setEditable(true);
 		nameCol.setCellValueFactory(cellFactory(cdf -> {
 			if (cdf.getValue() == null) {
 				return "";
@@ -99,7 +103,7 @@ public class IncomeTableController implements Initializable
 			if (cdf.getValue() == null) {
 				return 0.0d;
 			}
-			return cdf.getValue().getProjected() - cdf.getValue().getAmount();
+			return cdf.getValue().getAmount() - cdf.getValue().getProjected();
 		}));
 		nameCol.setCellFactory(new GenericTableCellFactory<>(
 			s -> s,
@@ -141,6 +145,7 @@ public class IncomeTableController implements Initializable
 			.setParameter("month", timePeriod.getID())
 			.getResultList();
 		mainTable.getItems().setAll(incomes);
+		mainTable.itemsProperty().addListener(createListener());
 		updateTotal();
 	}
 	@FXML
@@ -179,15 +184,16 @@ public class IncomeTableController implements Initializable
 		ObjectProperty<T> prop = new SimpleObjectProperty<>();
 		return (cdf) -> {
 			prop.set(getter.apply(cdf));
-			prop.addListener(createListener());
 			return prop;
 		};
 	}
 	public <T> WeakInvalidationListener createListener() {
 		InvalidationListener listener = (observable -> {
-			ObservableValue<T> obs = (ObservableValue<T>) observable;
-			App.doWork(s -> {
-				s.merge(obs.getValue());
+			ObservableList<T> obs = (ObservableList<T>) observable;
+			obs.forEach(x -> {
+				App.doWork(s -> {
+					s.merge(x);
+				});
 			});
 			IncomeTableController.this.setRows();
 			updateTotal();
@@ -207,7 +213,7 @@ public class IncomeTableController implements Initializable
 		double projectedTotal = 0d;
 		for (var it : mainTable.getItems()) {
 			projectedTotal += it.getProjected();
-			difference += it.getProjected() - it.getAmount();
+			difference += it.getAmount() - it.getProjected() ;
 		}
 		totalDifference.getStyleClass().clear();
 		if(difference < 0) {
@@ -224,7 +230,7 @@ public class IncomeTableController implements Initializable
 	public void addIncome(ActionEvent ev) {
 		TextInputDialog dialog = new TextInputDialog();
 		dialog.getDialogPane().getStylesheets().add(App.class.getResource("style.css").toExternalForm());
-		dialog.setTitle("Add new category");
+		dialog.setTitle("Add new income source");
 		dialog.setGraphic(null);
 		dialog.setHeaderText(null);
 		Optional<String> res = dialog.showAndWait();
@@ -236,12 +242,18 @@ public class IncomeTableController implements Initializable
 				App.doWork(x -> {
 					x.persist(cat);
 				});
-				IncomeInstance ii = new IncomeInstance();
-				ii.setIncomeSource(cat);
-				ii.setMonth(timePeriod);
-				App.doWork(x -> {
-					x.persist(ii);
-				});
+				var tps = App.s().createNamedQuery("timePeriodsForYear", TimePeriod.class)
+						.setParameter("uid", App.getCurrentUser().getID())
+							.setParameter("year", timePeriod.getYear()).getResultList();
+				for (TimePeriod tp : tps) {
+					IncomeInstance ii = new IncomeInstance();
+					ii.setIncomeSource(cat);
+					ii.setMonth(tp);
+					
+					App.doWork(x -> {
+						x.persist(ii);
+					});
+				}
 				setRows();
 			}
 		}

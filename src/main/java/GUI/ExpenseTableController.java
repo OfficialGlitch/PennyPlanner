@@ -291,12 +291,17 @@ public class ExpenseTableController implements Initializable {
 			App.doWork(x -> {
 				x.persist(expense);
 			});
-			ExpenseInstance ei = new ExpenseInstance();
-			ei.setExpense(expense);
-			ei.setMonth(timePeriod);
-			App.doWork(x -> {
-				x.persist(ei);
-			});
+			var tps = App.s().createNamedQuery("timePeriodsForYear", TimePeriod.class)
+				.setParameter("uid", App.getCurrentUser().getID())
+				.setParameter("year", timePeriod.getYear()).getResultList();
+			for (TimePeriod tp : tps) {
+				ExpenseInstance ei = new ExpenseInstance();
+				ei.setExpense(expense);
+				ei.setMonth(tp);
+				App.doWork(x -> {
+					x.persist(ei);
+				});
+			}
 			updateRows();
 		}
 	}

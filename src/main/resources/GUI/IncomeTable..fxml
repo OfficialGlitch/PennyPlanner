@@ -9,7 +9,7 @@
    <children>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TableView fx:id="mainTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="SOMETIMES">
+            <TableView fx:id="mainTable" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="SOMETIMES">
               <columns>
                   <TableColumn fx:id="nameCol" prefWidth="75.0" text="Name" />
                 <TableColumn fx:id="actualCol" prefWidth="247.4000244140625" text="Actual" />
@@ -21,6 +21,9 @@
                   <String fx:value="alt-icon" />
                   <String fx:value="bordered" />
                </styleClass>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
             <Button fx:id="addIncomeBtn" defaultButton="true" mnemonicParsing="false" onAction="#addIncome" text="Add Income Source">
                <font>

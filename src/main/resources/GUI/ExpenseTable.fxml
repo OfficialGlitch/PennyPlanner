@@ -12,10 +12,10 @@
             <children>
                 <TreeTableView fx:id="mainTable" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="SOMETIMES">
                     <columns>
-                        <TreeTableColumn fx:id="nameCol" prefWidth="152.00000035762787" resizable="false" text="Name" />
-                        <TreeTableColumn fx:id="actualCostCol" prefWidth="123.199951171875" text="Actual Cost" />
-                        <TreeTableColumn fx:id="projectedCostCol" prefWidth="121.60005187988281" text="Budget" />
-                        <TreeTableColumn fx:id="differenceCol" editable="false" prefWidth="186.39993286132812" resizable="false" text="Difference" />
+                        <TreeTableColumn fx:id="nameCol" prefWidth="152.00000035762787" text="Name" />
+                        <TreeTableColumn fx:id="actualCostCol" prefWidth="164.80003356933594" text="Actual Cost" />
+                        <TreeTableColumn fx:id="projectedCostCol" prefWidth="183.199951171875" text="Budget" />
+                        <TreeTableColumn fx:id="differenceCol" editable="false" prefWidth="83.20001220703125" resizable="false" text="Difference" />
                     </columns>
                     <columnResizePolicy>
                         <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
