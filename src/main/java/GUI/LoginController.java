@@ -58,6 +58,8 @@ public class LoginController implements Initializable {
 					Parent p = loader.load();
 					ExpenseTableController controller = loader.getController();
 					controller.setFields(TimePeriod.generateNewMonth());
+//						controller.initialize();
+
 					App.setCurrentScene(p);
 				} catch(IOException err) {
 					System.err.println("Couldn't change scene: " + err.toString());
