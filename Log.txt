@@ -205,6 +205,7 @@ Individual team members progress:
 
 
 Ahmed Ali:
+12 hrs +
 User Story: Login page
 Environment Setup and Troubleshooting:
 * Fixed most team members' GitHub environments, dedicating countless hours to ensure everyone could contribute effectively.
@@ -290,11 +291,11 @@ NOTE!!!!:
 Due to merges with the main branch, our code does not run at all. Individually the user stories inside their branches all ran perfectly and displayed a GUI. These can be seen inside our Planning Document for Iteration 1 beside each corresponding User Story. By merging to the main we encountered a problem where our IDE’s displayed a message saying we do not have a main method inside java/GUI/App.java. We will solve this conflict in Iteration 2 ASAP since we can have a basic functioning program if we solve this issue. The issue does seem more structural rather than something being wrong with our code but we will look into this before our Delivery 1 presentation.
 
 
-Ahmed:
+
 Feb 19, 2024 - 1h-30min:
-*Team meeting on preperation for demo and tasks that need to be completed.
-*Certain members have pushed changes that were incompatible, thus it had to be deleted.
-*The income table task has been passed to corrinth.
+Ahmed:Team meeting on preperation for demo and tasks that need to be completed.
+Ahmed:Certain members have pushed changes that were incompatible, thus it had to be deleted.
+Ahmed:The income table task has been passed to corrinth.
 
 
 Feb 19, 2024 - 1hr:
@@ -303,14 +304,19 @@ Ahmed: Error message integration on incorrect inputs for optimized DB checks.
 Ahmed: Fixed broken unit tests.
 
 
-
 Feb 21, 2024 - 1hr
 Ahmed: Helped fix errors in the main and bugs that had to do with expenses.
 Ahmed: Added a continuous enviroment in github to avoid broken code again. previous issues
 had to do with members force pull requesting incompatible material. this would allow for a less
 error prone enviroment
 
+
 Feb 22, 2024 - 45min:
 Ahmed: Had a meeting with sarimah to help determine her user story after giving the income table task to corrinth.
 Ahmed: Sarimah and I came up with a new page that she could possibly include into the document which is a loan calculator.
 
+
+Feb 23, 2024 - 1hr:
+Ahmed:reviewed kennie's new savings calculator.
+Ahmed:Fixed branch issues and merge conflicts.
+Ahmed:Fixed Kennie's Enviroment setup.
