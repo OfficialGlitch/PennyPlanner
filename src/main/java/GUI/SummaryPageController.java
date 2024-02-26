@@ -1,18 +1,29 @@
 package GUI;
 
+import GUI.util.ExpenseTreeTableItem;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.TreeItem;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import models.Category;
+import models.TimePeriod;
+import models.instances.ExpenseInstance;
+import org.hibernate.Session;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
-public class SummaryPageController implements Initializable {
+public class SummaryPageController implements Initializable{
     @FXML
     public LineChart LineGraph;
     @FXML
@@ -20,8 +31,43 @@ public class SummaryPageController implements Initializable {
 
     public XYChart.Series<String, Number> income;
     public XYChart.Series<String, Number> expenses;
+		private TimePeriod timePeriod;
 
-    public void initialize(URL url, ResourceBundle bundle) {
+		public void setup(TimePeriod tp) {
+			this.timePeriod = tp;
+			initialize(null, null);
+			//addStubData();
+			setupData();
+		}
+
+		private void setupData(){
+				List<Category> categories;
+				List<TreeItem<ExpenseTreeTableItem>> items = new ArrayList<>();
+
+				double totalExpenses = 0;
+
+				try (Session s = App.sf().openSession()) {
+						categories = s.createNamedQuery("getAllCategories", Category.class)
+								.setParameter("user", App.getCurrentUser().getID()).getResultList();
+//					s.refresh(timePeriod);
+				}
+
+				for (Category cat : categories){
+						String name = cat.name.getValue();
+						double categoryTotal = 0;
+
+						List<ExpenseInstance> expenseInstances = App.s().createNamedQuery("getExpenseInstancesForCategory", ExpenseInstance.class)
+							.setParameter("tp", timePeriod.ID.get()).setParameter("cat", cat.ID.get()).getResultList();
+
+						for (ExpenseInstance eI : expenseInstances){
+								categoryTotal += eI.cost.get();
+						}
+						addPointToLineChart(name, categoryTotal, "E");
+						addDataToPieChart(name, categoryTotal, "E");
+				}
+		}
+
+    public void setup(URL url, ResourceBundle bundle) {
         //LineGraph
         expenses = new XYChart.Series<>();
         expenses.setName("Expenses");
@@ -44,8 +90,8 @@ public class SummaryPageController implements Initializable {
             expensesSeries.getNode().setStyle("-fx-stroke: transparent;");
             newDataPoint.getNode().setStyle("-fx-background-color: red;");
 
-            Tooltip tooltip = new Tooltip("X: " + newDataPoint.getXValue() + ", Y: " + newDataPoint.getYValue());
-            Tooltip.install(newDataPoint.getNode(), tooltip);
+						Tooltip tooltip = new Tooltip("X: " + xValue + ", Y: " + yValue);
+						Tooltip.install(newDataPoint.getNode(), tooltip);
 
             //expensesSeries.getNode().setStyle("-fx-stroke: red;");
         }else {
@@ -124,4 +170,19 @@ public class SummaryPageController implements Initializable {
             Tooltip.install(data.getNode(), tooltip);
         }
     }
+
+		@Override
+		public void initialize(URL url, ResourceBundle resourceBundle) {
+				//LineGraph
+				expenses = new XYChart.Series<>();
+				expenses.setName("Expenses");
+				LineGraph.getData().add(expenses);
+
+				income = new XYChart.Series<>();
+				income.setName("Income");
+				LineGraph.getData().add(income);
+
+				LineGraph.setLegendVisible(false);
+				PieChart.setLegendVisible(false);
+		}
 }
