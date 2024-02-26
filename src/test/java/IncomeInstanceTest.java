@@ -10,5 +10,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class IncomeInstanceTest {
 
+	IncomeInstance instance = new IncomeInstance();
 
+	@Test
+	public void testSetAndGetAmount() {
+		double testAmount = 200.0;
+		instance.setAmount(testAmount);
+		assertEquals(testAmount, instance.getAmount(), "The amount should match what was set");
+	}
 }
