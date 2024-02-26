@@ -53,5 +53,7 @@
 			<font>
 				<Font size="16.0" />
 			</font></Button>
+		<Button fx:id="BackButton" layoutX="632.0" layoutY="43.0" mnemonicParsing="false" text="Main Page" onAction="#changePage"/>
+
 	</children>
 </AnchorPane>
