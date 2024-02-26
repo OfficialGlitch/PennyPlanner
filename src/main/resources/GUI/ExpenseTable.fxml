@@ -8,6 +8,7 @@
 
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ExpenseTableController">
     <children>
+
         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <TreeTableView fx:id="mainTable" editable="true" VBox.vgrow="ALWAYS">
@@ -38,7 +39,11 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-               </children>
+								 <Button fx:id="SummaryButton" layoutX="632.0" layoutY="43.0" mnemonicParsing="false" text="Summary" onAction="#changePage1"/>
+								 <Button fx:id="SavingButton" layoutX="732.0" layoutY="43.0" mnemonicParsing="false" text="Savings" onAction="#changePage2"/>
+								 <Button fx:id="InvestmentButton" layoutX="832.0" layoutY="43.0" mnemonicParsing="false" text="Investment" onAction="#changePage3"/>
+
+							 </children>
                <padding>
                   <Insets top="7.0" />
                </padding>
