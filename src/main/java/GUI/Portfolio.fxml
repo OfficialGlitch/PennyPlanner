@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.TextFlow?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="772.0" prefWidth="764.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.PortfolioController">
+   <children>
+       <LineChart fx:id="LineChart" layoutX="132.0" layoutY="169.0" prefHeight="256.0" prefWidth="500.0" title="Gains">
+
+           <xAxis>
+               <CategoryAxis label="Months" side="BOTTOM" />
+           </xAxis>
+           <yAxis>
+               <NumberAxis label="Return" side="LEFT" />
+           </yAxis>
+       </LineChart>
+      <BarChart fx:id="BarChart" layoutX="131.0" layoutY="470.0" prefHeight="256.0" prefWidth="502.0" title="Holdings">
+        <xAxis>
+          <CategoryAxis label="Assets" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis label="Amount" side="LEFT" />
+        </yAxis>
+      </BarChart>
+      <TextFlow layoutX="344.0" layoutY="725.0" prefHeight="34.0" prefWidth="75.0" />
+      <Button fx:id="BackButton" layoutX="632.0" layoutY="43.0" mnemonicParsing="false" text="Main Page" onAction="#changePage"/>
+      <Label layoutX="16.0" layoutY="21.0" text="Budget:" />
+      <Label layoutX="14.0" layoutY="56.0" text="Investment:" />
+      <Label fx:id="label1" layoutX="68.0" layoutY="21.0" text="0" />
+      <Label fx:id="label2" layoutX="89.0" layoutY="56.0" text="0" />
+   </children>
+</AnchorPane>
