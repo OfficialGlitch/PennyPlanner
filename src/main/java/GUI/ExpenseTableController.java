@@ -30,6 +30,7 @@ import models.TimePeriod;
 import models.instances.ExpenseInstance;
 import models.money.Expense;
 import org.hibernate.Session;
+import GUI.com.example.loan.LoanController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -371,4 +372,22 @@ public class ExpenseTableController implements Initializable {
 			err.printStackTrace();
 		}
 	}
+	@FXML
+	private void changePage4(ActionEvent event) {
+		event.consume();
+		try {
+
+			FXMLLoader loader = App.loadFXML("loan_calculator");
+			Parent p = loader.load();
+			LoanController controller = loader.getController();
+			controller.initialize();
+			App.setCurrentScene(p);
+		} catch(IOException err) {
+			System.err.println("Couldn't change scene: " + err.toString());
+			err.printStackTrace();
+		}
+	}
 }
+
+
+
