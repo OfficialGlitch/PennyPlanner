@@ -25,4 +25,11 @@ public class IncomeInstanceTest {
 		instance.setProjected(projectedAmount);
 		assertEquals(projectedAmount, instance.getProjected(), "The projected amount should match what was set");
 	}
+
+	@Test
+	public void testSetAndGetIncomeSource() {
+		Income testIncome = new Income(); // Assuming default constructor exists
+		instance.setIncomeSource(testIncome);
+		assertEquals(testIncome, instance.getIncomeSource(), "The income source should match what was set");
+	}
 }
