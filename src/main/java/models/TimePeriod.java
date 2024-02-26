@@ -19,10 +19,14 @@ import models.money.User;
 @Access(AccessType.PROPERTY)
 @NamedQueries({
 	@NamedQuery(name = "findTimePeriod", query = "from time_periods t " +
-		"join t.user as user " +
+		"full join t.user as user " +
 		"where user.id = :uid and " +
 		"t.month = :month and " +
-		"t.year = :year")
+		"t.year = :year"),
+	@NamedQuery(name = "timePeriodsForYear", query = "from time_periods t " +
+		"full join t.user as user " +
+		"where user.id = :uid " +
+		"and t.year = :year")
 })
 public class TimePeriod {
 	public SimpleLongProperty ID = new SimpleLongProperty();
@@ -149,63 +153,51 @@ public class TimePeriod {
 		return false;
 	}
 	
-	public static TimePeriod generateNewMonth() {
+	public static TimePeriod generateNewMonth(int month, int year) {
 		User u = App.getCurrentUser();
-		Calendar instance = Calendar.getInstance();
 		TimePeriod ctp = App.s()
 			.createNamedQuery("findTimePeriod", TimePeriod.class)
 			.setParameter("uid", u.getID())
-			.setParameter("month", instance.get(Calendar.MONTH) + 1)
-			.setParameter("year", instance.get(Calendar.YEAR)).getSingleResultOrNull();
+			.setParameter("month", month)
+			.setParameter("year", year).getSingleResultOrNull();
 		if(ctp == null) {
 			TimePeriod tp = new TimePeriod();
 			tp.setUser(u);
-			tp.setMonth(instance.get(Calendar.MONTH) + 1);
-			tp.setYear(instance.get(Calendar.YEAR));
-			try (var sess = App.sf().openSession()) {
-				var categories = sess.createNamedQuery("getAllCategories", Category.class).setParameter("user", u.getID()).getResultList();
+			tp.setMonth(month);
+			tp.setYear(year);
+			var sess = App.s();
+			var tx = sess.beginTransaction();
+				var categories = App.sf().openSession().createNamedQuery("getAllCategories", Category.class).setParameter("user", u.getID()).getResultList();
 				categories.forEach(c -> {
 //					sess.refresh(c);
-					var exps = sess.createNamedQuery("getExpensesForCategory", Expense.class).setParameter("cat", c.getID()).getResultList();
+					var exps = App.sf().openSession().createNamedQuery("getExpensesForCategory", Expense.class).setParameter("cat", c.getID()).getResultList();
+					
 					exps.forEach(e -> {
 						ExpenseInstance i = new ExpenseInstance();
 						i.setExpense(e);
-						App.doWork(s -> {
-							i.setMonth(tp);
-							s.persist(i);
-						});
+						i.setMonth(tp);
+						sess.persist(i);
 						tp.getExpenses().add(i);
 					});
 				});
-			}
-			u.getIncomeTypes().forEach(it -> {
-				IncomeInstance ii = new IncomeInstance();
-				ii.setIncomeSource(it);
-				App.doWork(s -> {
-					s.persist(ii);
+				u.getIncomeTypes().forEach(it -> {
+					IncomeInstance ii = new IncomeInstance();
+					ii.setIncomeSource(it);
+					ii.setMonth(tp);
+					sess.persist(ii);
+					tp.getIncomeSources().add(ii);
 				});
-				tp.getIncomeSources().add(ii);
-			});
-//			App.doWork(s -> {
+				App.doWork(s -> {
 //				s.persist(tp);
-//			});
-			tp.getExpenses().forEach(x -> {
-				App.doWork(s -> {
-					x.setMonth(tp);
-					s.merge(x);
 				});
-			});
-			for (int i = 0; i < tp.getIncomeSources().size(); i++) {
-				var x = tp.getIncomeSources().get(i);
-				App.doNonSessionWork(s -> {
-					x.setMonth(tp);
-					s.merge(x);
-				});
-			}
-			
+			tx.commit();
 			return tp;
 		}
 		return ctp;
+	}
+	public static TimePeriod generateNewMonth() {
+		var instance = Calendar.getInstance();
+		return generateNewMonth(instance.get(Calendar.MONTH) + 1, instance.get(Calendar.YEAR));
 	}
 }
 

@@ -16,13 +16,13 @@ import org.hibernate.annotations.NamedQuery;
 @Access(AccessType.PROPERTY)
 @NamedQueries({
 	@NamedQuery(name = "getExpenseInstancesForCategory", query = "select e from expenses e " +
-		"join e.expense as et " +
-		"join e.month as em " +
-		"join et.category as ec " +
+		"full join e.expense as et " +
+		"full join e.month as em " +
+		"full join et.category as ec " +
 		"where (em.ID = :tp and ec.ID = :cat)"),
 	@NamedQuery(name = "getExpenseInstancesForExpenseType", query = "select e from expenses e " +
-		"join e.expense ec " +
-		"join e.month em " +
+		"full join e.expense ec " +
+		"full join e.month em " +
 		"where em.ID = :curMonth and ec.ID = :curEID")
 })
 public class ExpenseInstance implements ExpenseTreeTableItem {
@@ -78,7 +78,9 @@ public class ExpenseInstance implements ExpenseTreeTableItem {
 		return projectedCost.get() - cost.get();
 	}
 	
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(unique = false)
+	@PrimaryKeyJoinColumn(name = "Expense_ID", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 	public Expense getExpense() {
 		return this.expense.get();
 	}
