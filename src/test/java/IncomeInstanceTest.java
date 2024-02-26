@@ -32,4 +32,11 @@ public class IncomeInstanceTest {
 		instance.setIncomeSource(testIncome);
 		assertEquals(testIncome, instance.getIncomeSource(), "The income source should match what was set");
 	}
+
+	@Test
+	public void testSetAndGetMonth() {
+		TimePeriod testTimePeriod = new TimePeriod(); // Assuming default constructor exists
+		instance.setMonth(testTimePeriod);
+		assertEquals(testTimePeriod, instance.getMonth(), "The month should match what was set");
+	}
 }
