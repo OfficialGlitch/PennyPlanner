@@ -42,6 +42,7 @@
 								 <Button fx:id="SummaryButton" layoutX="632.0" layoutY="43.0" mnemonicParsing="false" text="Summary" onAction="#changePage1"/>
 								 <Button fx:id="SavingButton" layoutX="732.0" layoutY="43.0" mnemonicParsing="false" text="Savings" onAction="#changePage2"/>
 								 <Button fx:id="InvestmentButton" layoutX="832.0" layoutY="43.0" mnemonicParsing="false" text="Investment" onAction="#changePage3"/>
+								 <Button fx:id="LoanButton" layoutX="832.0" layoutY="43.0" mnemonicParsing="false" text="Loan" onAction="#changePage4"/>
 
 							 </children>
                <padding>
