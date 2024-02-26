@@ -104,9 +104,7 @@ public class DataGenerator {
 				});
 			}
 		}
-		App.doWork(ss -> {
-			ss.persist(sample);
-		});
+		App.s().persist(sample);
 //		App.setCurrentUser(sample);
 	}
 }
