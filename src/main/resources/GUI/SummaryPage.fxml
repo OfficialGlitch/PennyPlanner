@@ -4,14 +4,12 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0"
-            prefWidth="764.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="GUI.SummaryPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="764.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.SummaryPageController">
    <children>
-      <LineChart fx:id="LineGraph" layoutX="14.0" layoutY="13.0" prefHeight="207.0" prefWidth="711.0">
+      <LineChart fx:id="LineGraph" layoutX="16.0" layoutY="43.0" prefHeight="207.0" prefWidth="711.0">
         <xAxis>
           <CategoryAxis label="Months" side="BOTTOM" />
         </xAxis>
@@ -19,6 +17,7 @@
           <NumberAxis label="Amount" side="LEFT" />
         </yAxis>
       </LineChart>
-      <PieChart fx:id="PieChart" layoutX="75.0" layoutY="220.0" legendSide="RIGHT" prefHeight="262.0" prefWidth="295.0" title="Spending for January" />
+      <PieChart fx:id="PieChart" layoutX="77.0" layoutY="237.0" legendSide="RIGHT" prefHeight="262.0" prefWidth="295.0" title="Spending for January" />
+      <ComboBox layoutX="614.0" prefWidth="150.0" promptText="Expense_Table" />
    </children>
 </AnchorPane>
