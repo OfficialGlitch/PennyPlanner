@@ -39,4 +39,11 @@ public class IncomeInstanceTest {
 		instance.setMonth(testTimePeriod);
 		assertEquals(testTimePeriod, instance.getMonth(), "The month should match what was set");
 	}
+
+	@Test
+	public void testSetAndGetID() {
+		int testId = 10;
+		instance.setID(testId);
+		assertEquals(testId, instance.getID(), "The ID should match what was set");
+	}
 }
