@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -304,7 +305,9 @@ public class ExpenseTableController implements Initializable {
 			updateRows();
 		}
 	}
-	
+
+
+
 	@FXML
 	public void addCategory(ActionEvent event) {
 		TextInputDialog dialog = new TextInputDialog();
@@ -323,6 +326,49 @@ public class ExpenseTableController implements Initializable {
 				});
 				updateRows();
 			}
+		}
+	}
+
+	@FXML
+	private void changePage1(ActionEvent event) {
+		event.consume();
+		try {
+			FXMLLoader loader = App.loadFXML("SummaryPage");
+			Parent p = loader.load();
+			SummaryPageController controller = loader.getController();
+			controller.setup(TimePeriod.generateNewMonth());
+			App.setCurrentScene(p);
+		} catch(IOException err) {
+			System.err.println("Couldn't change scene: " + err.toString());
+			err.printStackTrace();
+		}
+	}
+	@FXML
+	private void changePage2(ActionEvent event) {
+		event.consume();
+		try {
+			FXMLLoader loader = App.loadFXML("Savingspage");
+			Parent p = loader.load();
+			SavingspageController controller = loader.getController();
+			controller.initialize();
+			App.setCurrentScene(p);
+		} catch(IOException err) {
+			System.err.println("Couldn't change scene: " + err.toString());
+			err.printStackTrace();
+		}
+	}
+	@FXML
+	private void changePage3(ActionEvent event) {
+		event.consume();
+		try {
+			FXMLLoader loader = App.loadFXML("Portfolio");
+			Parent p = loader.load();
+			PortfolioController controller = loader.getController();
+			controller.setup(TimePeriod.generateNewMonth());
+			App.setCurrentScene(p);
+		} catch(IOException err) {
+			System.err.println("Couldn't change scene: " + err.toString());
+			err.printStackTrace();
 		}
 	}
 }
