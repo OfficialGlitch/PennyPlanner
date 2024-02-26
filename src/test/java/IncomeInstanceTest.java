@@ -18,4 +18,11 @@ public class IncomeInstanceTest {
 		instance.setAmount(testAmount);
 		assertEquals(testAmount, instance.getAmount(), "The amount should match what was set");
 	}
+
+	@Test
+	public void testSetAndGetProjected() {
+		double projectedAmount = 150.0;
+		instance.setProjected(projectedAmount);
+		assertEquals(projectedAmount, instance.getProjected(), "The projected amount should match what was set");
+	}
 }
