@@ -320,3 +320,10 @@ Feb 23, 2024 - 1hr:
 Ahmed:reviewed kennie's new savings calculator.
 Ahmed:Fixed branch issues and merge conflicts.
 Ahmed:Fixed Kennie's Enviroment setup.
+
+Feb 25, 2024 - 6:30pm - 1:45am:
+Ahmed: fixed group members user story issues.
+Ahmed: merged some user stories to main.
+Ahmed: Worked on presentation slides and assigning parts to members.
+Ahmed: Fixed members github conflics and issues, as well different members enviroments
+to make it compatible for everyone.
