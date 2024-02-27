@@ -61,7 +61,7 @@ public class MainPageController implements Initializable {
 			newTab.setClosable(false);
 			months.getTabs().add(newTab);
 		}
-		months.getSelectionModel().selectedIndexProperty().addListener(new WeakChangeListener<Number>((obs, oldValue, newValue) -> {
+		months.getSelectionModel().selectedIndexProperty().addListener(((obs, oldValue, newValue) -> {
 			TimePeriod tp = TimePeriod.generateNewMonth((int) newValue + 1, year);
 			expenseIncomePageController.setFields(tp);
 			summaryPageController.setup(tp);
