@@ -46,7 +46,7 @@ public class MainPageController implements Initializable {
 	@FXML
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-	
+		initTabs();
 	}
 	
 	public void setYear(int nyear) {
