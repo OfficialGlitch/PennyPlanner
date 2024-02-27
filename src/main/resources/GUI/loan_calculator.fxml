@@ -11,7 +11,6 @@
 	<children>
 		<AnchorPane layoutX="51.0" layoutY="19.0" prefHeight="435.0" prefWidth="621.0">
 			<children>
-				<Button fx:id="BackButton" layoutX="632.0" layoutY="43.0" mnemonicParsing="false" text="Main Page" onAction="#changePage"/>
 				<Label layoutX="8.0" layoutY="6.0" prefHeight="17.0" prefWidth="102.0" text=" Loan Calculator" textFill="TURQUOISE" />
 				<TextField fx:id="loanAmountTextField" layoutX="143.0" layoutY="44.0" prefHeight="26.0" prefWidth="125.0" promptText="Enter loan amount" />
 				<TextField fx:id="interestRateTextField" layoutX="143.0" layoutY="79.0" prefHeight="26.0" prefWidth="125.0" promptText="Enter interest rate" />

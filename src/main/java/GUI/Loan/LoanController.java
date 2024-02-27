@@ -44,21 +44,6 @@ public class LoanController {
 	@FXML
 	private Button addButton;
 	private ObservableList<LoanInfo> loanInfoList;
-
-	@FXML
-	private void changePage(ActionEvent event) {
-		event.consume();
-		try {
-			FXMLLoader loader = App.loadFXML("ExpenseTable");
-			Parent p = loader.load();
-			ExpenseTableController controller = loader.getController();
-			controller.setFields(TimePeriod.generateNewMonth());
-			App.setCurrentScene(p);
-		} catch(IOException err) {
-			System.err.println("Couldn't change scene: " + err.toString());
-			err.printStackTrace();
-		}
-	}
 	@FXML
 	public void initialize() {
 		// Set up columns in the table view

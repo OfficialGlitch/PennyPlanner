@@ -30,7 +30,7 @@ import models.TimePeriod;
 import models.instances.ExpenseInstance;
 import models.money.Expense;
 import org.hibernate.Session;
-import GUI.com.example.loan.LoanController;
+import GUI.Loan.LoanController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -83,7 +83,6 @@ public class ExpenseTableController implements Initializable {
 	private final TreeItem<ExpenseTreeTableItem> troot = new TreeItem<>(null);
 	
 	public static final String NAME_COLUMN = "expnse.name";
-	private MonthTabContentController monthTabContentController;
 	public double getActualExpense() {
 		double ret = 0d;
 		for(var it : troot.getChildren()) {
@@ -339,64 +338,6 @@ public class ExpenseTableController implements Initializable {
 				});
 				updateRows();
 			}
-		}
-	}
-
-	@FXML
-	private void changePage1(ActionEvent event) {
-		event.consume();
-		try {
-			FXMLLoader loader = App.loadFXML("SummaryPage");
-			Parent p = loader.load();
-			SummaryPageController controller = loader.getController();
-			controller.setup(TimePeriod.generateNewMonth());
-			App.setCurrentScene(p);
-		} catch(IOException err) {
-			System.err.println("Couldn't change scene: " + err.toString());
-			err.printStackTrace();
-		}
-	}
-	@FXML
-	private void changePage2(ActionEvent event) {
-		event.consume();
-		try {
-			FXMLLoader loader = App.loadFXML("Savingspage");
-			Parent p = loader.load();
-			SavingspageController controller = loader.getController();
-			controller.initialize();
-			App.setCurrentScene(p);
-		} catch(IOException err) {
-			System.err.println("Couldn't change scene: " + err.toString());
-			err.printStackTrace();
-		}
-	}
-	@FXML
-	private void changePage3(ActionEvent event) {
-		event.consume();
-		try {
-			FXMLLoader loader = App.loadFXML("Portfolio");
-			Parent p = loader.load();
-			PortfolioController controller = loader.getController();
-			controller.setup(TimePeriod.generateNewMonth());
-			App.setCurrentScene(p);
-		} catch(IOException err) {
-			System.err.println("Couldn't change scene: " + err.toString());
-			err.printStackTrace();
-		}
-	}
-	@FXML
-	private void changePage4(ActionEvent event) {
-		event.consume();
-		try {
-
-			FXMLLoader loader = App.loadFXML("loan_calculator");
-			Parent p = loader.load();
-			LoanController controller = loader.getController();
-			controller.initialize();
-			App.setCurrentScene(p);
-		} catch(IOException err) {
-			System.err.println("Couldn't change scene: " + err.toString());
-			err.printStackTrace();
 		}
 	}
 }
