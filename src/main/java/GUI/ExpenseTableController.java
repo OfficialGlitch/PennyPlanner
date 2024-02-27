@@ -98,9 +98,8 @@ public class ExpenseTableController implements Initializable {
 		}
 		return ret;
 	}
-	public void setFields(TimePeriod tp, MonthTabContentController mtc) {
+	public void setFields(TimePeriod tp) {
 		this.timePeriod = tp;
-		monthTabContentController = mtc;
 		this.setupTable();
 	}
 	
