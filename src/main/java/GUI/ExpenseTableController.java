@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -29,6 +30,7 @@ import models.TimePeriod;
 import models.instances.ExpenseInstance;
 import models.money.Expense;
 import org.hibernate.Session;
+import GUI.Loan.LoanController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -81,7 +83,6 @@ public class ExpenseTableController implements Initializable {
 	private final TreeItem<ExpenseTreeTableItem> troot = new TreeItem<>(null);
 	
 	public static final String NAME_COLUMN = "expnse.name";
-	private MonthTabContentController monthTabContentController;
 	public double getActualExpense() {
 		double ret = 0d;
 		for(var it : troot.getChildren()) {
@@ -96,9 +97,8 @@ public class ExpenseTableController implements Initializable {
 		}
 		return ret;
 	}
-	public void setFields(TimePeriod tp, MonthTabContentController mtc) {
+	public void setFields(TimePeriod tp) {
 		this.timePeriod = tp;
-		monthTabContentController = mtc;
 		this.setupTable();
 	}
 	
@@ -317,7 +317,9 @@ public class ExpenseTableController implements Initializable {
 			updateRows();
 		}
 	}
-	
+
+
+
 	@FXML
 	public void addCategory(ActionEvent event) {
 		TextInputDialog dialog = new TextInputDialog();
@@ -339,3 +341,6 @@ public class ExpenseTableController implements Initializable {
 		}
 	}
 }
+
+
+

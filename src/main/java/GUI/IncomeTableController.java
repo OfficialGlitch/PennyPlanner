@@ -72,11 +72,9 @@ public class IncomeTableController implements Initializable
 	@FXML
 	private Text differenceCurrencySign;
 	private TimePeriod timePeriod;
-	private MonthTabContentController monthTabContentController;
 	
-	public void setFields(TimePeriod tp, MonthTabContentController mtc) {
+	public void setFields(TimePeriod tp) {
 		this.timePeriod = tp;
-		monthTabContentController = mtc;
 		this.setup();
 	}
 	public void setup() {
