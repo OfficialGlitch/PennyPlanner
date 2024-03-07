@@ -1,6 +1,6 @@
 package GUI;
 
-import GUI.com.example.loan.LoanController;
+import GUI.Loan.LoanController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
