@@ -4,7 +4,7 @@ import GUI.dialogs.AddExpenseTypeDialog;
 import GUI.util.CategoryIntermediate;
 import GUI.util.EditableTreeTableCell;
 import GUI.util.ExpenseTreeTableItem;
-import GUI.util.GenericTableCellFactory;
+import GUI.util.GenericTreeTableCellFactory;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.WeakInvalidationListener;
@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -29,6 +30,7 @@ import models.TimePeriod;
 import models.instances.ExpenseInstance;
 import models.money.Expense;
 import org.hibernate.Session;
+import GUI.Loan.LoanController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -47,9 +49,9 @@ public class ExpenseTableController implements Initializable {
 	@FXML
 	public TreeTableColumn<ExpenseTreeTableItem, Double> differenceCol;
 	@FXML
-	public AnchorPane subtotalWrapper;
+	public AnchorPane actualTotalWrapper;
 	@FXML
-	public Text subtotalLabel;
+	public Text actualTotalLabel;
 	@FXML
 	public Text actualTotalCurrency;
 	@FXML
@@ -81,11 +83,22 @@ public class ExpenseTableController implements Initializable {
 	private final TreeItem<ExpenseTreeTableItem> troot = new TreeItem<>(null);
 	
 	public static final String NAME_COLUMN = "expnse.name";
-	
-	
+	public double getActualExpense() {
+		double ret = 0d;
+		for(var it : troot.getChildren()) {
+			ret += it.getValue().getCost(timePeriod);
+		}
+		return ret;
+	}
+	public double getProjectedExpense() {
+		double ret = 0d;
+		for(var it : troot.getChildren()) {
+			ret += it.getValue().getProjectedCost(timePeriod);
+		}
+		return ret;
+	}
 	public void setFields(TimePeriod tp) {
 		this.timePeriod = tp;
-//		mainTable.setEditable(true);
 		this.setupTable();
 	}
 	
@@ -180,7 +193,7 @@ public class ExpenseTableController implements Initializable {
 				}
 			})
 		);
-		differenceCol.setCellFactory(new GenericTableCellFactory<>(s -> String.format("%.1f", s)));
+		differenceCol.setCellFactory(new GenericTreeTableCellFactory<>(s -> String.format("%.1f", s)));
 		updateRows();
 	}
 	
@@ -201,12 +214,9 @@ public class ExpenseTableController implements Initializable {
 		List<Category> categories;
 		
 		List<TreeItem<ExpenseTreeTableItem>> items = new ArrayList<>();
+		categories = App.s().createNamedQuery("getAllCategories", Category.class)
+			.setParameter("user", App.getCurrentUser().getID()).getResultList();
 		
-		try (Session s = App.sf().openSession()) {
-			categories = s.createNamedQuery("getAllCategories", Category.class)
-				.setParameter("user", App.getCurrentUser().getID()).getResultList();
-//			s.refresh(timePeriod);
-		}
 		HashMap<Integer, Boolean> openMap = new HashMap<>();
 		for(TreeItem<ExpenseTreeTableItem> it : troot.getChildren()) {
 			var val = (CategoryIntermediate) it.getValue();
@@ -230,13 +240,11 @@ public class ExpenseTableController implements Initializable {
 	}
 	
 	public void updateSubtotal() {
-		double actualTotal = 0d;
+		double actualTotal = getActualExpense();
+		double projectedTotal = getProjectedExpense();
 		double difference = 0d;
-		double projectedTotal = 0d;
 		for (var it : troot.getChildren()) {
-			actualTotal += it.getValue().getCost(timePeriod);
 			difference += it.getValue().difference(timePeriod);
-			projectedTotal += it.getValue().getProjectedCost(timePeriod);
 		}
 		totalDifference.getStyleClass().clear();
 		if(difference < 0) {
@@ -269,7 +277,7 @@ public class ExpenseTableController implements Initializable {
 				};
 			}
 		};
-		service.setPeriod(Duration.seconds(1));
+		service.setPeriod(Duration.millis(500));
 		service.start();
 	}
 	@FXML
@@ -295,16 +303,23 @@ public class ExpenseTableController implements Initializable {
 			App.doWork(x -> {
 				x.persist(expense);
 			});
-			ExpenseInstance ei = new ExpenseInstance();
-			ei.setExpense(expense);
-			ei.setMonth(timePeriod);
-			App.doWork(x -> {
-				x.persist(ei);
-			});
+			var tps = App.s().createNamedQuery("timePeriodsForYear", TimePeriod.class)
+				.setParameter("uid", App.getCurrentUser().getID())
+				.setParameter("year", timePeriod.getYear()).getResultList();
+			for (TimePeriod tp : tps) {
+				ExpenseInstance ei = new ExpenseInstance();
+				ei.setExpense(expense);
+				ei.setMonth(tp);
+				App.doWork(x -> {
+					x.persist(ei);
+				});
+			}
 			updateRows();
 		}
 	}
-	
+
+
+
 	@FXML
 	public void addCategory(ActionEvent event) {
 		TextInputDialog dialog = new TextInputDialog();
@@ -326,3 +341,6 @@ public class ExpenseTableController implements Initializable {
 		}
 	}
 }
+
+
+

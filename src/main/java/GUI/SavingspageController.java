@@ -2,9 +2,13 @@ package GUI;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import models.TimePeriod;
+
+import java.io.IOException;
 
 //import javax.swing.*;
 
@@ -23,7 +27,7 @@ public class SavingspageController {
 	TextField tfActualSavings;
 
 	@FXML
-	private void initialize() {
+	public void initialize() {
 		// Set tfActualSavings non-editable
 		tfActualSavings.setEditable(false);
 	}
@@ -32,9 +36,25 @@ public class SavingspageController {
 	Label lblSavingsGoalStatus;
 
 	@FXML
-	private void initialize2() {
+	public void initialize2() {
 		// Initialize the label color to black
 		lblSavingsGoalStatus.setStyle("-fx-text-fill: black;");
+	}
+
+	@FXML
+	private void changePage(ActionEvent event) {
+		event.consume();
+		try {
+			FXMLLoader loader = App.loadFXML("ExpenseTable");
+			Parent p = loader.load();
+			ExpenseTableController controller = loader.getController();
+			controller.setFields(TimePeriod.generateNewMonth());
+			App.setCurrentScene(p);
+		} catch(IOException err) {
+			System.err.println("Couldn't change scene: " + err.toString());
+			err.printStackTrace();
+			return;
+		}
 	}
 
 	@FXML
