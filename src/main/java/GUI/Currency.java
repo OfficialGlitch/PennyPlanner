@@ -2,10 +2,11 @@ package GUI;
 
 public enum Currency {
 	INR("rupee",1),
-	USD("dollar", 62),
+	USD("dollar", 82.87),
 	GBP("pound", 85.86),
 	EUR("euro", 76.71),
-	YEN("yen",1.74);
+	CAD("cad dollar",61.06);
+
 
 
 

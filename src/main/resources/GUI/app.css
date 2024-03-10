@@ -1,24 +1,23 @@
-.root
-{
-	-fx-background-image:url("../images/bg.jpg");
-}
 
 
-.label
-{
-	-fx-font-family: "Bookman Old Style";
-	-fx-font-size: 15px;
-	-fx-text-fill: red;
-	-fx-font-weight: bold;
-}
+
 
 .button
 {
 	-fx-text-fill: white;
-	-fx-background-color: rgb(26,227,183);
+	-fx-background-color: rgb(64,224,208);
 }
 
 .button:hover
 {
-	-fx-background-color: rgb(44,33,226);
+	-fx-background-color: rgb(64,224,208);
 }
+.label
+{
+	-fx-font-family: "Roboto";
+	-fx-font-size: 15px;
+	-fx-text-fill: rgb(64,224,208);
+	-fx-font-weight: bold;
+}
+
+

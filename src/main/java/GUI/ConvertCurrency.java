@@ -11,12 +11,14 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.util.converter.DoubleStringConverter;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
-public class dropdwon implements Initializable {
+public class ConvertCurrency implements Initializable {
 
 	@FXML
 	private ComboBox<Currency> outputCurrencyComboBox;
@@ -67,16 +69,39 @@ public class dropdwon implements Initializable {
 
 	@FXML
 	private void convertAction(ActionEvent actionEvent) {
-		Currency inputCurrency = inputCurrencyComboBox.getValue();
-		Currency outputCurrency = outputCurrencyComboBox.getValue();
-		double inputValue;
-		if (!inputAmount.getText().equals("") && isNumeric(inputAmount.getText())) {
-			inputValue = DOUBLE_STRING_CONVERTER.fromString(inputAmount.getText());
-			double inputValueInDollars = inputValue * inputCurrency.getRupeeConversionRate();
-			double outputValue = inputValueInDollars / outputCurrency.getRupeeConversionRate();
-			outputAmount.setText(CURRENCY_FORMAT.format(outputValue));
+		if (actionEvent != null || (actionEvent == null && autoCheckBoxButton.isSelected())) {
+			Currency inputCurrency = inputCurrencyComboBox.getValue();
+			Currency outputCurrency = outputCurrencyComboBox.getValue();
+			double inputValue = 0;
+			boolean validInput = true;
+
+			if (!inputAmount.getText().isEmpty() && isNumeric(inputAmount.getText())) {
+				inputValue = DOUBLE_STRING_CONVERTER.fromString(inputAmount.getText());
+				if (inputValue < 0) {
+					validInput = false;
+					showAlert("Invalid Input", "Please enter a positive number.");
+					return;
+				}
+			} else if (!inputAmount.getText().isEmpty()) { // Only show alert if the field is not empty
+				validInput = false;
+				showAlert("Invalid Input", "Please enter a numeric value.");
+				return;
+			}
+
+			if (validInput) {
+				double inputValueInRupees = inputValue * inputCurrency.getRupeeConversionRate();
+				double outputValue = inputValueInRupees / outputCurrency.getRupeeConversionRate();
+				outputAmount.setText(CURRENCY_FORMAT.format(outputValue));
+			}
 		}
 	}
+	private void showAlert(String title, String content) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle(title);
+			alert.setHeaderText(null);
+			alert.setContentText(content);
+			alert.showAndWait();
+		}
 
 	@FXML
 	private void clearAction(ActionEvent actionEvent) {
