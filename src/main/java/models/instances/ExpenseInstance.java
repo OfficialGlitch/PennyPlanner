@@ -23,7 +23,13 @@ import org.hibernate.annotations.NamedQuery;
 	@NamedQuery(name = "getExpenseInstancesForExpenseType", query = "select e from expenses e " +
 		"full join e.expense ec " +
 		"full join e.month em " +
-		"where em.ID = :curMonth and ec.ID = :curEID")
+		"where em.ID = :curMonth and ec.ID = :curEID"),
+	@NamedQuery(name = "getExpensesForTimePeriod", query = "select e from expenses e " +
+		"full join e.month em " +
+		"full join e.expense as ee " +
+		"full join ee.category as ec " +
+		"full join ec.user as iU " +
+		"where em.ID = :month and iU.ID = :user")
 })
 public class ExpenseInstance implements ExpenseTreeTableItem {
 	public final IntegerProperty ID = new SimpleIntegerProperty();
