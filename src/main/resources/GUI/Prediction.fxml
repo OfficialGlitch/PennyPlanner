@@ -17,10 +17,22 @@
 
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.PredictionController">
     <children>
+			<Pane focusTraversable="true" prefHeight="480.0" prefWidth="640.0">
+				<children>
+					<LineChart fx:id="LineChart" layoutX="264.0" layoutY="143.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="323.0" prefWidth="362.0">
+						<xAxis>
+							<CategoryAxis fx:id="xAxis" side="BOTTOM" />
+						</xAxis>
+						<yAxis>
+							<NumberAxis side="LEFT" />
+						</yAxis>
+					</LineChart>
+				</children>
+			</Pane>
+          <!-- Border Pane -->
+          <Pane focusTraversable="true" prefHeight="26.0" prefWidth="523.0" style="-fx-background-color: #40E0D0;" />
         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <!-- Border Pane -->
-                <Pane prefHeight="26.0" prefWidth="523.0" style="-fx-background-color: #40E0D0;" />
 
                 <!-- Rest of the content -->
                 <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="130.0" prefWidth="230.0" text="Future Compound" textAlignment="CENTER">
@@ -91,17 +103,6 @@
                 </GridPane>
             </children>
         </VBox>
-        <Pane prefHeight="480.0" prefWidth="640.0">
-            <children>
-                <LineChart fx:id="LineChart" layoutX="264.0" layoutY="143.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="323.0" prefWidth="362.0">
-                    <xAxis>
-                        <CategoryAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                        <NumberAxis side="LEFT" />
-                    </yAxis>
-                </LineChart>
-            </children>
-        </Pane>
+
     </children>
 </AnchorPane>

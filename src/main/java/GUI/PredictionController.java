@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
@@ -33,11 +34,15 @@ public class PredictionController {
     @FXML
     private javafx.scene.chart.LineChart<String, Number> LineChart;
 
+		@FXML
+		private CategoryAxis xAxis;
+
     @FXML
     public void initialize() {
         // Set tfActualSavings non-editable
 //		tfActualSavings.setEditable(false);
     }
+
 
     @FXML
     Label lblSavingsGoalStatus;
@@ -52,7 +57,10 @@ public class PredictionController {
     void calculateCompound(ActionEvent event) {
         try {
 
-            double principal = Double.parseDouble(Amount.getText()); // Initial principal balance
+					xAxis.setAutoRanging(true);
+
+
+						double principal = Double.parseDouble(Amount.getText()); // Initial principal balance
             double annualInterestRate = Double.parseDouble(Interest.getText()); // Annual interest rate (5%)
             int years = Integer.parseInt(Years.getText());; // Number of years
             int months = Integer.parseInt(Months.getText());; // Number of years
@@ -60,9 +68,10 @@ public class PredictionController {
             double monthlyAddition = Double.parseDouble(MonthlyAdd.getText());; // Monthly addition to the principal balance
 
             double r = annualInterestRate / 12; // Monthly interest rate
+
             XYChart.Series<String, Number> series1 = new XYChart.Series<>();
-            series1.setName("Compound");
-            double futureValue = principal;
+						series1.setName("Compound");
+						double futureValue = principal;
             for (int i=0;i<years * 12 + months; i++){
                 futureValue = futureValue * (1 + r) + monthlyAddition;
 
@@ -72,7 +81,6 @@ public class PredictionController {
             }
             LineChart.getData().add(series1);
 
-            int n = years * 12 + months; // Total number of compounding periods
 
 
 

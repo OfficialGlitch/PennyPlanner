@@ -107,18 +107,15 @@ public class PortfolioController {
 		series2.getData().add(new XYChart.Data<>(category, value));
 		series2.setName("Holdings");
 		BarChart.getData().add(series2);
+		BarChart.setLegendVisible(false);
 //
 	}
 
 	public void addPointToLineChart(String xValue, Number yValue, String type) {
-//		XYChart.Series<String, Number> expensesSeries = (XYChart.Series<String, Number>) LineChart.getData().get(0);
 		XYChart.Series<String, Number> series = new XYChart.Series<>();
 		series.getData().add(new XYChart.Data<>(xValue, yValue));
 		LineChart.getData().add(series);
 
-//		XYChart.Data<String, Number> newDataPoint = expensesSeries.getData().get(expensesSeries.getData().size() - 1);
-//		expensesSeries.getNode().setStyle("-fx-stroke: transparent;");
-//		newDataPoint.getNode().setStyle("-fx-background-color: red;");
 
 	}
 		@FXML
@@ -149,7 +146,8 @@ public class PortfolioController {
 
 
         XYChart.Series<String, Number> series1 = new XYChart.Series<>();
-        series1.setName("Gains2");
+				LineChart.setLegendVisible(false);
+        series1.setName("Gains");
         series1.getData().add(new XYChart.Data<>("0", 0));
         LineChart.getData().add(series1);
 
