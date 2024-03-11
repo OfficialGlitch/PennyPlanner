@@ -1,13 +1,25 @@
 package models.instances;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.ForeignKey;
 import javafx.beans.property.*;
 import models.money.*;
 import models.*;
 
+import org.hibernate.annotations.*;
 import jakarta.persistence.*;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 
 @Entity(name = "incomes")
 @Access(AccessType.PROPERTY)
+@NamedQueries({
+	@NamedQuery(name = "getIncomesForTimePeriod", query = "select i from incomes i " +
+		"full join i.incomeSource as iS " +
+		"full join i.month as iM " +
+		"full join iS.user as iU " +
+		"where iM.ID = :month and iU.ID = :user")
+})
 public class IncomeInstance {
 	public final IntegerProperty ID = new SimpleIntegerProperty();
 	
@@ -46,7 +58,9 @@ public class IncomeInstance {
 		this.month.set(month);
 	}
 	
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(unique = false)
+	@PrimaryKeyJoinColumn(name = "IncomeSource_ID", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 	public Income getIncomeSource() {
 		return incomeSource.get();
 	}

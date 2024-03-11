@@ -44,7 +44,7 @@ public class App extends Application {
 			DataGenerator.generate();
 		FXMLLoader rootLoader = loadFXML("Root");
 		root = rootLoader.load();
-		var scene = new Scene(root, 600, 400);
+		var scene = new Scene(root, 900, 700);
 		scene.setUserAgentStylesheet(getClass().getResource("style.css").toString());
 		Parent p = loadFXML("Login").load();
 		root.getChildren().add(p);
@@ -81,7 +81,7 @@ public class App extends Application {
 		var current = root.getChildren().getFirst();
 		
 		parent.translateXProperty().set(root.getWidth());
-		root.getChildren().addFirst(parent);
+		root.getChildren().add(parent);
 		
 		var keyValue = new KeyValue(parent.translateXProperty(), 0, Interpolator.LINEAR);
 		var keyFrame = new KeyFrame(Duration.millis(500), keyValue);
