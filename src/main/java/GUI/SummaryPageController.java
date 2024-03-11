@@ -19,6 +19,7 @@ import javafx.scene.paint.Color;
 import models.Category;
 import models.TimePeriod;
 import models.instances.ExpenseInstance;
+import models.instances.IncomeInstance;
 import org.hibernate.Session;
 
 import java.io.IOException;
@@ -40,11 +41,26 @@ public class SummaryPageController implements Initializable{
 	public void setup(TimePeriod tp) {
 		this.timePeriod = tp;
 		initialize(null, null);
-		//addStubData();
 		setupData();
 	}
 
 	private void setupData(){
+//		TimePeriod timePeriod1 = App.s().createNamedQuery("findTimePeriod", TimePeriod.class)
+//			.setParameter("month", 1) // replace this with the current month
+//			.setParameter("year", 2024) // replace this with the current year
+//			.setParameter("uid", App.getCurrentUser().getID()).getSingleResultOrNull();
+//
+//		// get list of expenses for time period
+//		List<ExpenseInstance> results = App.s().createNamedQuery("getExpensesForTimePeriod", ExpenseInstance.class)
+//			.setParameter("month", timePeriod1.getID())
+//			.setParameter("user", App.getCurrentUser().getID())
+//			.getResultList();
+//
+//		// get list of incomes for time period
+//		List<IncomeInstance> incomeResults = App.s().createNamedQuery("getIncomesForTimePeriod", IncomeInstance.class)
+//			.setParameter("month", timePeriod1.getID())
+//			.setParameter("user", App.getCurrentUser().getID()).getResultList();
+
 		List<Category> categories;
 		List<TreeItem<ExpenseTreeTableItem>> items = new ArrayList<>();
 
@@ -66,8 +82,23 @@ public class SummaryPageController implements Initializable{
 			for (ExpenseInstance eI : expenseInstances){
 				categoryTotal += eI.cost.get();
 			}
-			addPointToLineChart(name, categoryTotal, "E");
-			addDataToPieChart(name, categoryTotal, "E");
+			if (categoryTotal != 0){
+				addPointToLineChart(name, categoryTotal, "E");
+				addDataToPieChart(name, categoryTotal, "E");
+			}
+
+		}
+
+		List<IncomeInstance> incomes = App.s().createNamedQuery("getIncomesForTimePeriod", IncomeInstance.class)
+			.setParameter("month", timePeriod.getID())
+			.setParameter("user", App.getCurrentUser().getID()).getResultList();
+
+		for (IncomeInstance i : incomes){
+			if (i.getAmount() != 0){
+				String name = i.getIncomeSource().getName();
+				addPointToLineChart(name, i.getAmount(), "I");
+				addDataToPieChart(name, i.getAmount(), "I");
+			}
 		}
 	}
 
@@ -75,6 +106,7 @@ public class SummaryPageController implements Initializable{
 		//LineGraph
 		expenses = new XYChart.Series<>();
 		expenses.setName("Expenses");
+		LineGraph.getData().clear();
 		LineGraph.getData().add(expenses);
 
 		income = new XYChart.Series<>();
@@ -94,7 +126,7 @@ public class SummaryPageController implements Initializable{
 			expensesSeries.getNode().setStyle("-fx-stroke: transparent;");
 			newDataPoint.getNode().setStyle("-fx-background-color: red;");
 
-			Tooltip tooltip = new Tooltip("X: " + xValue + ", Y: " + yValue);
+			Tooltip tooltip = new Tooltip(xValue + ", : -$" + yValue);
 			Tooltip.install(newDataPoint.getNode(), tooltip);
 
 			//expensesSeries.getNode().setStyle("-fx-stroke: red;");
@@ -105,7 +137,7 @@ public class SummaryPageController implements Initializable{
 			XYChart.Data<String, Number> newDataPoint = incomeSeries.getData().get(incomeSeries.getData().size() - 1);
 			newDataPoint.getNode().setStyle("-fx-background-color: green;");
 
-			Tooltip tooltip = new Tooltip("X: " + newDataPoint.getXValue() + ", Y: " + newDataPoint.getYValue());
+			Tooltip tooltip = new Tooltip(xValue + ", : +$" + yValue);
 			Tooltip.install(newDataPoint.getNode(), tooltip);
 			//incomeSeries.getNode().setStyle("-fx-stroke: green;");
 		}
@@ -196,11 +228,46 @@ public class SummaryPageController implements Initializable{
 		//LineGraph
 		expenses = new XYChart.Series<>();
 		expenses.setName("Expenses");
+		LineGraph.getData().clear();
 		LineGraph.getData().add(expenses);
 
 		income = new XYChart.Series<>();
 		income.setName("Income");
 		LineGraph.getData().add(income);
+
+		if (timePeriod != null){
+			String month = null;
+			int monthNum = timePeriod.getMonth();
+			if (monthNum == 1){
+				month = "January";
+			}else if (monthNum == 2){
+				month = "February";
+			}else if (monthNum == 3){
+				month = "March";
+			}else if (monthNum == 4){
+				month = "April";
+			}else if (monthNum == 5){
+				month = "May";
+			}else if (monthNum == 6){
+				month = "June";
+			}else if (monthNum == 7){
+				month = "July";
+			}else if (monthNum == 8){
+				month = "August";
+			}else if (monthNum == 9){
+				month = "September";
+			}else if (monthNum == 10){
+				month = "October";
+			}else if (monthNum == 11){
+				month = "November";
+			}else if (monthNum == 12){
+				month = "December";
+			}
+
+			PieChart.getData().clear();
+			PieChart.titleProperty().set("Spending for: " + month);
+		}
+
 
 		LineGraph.setLegendVisible(false);
 		PieChart.setLegendVisible(false);
