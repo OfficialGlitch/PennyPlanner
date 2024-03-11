@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -70,6 +71,10 @@ public class LoginController implements Initializable {
 				return;
 			}
 		}
+
+		public void registerNavigation(ActionEvent ae) {
+
+	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
