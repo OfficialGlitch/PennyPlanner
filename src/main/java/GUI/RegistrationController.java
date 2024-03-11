@@ -29,7 +29,13 @@ public class RegistrationController {
 
 	@FXML
 	private void handleRegisterAction(ActionEvent event) {
-
+		// Validate input fields (this is just an example, expand according to your needs)
+		if (usernameTextField.getText().isEmpty() || passwordField.getText().isEmpty() ||
+			countryTextField.getText().isEmpty() || nameTextField.getText().isEmpty() ||
+			emailTextField.getText().isEmpty()) {
+			errorMessage.setText("Please fill in all fields.");
+			return;
+		}
 
 	}
 
