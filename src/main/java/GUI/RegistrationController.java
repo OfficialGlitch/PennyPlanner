@@ -1,10 +1,12 @@
 package GUI;
 
+import jakarta.persistence.NoResultException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import models.money.User;
 
 import java.awt.event.ActionEvent;
 
@@ -29,13 +31,20 @@ public class RegistrationController {
 
 	@FXML
 	private void Register(ActionEvent event) {
-		if (usernameTextField.getText().isEmpty() || passwordField.getText().isEmpty() ||
-			countryTextField.getText().isEmpty() || nameTextField.getText().isEmpty() ||
-			emailTextField.getText().isEmpty()) {
-			errorMessage.setText("Please fill in all fields.");
-			return;
+
+		try {
+			// Attempt to retrieve a user by username
+			User existingUser = App.s().createNamedQuery("UserByUsername", User.class)
+				.setParameter("username", username)
+				.getSingleResult();
+			// If a user is found, return true indicating the user already exists
+			return existingUser != null;
+		} catch (NoResultException e) {
+			// No user was found with the given username, return false
+			return false;
 		}
 	}
+
 	private void Back(ActionEvent event) {
 
 	}
