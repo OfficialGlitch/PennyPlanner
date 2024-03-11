@@ -62,8 +62,8 @@ public class PredictionController {
 
 						double principal = Double.parseDouble(Amount.getText()); // Initial principal balance
             double annualInterestRate = Double.parseDouble(Interest.getText()); // Annual interest rate (5%)
-            int years = Integer.parseInt(Years.getText());; // Number of years
-            int months = Integer.parseInt(Months.getText());; // Number of years
+            int years = Integer.parseInt(Years.getText()); // Number of years
+            int months = Integer.parseInt(Months.getText()); // Number of years
 
             double monthlyAddition = Double.parseDouble(MonthlyAdd.getText());; // Monthly addition to the principal balance
 
