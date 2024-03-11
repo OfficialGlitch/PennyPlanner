@@ -39,7 +39,7 @@
 								<Font name="System Bold" size="12.0" />
 							</font>
 						</Button>
-						<TableView fx:id="loanDetailsTableView" editable="true" layoutX="44.0" layoutY="116.0" prefHeight="283.0" prefWidth="558.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+						<TableView fx:id="loanDetailsTableView" editable="true" layoutX="44.0" layoutY="116.0" prefHeight="283.0" prefWidth="700.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
 							<columns>
 
 							</columns>
