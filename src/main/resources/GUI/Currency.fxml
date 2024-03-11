@@ -15,71 +15,71 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="283.0" prefWidth="445.0" stylesheets="@app3.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="converter.Controller">
+<AnchorPane prefHeight="283.0" prefWidth="445.0" stylesheets="GUI/app.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ConvertCurrency">
 	<children>
 		<VBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<children>
-				<Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="101.0" prefWidth="425.0" stylesheets="@app2.css" text="CURRENCY CONVERTER" textAlignment="CENTER" textFill="#3b1b86" textOverrun="CENTER_ELLIPSIS">
+				<Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="101.0" prefWidth="425.0" stylesheets="@GUI/app.css" text="CURRENCY CONVERTER" textAlignment="CENTER" textFill="#3b1b86" textOverrun="CENTER_ELLIPSIS">
 					<font>
-						<Font name="YuMincho Medium" size="62.0" />
+						<Font name="Roboto" size="62.0" />
 					</font>
 				</Label>
-				<HBox alignment="BOTTOM_CENTER" prefHeight="150.0" prefWidth="425.0" spacing="5.0" stylesheets="@app.css">
+				<HBox alignment="BOTTOM_CENTER" prefHeight="150.0" prefWidth="425.0" spacing="5.0" stylesheets="@GUI/app.css">
 					<children>
 						<Label prefHeight="19.0" prefWidth="101.0" text="Input Amount:">
 							<font>
-								<Font name="System Bold Italic" size="24.0" />
+								<Font name="Roboto" size="24.0" />
 							</font></Label>
 						<TextField id="inputAmount" fx:id="inputAmount" prefWidth="80.0" />
 						<ComboBox id="inputCurrencyComboBox" fx:id="inputCurrencyComboBox" prefHeight="26.0" prefWidth="96.0" promptText="Currency">
-                     <effect>
-                        <ColorAdjust brightness="0.35" contrast="0.09" hue="0.14" />
-                     </effect></ComboBox>
+							<effect>
+								<ColorAdjust brightness="0.35" contrast="0.09" hue="0.14" />
+							</effect></ComboBox>
 					</children>
 				</HBox>
-				<HBox alignment="CENTER" prefHeight="104.0" prefWidth="421.0" spacing="5.0" stylesheets="@app.css">
+				<HBox alignment="CENTER" prefHeight="104.0" prefWidth="421.0" spacing="5.0" stylesheets="@GUI/app.css">
 					<children>
 						<Label prefHeight="19.0" prefWidth="110.0" text="Output Amount:">
 							<font>
-								<Font name="Bookman Old Style" size="16.0" />
+								<Font name="Roboto" size="16.0" />
 							</font></Label>
 						<TextField id="outputAmount" fx:id="outputAmount" editable="false" prefWidth="80.0" />
 						<ComboBox id="outputCurrencyComboBox" fx:id="outputCurrencyComboBox" prefHeight="26.0" prefWidth="100.0" promptText="Currency">
-                     <effect>
-                        <ColorAdjust brightness="0.35" contrast="0.09" />
-                     </effect></ComboBox>
+							<effect>
+								<ColorAdjust brightness="0.35" contrast="0.09" />
+							</effect></ComboBox>
 					</children>
 				</HBox>
-				<HBox alignment="CENTER" prefHeight="105.0" prefWidth="425.0" spacing="10.0" stylesheets="@app.css">
+				<HBox alignment="CENTER" prefHeight="105.0" prefWidth="425.0" spacing="10.0" stylesheets="@GUI/app.css">
 					<children>
 						<Button id="convertButton" fx:id="convertButton" defaultButton="true" mnemonicParsing="false" onAction="#convertAction" text="Convert">
-                     <textFill>
-                        <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-                           <stops>
-                              <Stop>
-                                 <color>
-                                    <Color />
-                                 </color>
-                              </Stop>
-                              <Stop offset="1.0">
-                                 <color>
-                                    <Color red="1.0" green="1.0" blue="1.0" />
-                                 </color>
-                              </Stop>
-                           </stops>
-                        </RadialGradient>
-                     </textFill></Button>
+							<textFill>
+								<RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+									<stops>
+										<Stop>
+											<color>
+												<Color />
+											</color>
+										</Stop>
+										<Stop offset="1.0">
+											<color>
+												<Color red="1.0" green="1.0" blue="1.0" />
+											</color>
+										</Stop>
+									</stops>
+								</RadialGradient>
+							</textFill></Button>
 						<Button id="clearButton" fx:id="clearButton" cancelButton="true" mnemonicParsing="false" onAction="#clearAction" text="Clear" />
 					</children>
 					<VBox.margin>
 						<Insets />
 					</VBox.margin>
 				</HBox>
-				<HBox alignment="CENTER" prefHeight="43.0" prefWidth="425.0" stylesheets="@app.css">
+				<HBox alignment="CENTER" prefHeight="43.0" prefWidth="425.0" stylesheets="@GUI/app.css">
 					<children>
 						<CheckBox id="autoCheckBoxButton" fx:id="autoCheckBoxButton" mnemonicParsing="false" onAction="#switchAutomaticConversion" text="Automatic Conversion:" textFill="#0f7509">
 							<font>
-								<Font name="Bookman Old Style Bold" size="13.0" />
+								<Font name="Roboto" size="13.0" />
 							</font>
 						</CheckBox>
 					</children>
@@ -94,3 +94,4 @@
 		</VBox>
 	</children>
 </AnchorPane>
+

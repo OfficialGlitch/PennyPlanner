@@ -40,10 +40,10 @@ public class MainPageController implements Initializable {
 	private Tab summaryTab;
 	@FXML
 	private Tab expenseIncomeTab;
+	@FXML
+	private ConvertCurrency currencyConverterController;
 	
 	private int year = Calendar.getInstance().get(Calendar.YEAR);
-	
-	@FXML
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initTabs();
