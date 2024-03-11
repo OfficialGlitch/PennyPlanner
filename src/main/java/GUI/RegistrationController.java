@@ -6,6 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import java.awt.event.ActionEvent;
+
 public class RegistrationController {
 	@FXML
 	public TextField usernameTextField;
@@ -23,4 +25,12 @@ public class RegistrationController {
 	public TextField nameTextField;
 	@FXML
 	public TextField emailTextField;
+
+
+	@FXML
+	private void handleRegisterAction(ActionEvent event) {
+
+
+	}
+
 }
