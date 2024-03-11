@@ -28,7 +28,7 @@ public class RegistrationController {
 
 
 	@FXML
-	private void handleRegisterAction(ActionEvent event) {
+	private void Register(ActionEvent event) {
 		if (usernameTextField.getText().isEmpty() || passwordField.getText().isEmpty() ||
 			countryTextField.getText().isEmpty() || nameTextField.getText().isEmpty() ||
 			emailTextField.getText().isEmpty()) {
