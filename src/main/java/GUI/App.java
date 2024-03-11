@@ -34,7 +34,7 @@ import java.util.function.Consumer;
  * JavaFX App
  */
 public class App extends Application {
-	
+
 	private static StackPane root;
 
 	@Override
@@ -74,15 +74,15 @@ public class App extends Application {
 		}
 		currentUser = newUser;
 	}
-	
+
 	public static void setCurrentScene(Parent parent) {
 		parent.getStylesheets().clear();
 		parent.getStylesheets().add(Objects.requireNonNull(App.class.getResource("style.css")).toExternalForm());
 		var current = root.getChildren().getFirst();
-		
+
 		parent.translateXProperty().set(root.getWidth());
 		root.getChildren().add(parent);
-		
+
 		var keyValue = new KeyValue(parent.translateXProperty(), 0, Interpolator.LINEAR);
 		var keyFrame = new KeyFrame(Duration.millis(500), keyValue);
 		var timeline = new Timeline(keyFrame);
@@ -93,21 +93,21 @@ public class App extends Application {
 //		scene.setRoot(parent);
 //		stage.setScene(scene);
 	}
-	
+
 	public static Session s() {
 		if (sessionFactory == null) {
 			final Configuration configuration = new Configuration()
-					.addAnnotatedClass(User.class)
-					.addAnnotatedClass(Expense.class)
-					.addAnnotatedClass(ExpenseInstance.class)
-					.addAnnotatedClass(Income.class)
-					.addAnnotatedClass(IncomeInstance.class)
-					.addAnnotatedClass(TimePeriod.class)
-					.addAnnotatedClass(Category.class);
+				.addAnnotatedClass(User.class)
+				.addAnnotatedClass(Expense.class)
+				.addAnnotatedClass(ExpenseInstance.class)
+				.addAnnotatedClass(Income.class)
+				.addAnnotatedClass(IncomeInstance.class)
+				.addAnnotatedClass(TimePeriod.class)
+				.addAnnotatedClass(Category.class);
 //			var props = configuration.getProperties();
 			sessionFactory = configuration.buildSessionFactory(
-					new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()
-					).build());
+				new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()
+				).build());
 		}
 		if(session == null || ((SessionImpl) session).isClosed()) {
 			Session openedSession = sessionFactory.openSession();

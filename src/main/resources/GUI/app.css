@@ -1,0 +1,23 @@
+
+
+
+
+.button
+{
+	-fx-text-fill: white;
+	-fx-background-color: rgb(64,224,208);
+}
+
+.button:hover
+{
+	-fx-background-color: rgb(64,224,208);
+}
+.label
+{
+	-fx-font-family: "Roboto";
+	-fx-font-size: 15px;
+	-fx-text-fill: rgb(64,224,208);
+	-fx-font-weight: bold;
+}
+
+
