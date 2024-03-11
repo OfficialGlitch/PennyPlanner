@@ -327,3 +327,11 @@ Ahmed: merged some user stories to main.
 Ahmed: Worked on presentation slides and assigning parts to members.
 Ahmed: Fixed members github conflicts and issues, as well different members environments
 to make it compatible for everyone.
+
+March 1, 2024 - 1:00pm - 6:00pm:
+Ahmed: worked on the design or interactivity of the application.
+Ahmed: Designed the Registration page off coding plateform to match the current application design.
+
+March 10, 2024 - 10:00pm - 1:00am
+Kennie: Worked on the ITR2 document
+Ahmed: Worked on the ITR2 document
