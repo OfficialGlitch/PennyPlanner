@@ -59,11 +59,15 @@ public class PortfolioController {
 
 	public void setup(TimePeriod tp) {
 		this.timePeriod = tp;
-		setupData();
+		LineChart.getData().clear();
+		BarChart.getData().clear();
 		initialize();
+		setupData();
 
 	}
 	private void setupData(){
+
+
 		List<Category> categories;
 		List<TreeItem<ExpenseTreeTableItem>> items = new ArrayList<>();
 
@@ -82,7 +86,7 @@ public class PortfolioController {
 			if(name.equals("Investments")){
 				List<ExpenseInstance> expenseInstances = App.s().createNamedQuery("getExpenseInstancesForCategory", ExpenseInstance.class)
 					.setParameter("tp", timePeriod.ID.get()).setParameter("cat", cat.ID.get()).getResultList();
-
+				System.out.println(this.timePeriod.getMonth());
 				for (ExpenseInstance eI : expenseInstances){
 					String investmentName = eI.name();
 
@@ -92,7 +96,7 @@ public class PortfolioController {
 				}
 			}
 		}
-		addPointToLineChart(timePeriod.toString(), InvestmentTotal, "E");
+		addPointToLineChart(String.valueOf(this.timePeriod.getMonth()), InvestmentTotal, "E");
 		textChange(label1, Double.toString(InvestmentTotal));
 	}
 
@@ -103,29 +107,16 @@ public class PortfolioController {
 		series2.getData().add(new XYChart.Data<>(category, value));
 		series2.setName("Holdings");
 		BarChart.getData().add(series2);
+		BarChart.setLegendVisible(false);
 //
 	}
 
 	public void addPointToLineChart(String xValue, Number yValue, String type) {
-		if (type.equals("E")){
-			XYChart.Series<String, Number> expensesSeries = (XYChart.Series<String, Number>) LineChart.getData().get(0);
-			expensesSeries.getData().add(new XYChart.Data<>(xValue, yValue));
-
-			XYChart.Data<String, Number> newDataPoint = expensesSeries.getData().get(expensesSeries.getData().size() - 1);
-			expensesSeries.getNode().setStyle("-fx-stroke: transparent;");
-			newDataPoint.getNode().setStyle("-fx-background-color: red;");
+		XYChart.Series<String, Number> series = new XYChart.Series<>();
+		series.getData().add(new XYChart.Data<>(xValue, yValue));
+		LineChart.getData().add(series);
 
 
-			//expensesSeries.getNode().setStyle("-fx-stroke: red;");
-		}else {
-			XYChart.Series<String, Number> incomeSeries = (XYChart.Series<String, Number>) LineChart.getData().get(0);
-			incomeSeries.getData().add(new XYChart.Data<>(xValue, yValue));
-
-			XYChart.Data<String, Number> newDataPoint = incomeSeries.getData().get(incomeSeries.getData().size() - 1);
-			newDataPoint.getNode().setStyle("-fx-background-color: green;");
-
-			//incomeSeries.getNode().setStyle("-fx-stroke: green;");
-		}
 	}
 		@FXML
 		private void changePage(ActionEvent event) {
@@ -155,10 +146,9 @@ public class PortfolioController {
 
 
         XYChart.Series<String, Number> series1 = new XYChart.Series<>();
+				LineChart.setLegendVisible(false);
         series1.setName("Gains");
         series1.getData().add(new XYChart.Data<>("0", 0));
-//        series1.getData().add(new XYChart.Data<>("2", 300));
-//        series1.getData().add(new XYChart.Data<>("3", 400));
         LineChart.getData().add(series1);
 
         // Bar Chart

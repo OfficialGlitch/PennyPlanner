@@ -170,7 +170,8 @@ public class TimePeriod {
 				var categories = App.sf().openSession().createNamedQuery("getAllCategories", Category.class).setParameter("user", u.getID()).getResultList();
 				categories.forEach(c -> {
 //					sess.refresh(c);
-					var exps = App.sf().openSession().createNamedQuery("getExpensesForCategory", Expense.class).setParameter("cat", c.getID()).getResultList();
+					var exps = App.sf().openSession().createNamedQuery("getExpensesForCategory", Expense.class)
+						.setParameter("cat", c.getID()).getResultList();
 					
 					exps.forEach(e -> {
 						ExpenseInstance i = new ExpenseInstance();
@@ -188,7 +189,7 @@ public class TimePeriod {
 					tp.getIncomeSources().add(ii);
 				});
 				App.doWork(s -> {
-//				s.persist(tp);
+					s.persist(tp);
 				});
 			tx.commit();
 			return tp;
