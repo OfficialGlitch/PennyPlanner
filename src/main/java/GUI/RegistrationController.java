@@ -35,6 +35,8 @@ public class RegistrationController {
 			errorMessage.setText("Please fill in all fields.");
 			return;
 		}
+	}
+	private void Back(ActionEvent event) {
 
 	}
 
