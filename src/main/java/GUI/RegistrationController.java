@@ -32,21 +32,22 @@ public class RegistrationController {
 	@FXML
 	private void Register(ActionEvent event) {
 
-		try {
-			// Attempt to retrieve a user by username
-			User existingUser = App.s().createNamedQuery("UserByUsername", User.class)
-				.setParameter("username", username)
-				.getSingleResult();
-			// If a user is found, return true indicating the user already exists
-			return existingUser != null;
-		} catch (NoResultException e) {
-			// No user was found with the given username, return false
-			return false;
+		User existingUser = App.s().createNamedQuery("UserByUsername", User.class)
+			.setParameter("username", usernameTextField.getText())
+			.getSingleResultOrNull();
+
+		if (existingUser != null) {
+			// A user with this username already exists, so display an error message
+			errorMessage.setText("User already exists");
+			return; // Stop further registration processing
 		}
+
+
 	}
 
 	private void Back(ActionEvent event) {
 
 	}
+
 
 }
