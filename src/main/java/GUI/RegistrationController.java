@@ -1,5 +1,7 @@
 package GUI;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -57,6 +59,26 @@ public class RegistrationController {
 		user.setCountry(countryTextField.getText());
 
 
+		EntityManager em = App.s(); // Get the EntityManager
+		EntityTransaction transaction = em.getTransaction();
+
+		try {
+			transaction.begin();
+			em.persist(user);
+			transaction.commit();
+
+			// Provide feedback to the user
+			errorMessage.setText("Registration successful.");
+
+			// Optionally navigate to the login page or another page
+			login(event); // If you have a method to navigate back to the login page
+		} catch (Exception e) {
+			if (transaction.isActive()) {
+				transaction.rollback();
+			}
+			errorMessage.setText("Registration failed. Please try again.");
+			e.printStackTrace(); // Print the stack trace for debugging
+		}
 	}
 
 	private void login(ActionEvent event) {
