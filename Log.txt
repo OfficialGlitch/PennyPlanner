@@ -31,27 +31,6 @@ Extra features:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Friday, 2/04/2024 (Meeting Two):
 We've renamed the application to "PennyPlanner." We've got our GitHub repo up and running, and we're planning to use GitHub's Kanban for Agile methodology task management.
 
@@ -327,3 +306,20 @@ Ahmed: merged some user stories to main.
 Ahmed: Worked on presentation slides and assigning parts to members.
 Ahmed: Fixed members github conflicts and issues, as well different members environments
 to make it compatible for everyone.
+
+March 1, 2024 - 1:00pm - 6:00pm:
+Ahmed: worked on the design or interactivity of the application.
+Ahmed: Designed the Registration page off coding plateform to match the current application design.
+
+March 10, 2024 - 10:00pm - 1:00am
+Kennie: Worked on the ITR2 document
+Ahmed: Worked on the ITR2 document
+
+March 11, 2024 - 2:00pm - 5:30pm
+full team meeting including everymember to make the application function and work accordingly.
+
+March 11, 2024 - 2:00pm - 9:00pm
+Ahmed: Worked on the registration page.
+Ahmed: Completed the ITR2 document.
+Ahmed: Helped members with their user story functionality with the main.
+
