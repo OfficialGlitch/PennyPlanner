@@ -15,6 +15,8 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.Calendar;
+
 import static GUI.App.loadFXML;
 
 public class RegistrationController {
@@ -71,14 +73,23 @@ public class RegistrationController {
 			errorMessage.setText("Registration successful.");
 
 			// Optionally navigate to the login page or another page
-			login(event); // If you have a method to navigate back to the login page
-		} catch (Exception e) {
+			App.setCurrentUser(user);
+			try {
+				FXMLLoader loader = loadFXML("MainPage");
+				Parent p = loader.load();
+				MainPageController controller = loader.getController();
+				controller.setYear(Calendar.getInstance().get(Calendar.YEAR));
+				App.setCurrentScene(p);
+			} catch(IOException err) {
+				System.err.println("Couldn't change scene: " + err.toString());
+				err.printStackTrace();		} catch (Exception e) {
 			if (transaction.isActive()) {
 				transaction.rollback();
 			}
 			errorMessage.setText("Registration failed. Please try again.");
 			e.printStackTrace(); // Print the stack trace for debugging
 		}
+
 	}
 
 	private void login(ActionEvent event) {
