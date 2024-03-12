@@ -68,11 +68,9 @@ public class LoginController implements Initializable {
 				} catch(IOException err) {
 					System.err.println("Couldn't change scene: " + err.toString());
 					err.printStackTrace();
-					return;
 				}
 			} else {
 				errorMessage.setText("Wrong username or password");
-
 			}
 		}
 
