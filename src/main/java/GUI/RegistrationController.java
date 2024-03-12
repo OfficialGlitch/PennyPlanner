@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 import models.money.User;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.awt.event.ActionEvent;
+import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.util.Calendar;
 
@@ -39,7 +39,7 @@ public class RegistrationController {
 
 
 	@FXML
-	private void register(ActionEvent event) {
+	public void register(ActionEvent ae) {
 		if (usernameTextField.getText().isEmpty() || passwordField.getText().isEmpty() ||
 			emailTextField.getText().isEmpty() || nameTextField.getText().isEmpty() ||
 			countryTextField.getText().isEmpty()) {
@@ -48,7 +48,7 @@ public class RegistrationController {
 		}
 		User user = App.s().createNamedQuery("UserByUsername", User.class)
 			.setParameter("username", usernameTextField.getText()).getSingleResultOrNull();
-		if(user != null) {
+		if (user != null) {
 			errorMessage.setText("User already exists");
 			return;
 		}
@@ -80,9 +80,11 @@ public class RegistrationController {
 				MainPageController controller = loader.getController();
 				controller.setYear(Calendar.getInstance().get(Calendar.YEAR));
 				App.setCurrentScene(p);
-			} catch(IOException err) {
+			} catch (IOException err) {
 				System.err.println("Couldn't change scene: " + err.toString());
-				err.printStackTrace();		} catch (Exception e) {
+				err.printStackTrace();
+			}
+		} catch (Exception e) {
 			if (transaction.isActive()) {
 				transaction.rollback();
 			}
@@ -92,16 +94,17 @@ public class RegistrationController {
 
 	}
 
-	private void login(ActionEvent event) {
+	public void login(ActionEvent ae) {
 		try {
 			FXMLLoader loader = loadFXML("Login");
 			Parent p = loader.load();
 			App.setCurrentScene(p);
-		}catch (IOException e) {
+		} catch (IOException e) {
 			System.err.println("Error loading Login page: " + e);
 			e.printStackTrace();
 			errorMessage.setText("Error loading login page.");
 		}
 	}
+
 
 }
