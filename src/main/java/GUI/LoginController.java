@@ -80,7 +80,7 @@ public class LoginController implements Initializable {
 				Parent p = loader.load();
 				App.setCurrentScene(p);
 			}catch (IOException e) {
-				System.err.println("Error loading registration page: " + e.toString());
+				System.err.println("Error loading registration page: " + e);
 				e.printStackTrace();
 				errorMessage.setText("Error loading registration page.");
 			}
