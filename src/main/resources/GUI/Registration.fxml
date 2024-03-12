@@ -134,8 +134,8 @@
       								<Label fx:id="errorMessage" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="317.0" textFill="#f80000" />
                            </children>
 								</HBox>
-										<Button fx:id="backButton" mnemonicParsing="false" onAction="#login" style="-fx-background-color: #40E0D0;" text="Back" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-										<Button fx:id="registerButton" mnemonicParsing="false" style="-fx-background-color: #40E0D0;" text="Register" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+										<Button fx:id="loginButton" mnemonicParsing="false" onAction="#login" style="-fx-background-color: #40E0D0;" text="Login" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+										<Button fx:id="registerButton" mnemonicParsing="false" onAction="#register" style="-fx-background-color: #40E0D0;" text="Register" GridPane.columnIndex="2" GridPane.rowIndex="6" />
                         <Label alignment="CENTER" prefHeight="30.0" prefWidth="84.0" text="Country" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="12.0" />
