@@ -14,9 +14,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.converter.LocalDateStringConverter;
 import models.TimePeriod;
-
+import java.time.LocalDate;
 import java.io.*;
+import java.time.LocalDate;
 
 
 public class LoanController {
@@ -67,6 +71,29 @@ public class LoanController {
 		TableColumn<LoanInfo, Double> monthlyPaymentColumn = new TableColumn<>("Monthly Payment");
 		monthlyPaymentColumn.setCellValueFactory(cellData -> cellData.getValue().monthlyPaymentProperty().asObject());
 		monthlyPaymentColumn.setPrefWidth(168);
+
+		TableColumn<LoanInfo, LocalDate> startDateColumn = new TableColumn<>("Start Date");
+		startDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+		startDateColumn.setPrefWidth(120);
+		startDateColumn.setCellFactory(TextFieldTableCell.forTableColumn(new LocalDateStringConverter()));
+		startDateColumn.setOnEditCommit(event -> {
+			LoanInfo loan = event.getRowValue();
+			loan.setStartDate(event.getNewValue());
+			// Recalculate end date based on payment period and update table
+			LocalDate newEndDate = event.getNewValue().plusMonths(loan.getPaymentPeriod());
+			loan.setEndDate(newEndDate);
+			loanDetailsTableView.refresh();
+		});
+
+		TableColumn<LoanInfo, LocalDate> endDateColumn = new TableColumn<>("End Date");
+		endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+		endDateColumn.setPrefWidth(120);
+		endDateColumn.setCellFactory(TextFieldTableCell.forTableColumn(new LocalDateStringConverter()));
+
+
+		// Add the columns to the table view
+		loanDetailsTableView.getColumns().addAll(startDateColumn, endDateColumn);
+
 		// Load saved data if available
 		loadSavedData();
 		loanDetailsTableView.setItems(loanInfoList);
@@ -78,8 +105,6 @@ public class LoanController {
 
 
 		loanDetailsTableView.getColumns().addAll(loanAmountColumn, interestRateColumn, paymentPeriodColumn, monthlyPaymentColumn);
-
-
 
 		// Bind loanInfoList to TableView
 		loanDetailsTableView.setItems(loanInfoList);
@@ -107,6 +132,8 @@ public class LoanController {
 				deleteButton.setDisable(true);
 			}
 		});
+
+
 	}
 
 
@@ -131,8 +158,12 @@ public class LoanController {
 			int paymentPeriod = Integer.parseInt(paymentPeriodTextField.getText());
 
 			double monthlyPayment = calculateMonthlyPayment(loanAmount, interestRate, paymentPeriod);
+			// Get the current date for the start date
+			LocalDate startDate = LocalDate.now();
+			// Calculate the end date based on the payment period
+			LocalDate endDate = startDate.plusMonths(paymentPeriod);
 
-			LoanInfo newLoan = new LoanInfo(loanAmount, interestRate, paymentPeriod, monthlyPayment);
+			LoanInfo newLoan = new LoanInfo(loanAmount, interestRate, paymentPeriod, monthlyPayment, startDate, endDate);
 			loanInfoList.add(newLoan);
 
 			// Clear input fields after adding the loan
@@ -143,7 +174,6 @@ public class LoanController {
 			System.out.println("Invalid input. Please enter valid numeric values.");
 		}
 	}
-
 
 	@FXML
 	private void handleDeleteButton() {
@@ -181,7 +211,13 @@ public class LoanController {
 			double interestRate = Double.parseDouble(interestRateTextField.getText());
 			int paymentPeriod = Integer.parseInt(paymentPeriodTextField.getText());
 
-			LoanInfo newLoan = new LoanInfo(loanAmount, interestRate, paymentPeriod);
+			// Get the current date for the start date
+			LocalDate startDate = LocalDate.now();
+			// Calculate the end date based on the payment period
+			LocalDate endDate = startDate.plusMonths(paymentPeriod);
+
+
+			LoanInfo newLoan = new LoanInfo(loanAmount, interestRate, paymentPeriod,startDate, endDate);
 			loanDetailsTableView.getItems().add(newLoan);
 
 			System.out.println("Add button clicked");
@@ -204,6 +240,7 @@ public class LoanController {
 		int numberOfPayments = paymentPeriod * 12;
 		return (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -numberOfPayments));
 	}
+
 
 	private void loadSavedData() {
 

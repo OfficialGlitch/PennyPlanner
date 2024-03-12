@@ -5,55 +5,55 @@
 <?import javafx.scene.text.*?>
 
 
-		<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Loan.LoanController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Loan.LoanController">
+	<children>
+		<VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<children>
-      <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
 				<Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="102.0" text=" Loan Calculator">
-               <font>
-                  <Font name="System Bold" size="36.0" />
-               </font>
-            </Label>
-            <GridPane hgap="10.0" vgap="10.0" VBox.vgrow="ALWAYS">
-              <columnConstraints>
-                <ColumnConstraints hgrow="NEVER" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="15.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
-                  <ColumnConstraints hgrow="NEVER" maxWidth="123.20001220703125" minWidth="10.0" percentWidth="15.0" prefWidth="113.4000244140625" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="168.79998779296875" minWidth="10.0" prefWidth="168.79998779296875" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="62.600012207031256" minHeight="10.0" percentHeight="12.0" prefHeight="41.00000610351563" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="121.79996337890626" minHeight="3.399984741210943" percentHeight="12.0" prefHeight="67.39999389648438" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="251.4000152587891" minHeight="10.0" percentHeight="66.0" prefHeight="251.4000152587891" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="251.4000152587891" minHeight="10.0" percentHeight="10.0" prefHeight="251.4000152587891" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-      				<Label prefHeight="17.0" prefWidth="102.0" text=" Loan amount" />
-      				<TextField fx:id="loanAmountTextField" prefHeight="26.0" prefWidth="125.0" promptText="Enter loan amount" GridPane.columnIndex="1" />
-      				<Label text="Payment Period" textOverrun="WORD_ELLIPSIS" wrapText="true" GridPane.columnIndex="2" />
-      				<TextField fx:id="paymentPeriodTextField" prefHeight="26.0" prefWidth="118.0" promptText="Enter loan period" GridPane.columnIndex="3" />
-      				<Label text=" Interest rate" GridPane.rowIndex="1" />
-      				<TextField fx:id="interestRateTextField" prefHeight="26.0" prefWidth="125.0" promptText="Enter interest rate" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      				<Button fx:id="addButton" defaultButton="true" mnemonicParsing="false" onAction="#handleAddButton" prefWidth="70.0" text="Add" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-											 <TableView fx:id="loanDetailsTableView" editable="true" layoutX="44.0" layoutY="116.0" prefHeight="283.0" prefWidth="558.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
-												 <columns>
+					<font>
+						<Font name="System Bold" size="36.0" />
+					</font>
+				</Label>
+				<GridPane hgap="10.0" vgap="10.0" VBox.vgrow="ALWAYS">
+					<columnConstraints>
+						<ColumnConstraints hgrow="NEVER" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="15.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+						<ColumnConstraints hgrow="NEVER" maxWidth="123.20001220703125" minWidth="10.0" percentWidth="15.0" prefWidth="113.4000244140625" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="168.79998779296875" minWidth="10.0" prefWidth="168.79998779296875" />
+					</columnConstraints>
+					<rowConstraints>
+						<RowConstraints maxHeight="62.600012207031256" minHeight="10.0" percentHeight="12.0" prefHeight="41.00000610351563" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="121.79996337890626" minHeight="3.399984741210943" percentHeight="12.0" prefHeight="67.39999389648438" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="251.4000152587891" minHeight="10.0" percentHeight="66.0" prefHeight="251.4000152587891" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="251.4000152587891" minHeight="10.0" percentHeight="10.0" prefHeight="251.4000152587891" vgrow="SOMETIMES" />
+					</rowConstraints>
+					<children>
+						<Label prefHeight="17.0" prefWidth="102.0" text=" Loan amount" />
+						<TextField fx:id="loanAmountTextField" prefHeight="26.0" prefWidth="125.0" promptText="Enter loan amount" GridPane.columnIndex="1" />
+						<Label text="Payment Period" textOverrun="WORD_ELLIPSIS" wrapText="true" GridPane.columnIndex="2" />
+						<TextField fx:id="paymentPeriodTextField" prefHeight="26.0" prefWidth="118.0" promptText="Enter loan period" GridPane.columnIndex="3" />
+						<Label text=" Interest rate" GridPane.rowIndex="1" />
+						<TextField fx:id="interestRateTextField" prefHeight="26.0" prefWidth="125.0" promptText="Enter interest rate" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+						<Button fx:id="addButton" defaultButton="true" mnemonicParsing="false" onAction="#handleAddButton" prefWidth="70.0" text="Add" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+							<font>
+								<Font name="System Bold" size="12.0" />
+							</font>
+						</Button>
+						<TableView fx:id="loanDetailsTableView" editable="true" layoutX="44.0" layoutY="116.0" prefHeight="283.0" prefWidth="700.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+							<columns>
 
-												 </columns>
-											 </TableView>
-      
-            				<Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleDeleteButton" prefHeight="26.0" prefWidth="65.0" text="Delete" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-      				<Button fx:id="calculateButton" defaultButton="true" mnemonicParsing="false" onAction="#handleCalculateButton" text="Calculate" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-										 </children>
-            </GridPane>
-         </children>
-      </VBox>
+							</columns>
+						</TableView>
+
+						<Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleDeleteButton" prefHeight="26.0" prefWidth="65.0" text="Delete" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+						<Button fx:id="calculateButton" defaultButton="true" mnemonicParsing="false" onAction="#handleCalculateButton" text="Calculate" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+							<font>
+								<Font name="System Bold" size="12.0" />
+							</font>
+						</Button>
+					</children>
+				</GridPane>
 			</children>
-		</AnchorPane>
+		</VBox>
+	</children>
+</AnchorPane>

@@ -7,6 +7,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDate;
+import javafx.beans.property.*;
 
 public class LoanInfo implements Serializable{
 	private static final long serialVersionUID = 6130139203999619115L; // Ensure consistent serialization
@@ -14,18 +16,36 @@ public class LoanInfo implements Serializable{
 	private transient SimpleDoubleProperty interestRate;
 	private transient SimpleIntegerProperty paymentPeriod;
 	private transient SimpleDoubleProperty monthlyPayment;
-
+	private ObjectProperty<LocalDate> startDate;
+	private ObjectProperty<LocalDate> endDate;
 	public LoanInfo(double loanAmount, double interestRate, int paymentPeriod) {
 		this.loanAmount = new SimpleDoubleProperty(loanAmount);
 		this.interestRate = new SimpleDoubleProperty(interestRate);
 		this.paymentPeriod = new SimpleIntegerProperty(paymentPeriod);
 		this.monthlyPayment = new SimpleDoubleProperty();
+
 	}
 	public LoanInfo(double loanAmount, double interestRate, int paymentPeriod, double monthlyPayment) {
 		this.loanAmount = new SimpleDoubleProperty(loanAmount);
 		this.interestRate = new SimpleDoubleProperty(interestRate);
 		this.paymentPeriod = new SimpleIntegerProperty(paymentPeriod);
 		this.monthlyPayment = new SimpleDoubleProperty(monthlyPayment);
+	}
+	public LoanInfo(double loanAmount, double interestRate, int paymentPeriod, double monthlyPayment, LocalDate startDate, LocalDate endDate) {
+		this.loanAmount = new SimpleDoubleProperty(loanAmount);
+		this.interestRate = new SimpleDoubleProperty(interestRate);
+		this.paymentPeriod = new SimpleIntegerProperty(paymentPeriod);
+		this.monthlyPayment = new SimpleDoubleProperty(monthlyPayment);
+		this.startDate = new SimpleObjectProperty<>(startDate);
+		this.endDate = new SimpleObjectProperty<>(startDate.plusMonths(paymentPeriod));
+	}
+	public LoanInfo(double loanAmount, double interestRate, int paymentPeriod, LocalDate startDate, LocalDate endDate) {
+		this.loanAmount = new SimpleDoubleProperty(loanAmount);
+		this.interestRate = new SimpleDoubleProperty(interestRate);
+		this.paymentPeriod = new SimpleIntegerProperty(paymentPeriod);
+		this.monthlyPayment = new SimpleDoubleProperty();
+		this.startDate = new SimpleObjectProperty<>(startDate);
+		this.endDate = new SimpleObjectProperty<>(startDate.plusMonths(paymentPeriod));
 	}
 	public double getLoanAmount() {
 
@@ -94,5 +114,29 @@ public class LoanInfo implements Serializable{
 	public void setMonthlyPayment(double monthlyPayment) {
 		this.monthlyPayment.set(monthlyPayment);
 	}
+	public LocalDate getStartDate() {
+		return startDate.get();
+	}
+
+	public ObjectProperty<LocalDate> startDateProperty() {
+		return startDate;
+	}
+
+	public void setStartDate(LocalDate startDate) {
+		this.startDate.set(startDate);
+	}
+
+	public LocalDate getEndDate() {
+		return endDate.get();
+	}
+
+	public ObjectProperty<LocalDate> endDateProperty() {
+		return endDate;
+	}
+
+	public void setEndDate(LocalDate endDate) {
+		this.endDate.set(endDate);
+	}
 
 }
+
