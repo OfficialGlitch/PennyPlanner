@@ -72,7 +72,7 @@ public class LoginController implements Initializable {
 			}
 		}
 
-		public void registerNavigation(ActionEvent ae) {
+		public void register(ActionEvent ae) {
 
 	}
 	
