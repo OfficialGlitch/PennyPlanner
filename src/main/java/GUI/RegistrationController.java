@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import models.money.User;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -41,12 +42,21 @@ public class RegistrationController {
 			errorMessage.setText("Please fill in all fields.");
 			return;
 		}
-
 		User user = App.s().createNamedQuery("UserByUsername", User.class)
 			.setParameter("username", usernameTextField.getText()).getSingleResultOrNull();
 		if(user != null) {
 			errorMessage.setText("User already exists");
+			return;
 		}
+		// Create a new user since the username is not taken
+		user = new User();
+		user.setUsername(usernameTextField.getText());
+		user.setPassword(BCrypt.hashpw(passwordField.getText(), BCrypt.gensalt()));
+		user.setEmail(emailTextField.getText());
+		user.setName(nameTextField.getText());
+		user.setCountry(countryTextField.getText());
+
+
 	}
 
 	private void login(ActionEvent event) {
