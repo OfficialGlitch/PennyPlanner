@@ -2,6 +2,8 @@ package GUI;
 
 import jakarta.persistence.NoResultException;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -9,6 +11,8 @@ import javafx.scene.control.TextField;
 import models.money.User;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
+import static GUI.App.loadFXML;
 
 public class RegistrationController {
 	@FXML
@@ -30,24 +34,25 @@ public class RegistrationController {
 
 
 	@FXML
-	private void Register(ActionEvent event) {
+	private void register(ActionEvent event) {
 
-		User existingUser = App.s().createNamedQuery("UserByUsername", User.class)
-			.setParameter("username", usernameTextField.getText())
-			.getSingleResultOrNull();
-
-		if (existingUser != null) {
-			// A user with this username already exists, so display an error message
+		User user = App.s().createNamedQuery("UserByUsername", User.class)
+			.setParameter("username", usernameTextField.getText()).getSingleResultOrNull();
+		if(user != null) {
 			errorMessage.setText("User already exists");
-			return; // Stop further registration processing
 		}
-
-
 	}
 
-	private void Back(ActionEvent event) {
-
+	private void login(ActionEvent event) {
+		try {
+			FXMLLoader loader = loadFXML("Login");
+			Parent p = loader.load();
+			App.setCurrentScene(p);
+		}catch (IOException e) {
+			System.err.println("Error loading Login page: " + e);
+			e.printStackTrace();
+			errorMessage.setText("Error loading login page.");
+		}
 	}
-
 
 }
