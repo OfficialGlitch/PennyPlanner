@@ -72,7 +72,7 @@ public class LoginController implements Initializable {
 				}
 			} else {
 				errorMessage.setText("Wrong username or password");
-				return;
+
 			}
 		}
 
