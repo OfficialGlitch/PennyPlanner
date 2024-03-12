@@ -35,6 +35,12 @@ public class RegistrationController {
 
 	@FXML
 	private void register(ActionEvent event) {
+		if (usernameTextField.getText().isEmpty() || passwordField.getText().isEmpty() ||
+			emailTextField.getText().isEmpty() || nameTextField.getText().isEmpty() ||
+			countryTextField.getText().isEmpty()) {
+			errorMessage.setText("Please fill in all fields.");
+			return;
+		}
 
 		User user = App.s().createNamedQuery("UserByUsername", User.class)
 			.setParameter("username", usernameTextField.getText()).getSingleResultOrNull();
