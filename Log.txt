@@ -316,10 +316,21 @@ Kennie: Worked on the ITR2 document
 Ahmed: Worked on the ITR2 document
 
 March 11, 2024 - 2:00pm - 5:30pm
-full team meeting including everymember to make the application function and work accordingly.
+full team meeting including every member to make the application function and work accordingly.
 
 March 11, 2024 - 2:00pm - 9:00pm
 Ahmed: Worked on the registration page.
 Ahmed: Completed the ITR2 document.
 Ahmed: Helped members with their user story functionality with the main.
 
+March 15, 2024 - 1:00pm - 2:00pm
+Ahmed: planning the testing and assessment.
+Ahmed:
+
+March 19, 2024:
+Ahmed: Attempt to start a meeting for the testing document
+needed in the github repository.
+
+March 23, 2024:
+Kennie: Set up the initial document implemented into the github.
+Ahmed: Set a new template for the entire team to use to keep an orginazed testing enviroment.
