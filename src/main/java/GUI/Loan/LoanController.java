@@ -52,8 +52,6 @@ public class LoanController {
 	public void initialize() {
 		// Set up columns in the table view
 		// Set up columns in the table view
-
-
 		loanInfoList = FXCollections.observableArrayList();
 
 		TableColumn<LoanInfo, Double> loanAmountColumn = new TableColumn<>("Loan Amount");
@@ -138,7 +136,7 @@ public class LoanController {
 
 
 	@FXML
-	private void handleCalculateButton() {
+	public void handleCalculateButton() {
 		// Check if any of the text fields are empty
 		if (loanAmountTextField.getText().isEmpty() ||
 			interestRateTextField.getText().isEmpty() ||
@@ -203,7 +201,7 @@ public class LoanController {
 	}
 
 	@FXML
-	private void handleAddButton() {
+	public void handleAddButton() {
 
 		// Handle the action when the Add button is clicked
 		try {
@@ -249,5 +247,20 @@ public class LoanController {
 	private void saveData() {
 
 
+	}
+	public TextField getLoanAmountTextField() {
+		return loanAmountTextField;
+	}
+
+	public TextField getInterestRateTextField() {
+		return interestRateTextField;
+	}
+
+	public TextField getPaymentPeriodTextField() {
+		return paymentPeriodTextField;
+	}
+
+	public TableView<LoanInfo> getLoanDetailsTableView() {
+		return loanDetailsTableView;
 	}
 }
