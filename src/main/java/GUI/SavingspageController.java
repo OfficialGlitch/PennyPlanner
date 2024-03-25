@@ -12,19 +12,19 @@ import javafx.scene.control.TextField;
 
 public class SavingspageController {
 	@FXML
-	private TextField tfSavingsGoal;
+    public TextField tfSavingsGoal;
 
 	@FXML
-	private TextField tfIncomeAmount;
+	public TextField tfIncomeAmount;
 
 	@FXML
-	private TextField tfTotalExpenses;
+	public TextField tfTotalExpenses;
 
 	@FXML
-	private TextField tfActualSavings;
+	public TextField tfActualSavings;
 
 	@FXML
-	private Label lblSavingsGoalStatus;
+	public Label lblSavingsGoalStatus;
 
 	@FXML
 	private BarChart<String, Number> barChart;
@@ -52,7 +52,7 @@ public class SavingspageController {
 	}
 
 	@FXML
-	private void calculateSavings(ActionEvent event) {
+	public void calculateSavings(ActionEvent event) {
 		try {
 			double income = Double.parseDouble(tfIncomeAmount.getText());
 			double expenses = Double.parseDouble(tfTotalExpenses.getText());
