@@ -34,7 +34,7 @@
 								<Font name="Roboto" size="24.0" />
 							</font></Label>
 						<TextField id="inputAmount" fx:id="inputAmount" prefWidth="80.0" />
-						<ComboBox id="inputCurrencyComboBox" fx:id="inputCurrencyComboBox" prefHeight="26.0" prefWidth="96.0" promptText="Currency">
+						<ComboBox id="inputCurrencyComboBox" fx:id="inputCurrencyComboBox" prefHeight="26.0" prefWidth="150.0" promptText="Currency">
 							<effect>
 								<ColorAdjust brightness="0.35" contrast="0.09" hue="0.14" />
 							</effect></ComboBox>
@@ -47,7 +47,7 @@
 								<Font name="Roboto" size="16.0" />
 							</font></Label>
 						<TextField id="outputAmount" fx:id="outputAmount" editable="false" prefWidth="80.0" />
-						<ComboBox id="outputCurrencyComboBox" fx:id="outputCurrencyComboBox" prefHeight="26.0" prefWidth="100.0" promptText="Currency">
+						<ComboBox id="outputCurrencyComboBox" fx:id="outputCurrencyComboBox" prefHeight="26.0" prefWidth="150.0" promptText="Currency">
 							<effect>
 								<ColorAdjust brightness="0.35" contrast="0.09" />
 							</effect></ComboBox>
@@ -97,11 +97,12 @@
 		</VBox>
 		<LineChart fx:id="lineChart" animated="false">
 			<xAxis>
-				<CategoryAxis fx:id="xAxis" label="Currency"/>
+				<CategoryAxis label="Currency" fx:id="xAxis" />
 			</xAxis>
 			<yAxis>
-				<NumberAxis fx:id="yAxis" label="Conversion Rate"/>
+				<NumberAxis fx:id="yAxis" label="Conversion Rate" />
 			</yAxis>
 		</LineChart>
+      <Button id="refreshrate" layoutX="333.0" layoutY="429.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" text="Refresh Rates" onAction="#handlerefresh" />
 	</children>
 </AnchorPane>

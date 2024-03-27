@@ -9,7 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-
 import javafx.scene.chart.LineChart;
 
 import javafx.scene.control.ComboBox;
@@ -27,24 +26,28 @@ import javafx.application.Platform;
 
 
 
-import models.Category;
-import org.json.JSONObject;
-import org.json.JSONException;
+import javafx.scene.chart.NumberAxis;
 
-// Utility imports
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Iterator;
-import java.net.URL;
-import java.util.ResourceBundle;
-
+import javafx.scene.control.ListCell;
 
 import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.util.converter.DoubleStringConverter;
+
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.net.URL;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+
+
+import javafx.util.converter.DoubleStringConverter;
+
+
 
 
 
@@ -66,8 +69,13 @@ public class ConvertCurrency implements Initializable {
 	@FXML
 	private CheckBox autoCheckBoxButton;
 
+
+
 	@FXML
 	private Button convertButton;
+@FXML
+private Button refreshrate;
+
 	private XYChart.Series<String, Number> seriesUSD = new XYChart.Series<>();
 	private XYChart.Series<String, Number> seriesEUR = new XYChart.Series<>();
 	private XYChart.Series<String, Number> seriesINR = new XYChart.Series<>();
@@ -75,14 +83,39 @@ public class ConvertCurrency implements Initializable {
 	private XYChart.Series<String, Number> seriesCAD = new XYChart.Series<>();
 
 	private XYChart.Series<String, Number> seriesAUD = new XYChart.Series<>();
+	private XYChart.Series<String, Number> seriesBGN = new XYChart.Series<>();
+	private XYChart.Series<String, Number> seriesBRL = new XYChart.Series<>();
+	private XYChart.Series<String, Number> seriesCHF = new XYChart.Series<>();
+	private XYChart.Series<String, Number> seriesCNY = new XYChart.Series<>();
+	private XYChart.Series<String, Number> seriesDKK = new XYChart.Series<>();
+	private XYChart.Series<String, Number> seriesHKD = new XYChart.Series<>();
+	private XYChart.Series<String, Number> seriesHRK = new XYChart.Series<>();
+	private XYChart.Series<String, Number> seriesILS = new XYChart.Series<>();
+	private XYChart.Series<String, Number> seriesMYR = new XYChart.Series<>();
+	private XYChart.Series<String, Number> seriesNZD = new XYChart.Series<>();
+	private XYChart.Series<String, Number> seriesPLN = new XYChart.Series<>();
+	private XYChart.Series<String, Number> seriesRON = new XYChart.Series<>();
+	private XYChart.Series<String, Number> seriesSGD = new XYChart.Series<>();
 
 
-	private java.util.Map<Currency, Double> latestRates; // Assume this is updated by your fetch method
+
+
+
+
+
+
+
+
+
+
+
+
+	private java.util.Map<Currency, Double> latestRates;
 
 	@FXML
 	private LineChart<String, Number> lineChart;
 	@FXML
-	private CategoryAxis xAxis; // Ensure this matches your FXML definition
+	private CategoryAxis xAxis;
 	@FXML
 	private NumberAxis yAxis;
 
@@ -94,12 +127,19 @@ public class ConvertCurrency implements Initializable {
 
 	private final ChangeListener<String> inputAmountChangeListener = (observable, oldValue, newValue) -> convertAction(null);
 
+	@FXML
+	private void handlerefresh(ActionEvent event) {
+		fetchCurrencyRates();
+		lineChart.getData().clear();
+		lineChart.getData().addAll(seriesUSD, seriesEUR, seriesGBP, seriesCAD, seriesAUD,seriesBGN,seriesBRL,seriesCHF,seriesCNY,
+			seriesDKK,seriesHKD,seriesHRK,seriesILS,seriesMYR,seriesNZD,seriesPLN,seriesRON,seriesSGD);
+	}
 
-
-	// Assuming 'conversionRates' is a Map<String, Double> with currency codes as keys and conversion rates as values
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		ObservableList<Currency> currencies = FXCollections.observableArrayList(Currency.values());
+
 
 		currencies.addAll(Currency.values());
 		inputCurrencyComboBox.setItems(currencies);
@@ -107,7 +147,38 @@ public class ConvertCurrency implements Initializable {
 		inputCurrencyComboBox.getSelectionModel().selectFirst();
 		outputCurrencyComboBox.getSelectionModel().selectLast();
 		autoCheckBoxButton.setSelected(false);
+		inputCurrencyComboBox.setCellFactory(lv -> new ListCell<>() {
+			@Override
+			protected void updateItem(Currency item, boolean empty) {
+				super.updateItem(item, empty);
+				setText(item == null ? "" : item.getDescription());
+			}
+		});
 
+		outputCurrencyComboBox.setCellFactory(lv -> new ListCell<>() {
+			@Override
+			protected void updateItem(Currency item, boolean empty) {
+				super.updateItem(item, empty);
+				setText(item == null ? "" : item.getDescription());
+			}
+		});
+
+		// Optionally, ensure the selected item is displayed with the description
+		inputCurrencyComboBox.setButtonCell(new ListCell<>() {
+			@Override
+			protected void updateItem(Currency item, boolean empty) {
+				super.updateItem(item, empty);
+				setText(item == null ? "" : item.getDescription());
+			}
+		});
+
+		outputCurrencyComboBox.setButtonCell(new ListCell<>() {
+			@Override
+			protected void updateItem(Currency item, boolean empty) {
+				super.updateItem(item, empty);
+				setText(item == null ? "" : item.getDescription());
+			}
+		});
 
 
 		inputCurrencyComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -124,20 +195,31 @@ public class ConvertCurrency implements Initializable {
 		seriesGBP.setName("GBP");
 		seriesCAD.setName("CAD");
 		seriesAUD.setName("AUD");
-
-
-
+		seriesBGN.setName("BGN");
+		seriesBRL.setName("BRL");
+		seriesCHF.setName("CHF");
+		seriesCNY.setName("CNY");
+		seriesDKK.setName("DKK");
+		seriesHKD.setName("HKD");
+		seriesHRK.setName("HRK");
+		seriesILS.setName("ILS");
+		seriesMYR.setName("MYR");
+		seriesNZD.setName("NZD");
+		seriesPLN.setName("PLN");
+		seriesRON.setName("RON");
+		seriesSGD.setName("SGD");
 
 
 		// Add series to chart
-		lineChart.getData().addAll(seriesUSD, seriesEUR, seriesGBP, seriesCAD, seriesAUD);
 
+		lineChart.getData().addAll(seriesUSD, seriesEUR, seriesGBP, seriesCAD, seriesAUD,seriesBGN,seriesBRL,seriesCHF,seriesCNY,
+			seriesDKK,seriesHKD,seriesHRK,seriesILS,seriesMYR,seriesNZD,seriesPLN,seriesRON,seriesSGD);
 	}
 	private Map<String, Double> conversionRates = new HashMap<>();
 
 	public void fetchCurrencyRates() {
 		String apiKey = "fca_live_c8FaXQlw6z4eOjp2EH8e0ZiBpjxcGAa26NFWtJQL";
-		String baseUrl = "https://api.freecurrencyapi.com/v1/latest?apikey=" + apiKey; // Fixed URL formation
+		String baseUrl = "https://api.freecurrencyapi.com/v1/latest?apikey=" + apiKey;
 
 
 			HttpClient client = HttpClient.newHttpClient();
@@ -148,7 +230,7 @@ public class ConvertCurrency implements Initializable {
 				.thenAccept(responseBody -> {
 					try {
 						JSONObject json = new JSONObject(responseBody);
-						JSONObject rates = json.getJSONObject("data"); // Assuming 'data' contains the rates
+						JSONObject rates = json.getJSONObject("data");
 						Iterator<String> keys = rates.keys();
 
 						while (keys.hasNext()) {
@@ -162,6 +244,31 @@ public class ConvertCurrency implements Initializable {
 								seriesGBP.getData().add(new XYChart.Data<>("GBP", conversionRates.get("GBP")));
 								seriesCAD.getData().add(new XYChart.Data<>("CAD", conversionRates.get("CAD")));
 								seriesAUD.getData().add(new XYChart.Data<>("AUD", conversionRates.get("AUD")));
+								seriesBGN.getData().add(new XYChart.Data<>("BGN", conversionRates.get("BGN")));
+								seriesBRL.getData().add(new XYChart.Data<>("BRL", conversionRates.get("BRL")));
+								seriesCHF.getData().add(new XYChart.Data<>("CHF", conversionRates.get("CHF")));
+								seriesCNY.getData().add(new XYChart.Data<>("CNY", conversionRates.get("CNY")));
+								seriesDKK.getData().add(new XYChart.Data<>("DKK", conversionRates.get("DKK")));
+								seriesHKD.getData().add(new XYChart.Data<>("HKD", conversionRates.get("HKD")));
+								seriesHRK.getData().add(new XYChart.Data<>("HRK", conversionRates.get("HRK")));
+								seriesILS.getData().add(new XYChart.Data<>("ILS", conversionRates.get("ILS")));
+								seriesMYR.getData().add(new XYChart.Data<>("MYR", conversionRates.get("MYR")));
+								seriesNZD.getData().add(new XYChart.Data<>("NZD", conversionRates.get("NZD")));
+								seriesPLN.getData().add(new XYChart.Data<>("PLN", conversionRates.get("PLN")));
+								seriesRON.getData().add(new XYChart.Data<>("RON", conversionRates.get("RON")));
+								seriesSGD.getData().add(new XYChart.Data<>("SGD", conversionRates.get("SGD")));
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -180,7 +287,6 @@ public class ConvertCurrency implements Initializable {
 		}
 
 
-	private int conversionCount = 0;
 
 	@FXML
 	private void convertAction(ActionEvent actionEvent) {
@@ -214,19 +320,7 @@ public class ConvertCurrency implements Initializable {
 			showAlert("Conversion Error", "Real-time conversion rates are currently unavailable.");
 
 		}}
-	private void populateChartWithConversionRates() {
-		XYChart.Series<String, Number> series = new XYChart.Series<>();
-		series.setName("Conversion Rates");
 
-		conversionRates.forEach((currency, rate) -> {
-			series.getData().add(new XYChart.Data<>(currency, rate));
-		});
-
-		Platform.runLater(() -> {
-			lineChart.getData().clear(); // Clear previous data
-			lineChart.getData().add(series);
-		});
-	}
 
 
 
