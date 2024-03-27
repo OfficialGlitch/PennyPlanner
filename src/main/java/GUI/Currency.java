@@ -1,34 +1,26 @@
 package GUI;
 
 public enum Currency {
-	INR("rupee",1),
-	USD("dollar", 82.87),
-	GBP("pound", 85.86),
-	EUR("euro", 76.71),
-	CAD("cad dollar",61.06);
+	// Enum constants with their ISO currency codes
+	AUD("Indian Rupee", "AUD"),
+	USD("US Dollar", "USD"),
+	GBP("British Pound", "GBP"),
+	EUR("Euro", "EUR"),
+	CAD("Canadian Dollar", "CAD");
 
+	private final String description;
+	private final String code;
 
-
-
-	private double rupeeConversionRate;
-
-	private String fullName;
-
-	Currency(String fullName, double rupeeConversionRate) {
-		this.rupeeConversionRate = rupeeConversionRate;
-		this.fullName = fullName;
+	Currency(String description, String code) {
+		this.description = description;
+		this.code = code;
 	}
 
-	public double getRupeeConversionRate() {
-		return rupeeConversionRate;
+	public String getDescription() {
+		return description;
 	}
 
-	public String getFullName() {
-		return fullName;
+	public String getCode() {
+		return code;
 	}
-
-	public String getShortName() {
-		return name();
-	}
-
 }
