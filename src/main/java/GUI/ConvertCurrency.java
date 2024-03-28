@@ -55,16 +55,16 @@ import javafx.util.converter.DoubleStringConverter;
 public class ConvertCurrency implements Initializable {
 
 	@FXML
-	private ComboBox<Currency> outputCurrencyComboBox;
+	public ComboBox<Currency> outputCurrencyComboBox;
 
 	@FXML
-	private ComboBox<Currency> inputCurrencyComboBox;
+	public ComboBox<Currency> inputCurrencyComboBox;
 
 	@FXML
-	private TextField outputAmount;
+	public TextField outputAmount;
 
 	@FXML
-	private TextField inputAmount;
+	public TextField inputAmount;
 
 	@FXML
 	private CheckBox autoCheckBoxButton;
@@ -74,28 +74,29 @@ public class ConvertCurrency implements Initializable {
 	@FXML
 	private Button convertButton;
 @FXML
-private Button refreshrate;
+public Button refreshrate;
 
-	private XYChart.Series<String, Number> seriesUSD = new XYChart.Series<>();
-	private XYChart.Series<String, Number> seriesEUR = new XYChart.Series<>();
-	private XYChart.Series<String, Number> seriesINR = new XYChart.Series<>();
-	private XYChart.Series<String, Number> seriesGBP = new XYChart.Series<>();
-	private XYChart.Series<String, Number> seriesCAD = new XYChart.Series<>();
 
-	private XYChart.Series<String, Number> seriesAUD = new XYChart.Series<>();
-	private XYChart.Series<String, Number> seriesBGN = new XYChart.Series<>();
-	private XYChart.Series<String, Number> seriesBRL = new XYChart.Series<>();
-	private XYChart.Series<String, Number> seriesCHF = new XYChart.Series<>();
-	private XYChart.Series<String, Number> seriesCNY = new XYChart.Series<>();
-	private XYChart.Series<String, Number> seriesDKK = new XYChart.Series<>();
-	private XYChart.Series<String, Number> seriesHKD = new XYChart.Series<>();
-	private XYChart.Series<String, Number> seriesHRK = new XYChart.Series<>();
-	private XYChart.Series<String, Number> seriesILS = new XYChart.Series<>();
-	private XYChart.Series<String, Number> seriesMYR = new XYChart.Series<>();
-	private XYChart.Series<String, Number> seriesNZD = new XYChart.Series<>();
-	private XYChart.Series<String, Number> seriesPLN = new XYChart.Series<>();
-	private XYChart.Series<String, Number> seriesRON = new XYChart.Series<>();
-	private XYChart.Series<String, Number> seriesSGD = new XYChart.Series<>();
+	public XYChart.Series<String, Number> seriesUSD = new XYChart.Series<>();
+	public XYChart.Series<String, Number> seriesEUR = new XYChart.Series<>();
+	public XYChart.Series<String, Number> seriesINR = new XYChart.Series<>();
+	public XYChart.Series<String, Number> seriesGBP = new XYChart.Series<>();
+	public XYChart.Series<String, Number> seriesCAD = new XYChart.Series<>();
+
+	public XYChart.Series<String, Number> seriesAUD = new XYChart.Series<>();
+	public XYChart.Series<String, Number> seriesBGN = new XYChart.Series<>();
+	public XYChart.Series<String, Number> seriesBRL = new XYChart.Series<>();
+	public XYChart.Series<String, Number> seriesCHF = new XYChart.Series<>();
+	public XYChart.Series<String, Number> seriesCNY = new XYChart.Series<>();
+	public XYChart.Series<String, Number> seriesDKK = new XYChart.Series<>();
+	public XYChart.Series<String, Number> seriesHKD = new XYChart.Series<>();
+	public XYChart.Series<String, Number> seriesHRK = new XYChart.Series<>();
+	public XYChart.Series<String, Number> seriesILS = new XYChart.Series<>();
+	public XYChart.Series<String, Number> seriesMYR = new XYChart.Series<>();
+	public XYChart.Series<String, Number> seriesNZD = new XYChart.Series<>();
+	public XYChart.Series<String, Number> seriesPLN = new XYChart.Series<>();
+	public XYChart.Series<String, Number> seriesRON = new XYChart.Series<>();
+	public XYChart.Series<String, Number> seriesSGD = new XYChart.Series<>();
 
 
 
@@ -113,7 +114,7 @@ private Button refreshrate;
 	private java.util.Map<Currency, Double> latestRates;
 
 	@FXML
-	private LineChart<String, Number> lineChart;
+	public LineChart<String, Number> lineChart;
 	@FXML
 	private CategoryAxis xAxis;
 	@FXML
@@ -128,7 +129,7 @@ private Button refreshrate;
 	private final ChangeListener<String> inputAmountChangeListener = (observable, oldValue, newValue) -> convertAction(null);
 
 	@FXML
-	private void handlerefresh(ActionEvent event) {
+	public void handlerefresh(ActionEvent event) {
 		fetchCurrencyRates();
 		lineChart.getData().clear();
 		lineChart.getData().addAll(seriesUSD, seriesEUR, seriesGBP, seriesCAD, seriesAUD,seriesBGN,seriesBRL,seriesCHF,seriesCNY,
@@ -215,7 +216,7 @@ private Button refreshrate;
 		lineChart.getData().addAll(seriesUSD, seriesEUR, seriesGBP, seriesCAD, seriesAUD,seriesBGN,seriesBRL,seriesCHF,seriesCNY,
 			seriesDKK,seriesHKD,seriesHRK,seriesILS,seriesMYR,seriesNZD,seriesPLN,seriesRON,seriesSGD);
 	}
-	private Map<String, Double> conversionRates = new HashMap<>();
+	public Map<String, Double> conversionRates = new HashMap<>();
 
 	public void fetchCurrencyRates() {
 		String apiKey = "fca_live_c8FaXQlw6z4eOjp2EH8e0ZiBpjxcGAa26NFWtJQL";
@@ -260,21 +261,6 @@ private Button refreshrate;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 							});
 						}
 
@@ -289,7 +275,7 @@ private Button refreshrate;
 
 
 	@FXML
-	private void convertAction(ActionEvent actionEvent) {
+	public void convertAction(ActionEvent actionEvent) {
 		Currency inputCurrency = inputCurrencyComboBox.getValue();
 		Currency outputCurrency = outputCurrencyComboBox.getValue();
 		String inputText = inputAmount.getText().trim(); // Trim to remove leading/trailing whitespace.
@@ -363,7 +349,19 @@ private Button refreshrate;
 		} catch (NumberFormatException e) {
 			return false;
 		}
-	}}
+	}
+	//these methods are for testing purposes
+	//This method returns the current conversion rates stored in the conversionRates map.
+	public Map<String, Double> getConversionRates() {
+		return this.conversionRates;
+	}
+	//This method performs a currency conversion from one currency to another based on the provided conversion rates.
+	public double convertAmount(double amount, String fromCurrencyCode, String toCurrencyCode) {
+		double rate = conversionRates.get(toCurrencyCode) / conversionRates.get(fromCurrencyCode);
+		return amount * rate;
+	}
+
+}
 
 
 
