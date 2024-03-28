@@ -294,32 +294,37 @@ private Button refreshrate;
 		Currency outputCurrency = outputCurrencyComboBox.getValue();
 		String inputText = inputAmount.getText().trim(); // Trim to remove leading/trailing whitespace.
 
-		if (!inputText.isEmpty()) {
-			// Check for non-numeric input
-			if (!isNumeric(inputText)) {
-				showAlert("Conversion Error", "Please enter a proper value.");
-				return; // Exit the method early if validation fails
-			}
-		}
-
-		double inputValue = Double.parseDouble(inputText);
-
-		if (inputValue < 0) {
-			showAlert("Conversion Error", "Please enter a proper value.");
+		// If automatic conversion is enabled and input is empty, quietly return without error.
+		if (autoCheckBoxButton.isSelected() && inputText.isEmpty()) {
 			return;
 		}
 
-		// Check if the conversion rates for the selected currencies are available
+		if (!inputText.isEmpty() && !isNumeric(inputText)) {
+			showAlert("Conversion Error", "Please enter a proper numeric value.");
+			return; // Exit the method early if input is not numeric
+		}
+
+		double inputValue = 0;
+		if (!inputText.isEmpty()) {
+			inputValue = Double.parseDouble(inputText);
+		}
+
+		if (inputValue < 0) {
+			showAlert("Conversion Error", "Please enter a positive value.");
+			return;
+		}
+
+		// Proceed with the conversion if the input is valid...
 		if (conversionRates.containsKey(inputCurrency.getCode()) && conversionRates.containsKey(outputCurrency.getCode())) {
 			double rate = conversionRates.get(outputCurrency.getCode()) / conversionRates.get(inputCurrency.getCode());
 			double convertedValue = inputValue * rate;
 			outputAmount.setText(String.format("%.2f", convertedValue));
-
-
 		} else {
 			showAlert("Conversion Error", "Real-time conversion rates are currently unavailable.");
+		}
+	}
 
-		}}
+
 
 
 
@@ -352,10 +357,14 @@ private Button refreshrate;
 	}
 
 	private static boolean isNumeric(String str) {
-		return str != null && str.matches("^[0-9]*\\.?[0-9]+$");
-	}
+		try {
+			Double.parseDouble(str);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
+	}}
 
-	}
 
 
 
