@@ -10,12 +10,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import models.Category;
+import models.money.Expense;
+import models.money.Income;
 import models.money.User;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javafx.event.ActionEvent;
 import java.io.IOException;
-import java.util.Calendar;
+import java.util.*;
 
 import static GUI.App.loadFXML;
 
@@ -60,6 +63,7 @@ public class RegistrationController {
 		user.setName(nameTextField.getText());
 		user.setCountry(countryTextField.getText());
 
+		dataInjection(user);
 
 		EntityManager em = App.s(); // Get the EntityManager
 		EntityTransaction transaction = em.getTransaction();
@@ -104,6 +108,99 @@ public class RegistrationController {
 			e.printStackTrace();
 			errorMessage.setText("Error loading login page.");
 		}
+	}
+	private static Category createCategory(String name, String[] expenses, User u) {
+		Category val = new Category(true, name);
+		val.setUser(u);
+		for (String el : expenses) {
+			Expense e = new Expense();
+			e.setName(el);
+			val.getExpenses().add(e);
+			e.setCategory(val);
+			App.doWork(x -> x.persist(e));
+		}
+		return val;
+	}
+
+
+	// add Income and expense table to new user
+	private void dataInjection(User user){
+		ArrayList<Category> cats = new ArrayList<>();
+		var pi = new Income();
+		pi.setName("Primary");
+		pi.setUser(user);
+		user.getIncomeTypes().add(pi);
+		String[] elements = new String[]{
+			"Rent", "Electricity", "Gas", "Water", "Cable",
+			"Internet", "Waste removal", "Maintenance/Repairs"
+		};
+		cats.add(createCategory("Bills", elements, user));
+
+		elements = new String[]{
+			"Vehicle payment", "Bus/Taxi fare", "Insurance",
+			"Licensing", "Fuel", "Maintenance", "Other"
+		};
+		cats.add(createCategory("Transportation", elements, user));
+
+		elements = new String[]{
+			"Home", "Health", "Life"
+		};
+		cats.add(createCategory("Insurance", elements, user));
+
+		elements = new String[]{
+			"Groceries", "Dining out"
+		};
+		cats.add(createCategory("Food", elements, user));
+
+		elements = new String[]{
+			"Medical", "Hair/nails", "Clothing", "Dry cleaning",
+			"Gym membership", "Other memberships/fees"
+		};
+		cats.add(createCategory("Self-Care", elements, user));
+
+		elements = new String[]{
+			"Night out", "Music streaming services", "Movies",
+			"Concerts", "Sporting events", "Live theater",
+			"Video streaming services", "Other"
+		};
+		cats.add(createCategory("Entertainment", elements, user));
+
+		elements = new String[]{
+			"Personal", "Student", "Credit card"
+		};
+		cats.add(createCategory("Loans", elements, user));
+
+		elements = new String[]{
+			"Federal", "State", "Local", "Other"
+		};
+		cats.add(createCategory("Taxes", elements, user));
+
+		elements = new String[]{
+			"Retirement account",
+			"Investment account",
+			"Stocks/securities"
+		};
+		cats.add(createCategory("Investments", elements, user));
+
+		elements = new String[]{
+			"Charity",
+			"Donations",
+			"Tips"
+		};
+		cats.add(createCategory("Gifts", elements, user));
+
+		user.setExpenseCategories(cats);
+		for (Category c : cats) {
+			App.doWork(x -> {
+				x.persist(c);
+			});
+			for (Expense e : c.getExpenses()) {
+				App.doNonSessionWork(x -> {
+					x.persist(e);
+				});
+			}
+		}
+		App.s().persist(user);
 	}
 
 
