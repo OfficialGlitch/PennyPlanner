@@ -26,7 +26,7 @@ public class Category {
 	public final ReadOnlyBooleanProperty builtIn;
 	private ObservableList<Expense> expenses = FXCollections.observableArrayList();
 	
-	protected Category(boolean isDefault, String name) {
+	public Category(boolean isDefault, String name) {
 		builtIn = new ReadOnlyBooleanWrapper(isDefault);
 		this.name.set(name);
 	}
