@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import javafx.beans.property.*;
+import models.TimePeriod;
 
 public class LoanInfo implements Serializable{
 	private static final long serialVersionUID = 6130139203999619115L; // Ensure consistent serialization
@@ -18,6 +19,7 @@ public class LoanInfo implements Serializable{
 	private transient SimpleDoubleProperty monthlyPayment;
 	private ObjectProperty<LocalDate> startDate;
 	private ObjectProperty<LocalDate> endDate;
+	private DoubleProperty remainingLoan;
 	public LoanInfo(double loanAmount, double interestRate, int paymentPeriod) {
 		this.loanAmount = new SimpleDoubleProperty(loanAmount);
 		this.interestRate = new SimpleDoubleProperty(interestRate);
@@ -46,6 +48,8 @@ public class LoanInfo implements Serializable{
 		this.monthlyPayment = new SimpleDoubleProperty();
 		this.startDate = new SimpleObjectProperty<>(startDate);
 		this.endDate = new SimpleObjectProperty<>(startDate.plusMonths(paymentPeriod));
+		this.remainingLoan = new SimpleDoubleProperty();
+		calculateRemainingLoan(); // Calculate initial remaining loan amount
 	}
 	public double getLoanAmount() {
 
@@ -137,6 +141,29 @@ public class LoanInfo implements Serializable{
 	public void setEndDate(LocalDate endDate) {
 		this.endDate.set(endDate);
 	}
+	public double calculateRemainingLoan() {
+		LocalDate currentDate = LocalDate.now();
+		if (currentDate.isBefore(endDate.get())) {
+			int monthsElapsed = (int) startDate.get().until(currentDate).toTotalMonths();
+			double remainingAmount = monthlyPayment.get() * (paymentPeriod.get() - monthsElapsed);
+			return remainingAmount >= 0 ? remainingAmount : 0;
+		} else {
+			return 0; // Loan fully paid off
+		}
+	}
+	// Getter and setter for remaining loan property
+	public double getRemainingLoan() {
+		return remainingLoan.get();
+	}
+
+	public DoubleProperty remainingLoanProperty() {
+		return remainingLoan;
+	}
+
+	public void setRemainingLoan(double remainingLoan) {
+		this.remainingLoan.set(remainingLoan);
+	}
+
 
 }
 

@@ -2,6 +2,7 @@ package GUI.Loan;
 
 import GUI.App;
 import GUI.ExpenseTableController;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -47,6 +48,9 @@ public class LoanController {
 
 	@FXML
 	private Button addButton;
+
+	@FXML
+	private TextField remainingAmountTextField;
 	private ObservableList<LoanInfo> loanInfoList;
 	@FXML
 	public void initialize() {
@@ -87,6 +91,13 @@ public class LoanController {
 		endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
 		endDateColumn.setPrefWidth(120);
 		endDateColumn.setCellFactory(TextFieldTableCell.forTableColumn(new LocalDateStringConverter()));
+		// New column for remaining loan amount
+		TableColumn<LoanInfo, Double> remainingLoanColumn = new TableColumn<>("Remaining Loan Amount");
+		remainingLoanColumn.setCellValueFactory(cellData -> {
+			double remainingLoan = cellData.getValue().calculateRemainingLoan();
+			return new SimpleDoubleProperty(remainingLoan).asObject();
+		});
+		remainingLoanColumn.setPrefWidth(180);
 
 
 		// Add the columns to the table view
@@ -102,7 +113,7 @@ public class LoanController {
 
 
 
-		loanDetailsTableView.getColumns().addAll(loanAmountColumn, interestRateColumn, paymentPeriodColumn, monthlyPaymentColumn);
+		loanDetailsTableView.getColumns().addAll(loanAmountColumn, interestRateColumn, paymentPeriodColumn, monthlyPaymentColumn, remainingLoanColumn);
 
 		// Bind loanInfoList to TableView
 		loanDetailsTableView.setItems(loanInfoList);
@@ -149,7 +160,6 @@ public class LoanController {
 
 		// Handle the action when the Calculate button is clicked
 		// Retrieve loan amount, interest rate, and payment period from text fields
-
 		try {
 			double loanAmount = Double.parseDouble(loanAmountTextField.getText());
 			double interestRate = Double.parseDouble(interestRateTextField.getText());
@@ -162,7 +172,13 @@ public class LoanController {
 			LocalDate endDate = startDate.plusMonths(paymentPeriod);
 
 			LoanInfo newLoan = new LoanInfo(loanAmount, interestRate, paymentPeriod, monthlyPayment, startDate, endDate);
+			newLoan.setRemainingLoan(newLoan.calculateRemainingLoan()); // Update remaining loan amount
 			loanInfoList.add(newLoan);
+
+			// Update remaining loan amount for all loans
+			for (LoanInfo loan : loanInfoList) {
+				loan.calculateRemainingLoan();
+			}
 
 			// Clear input fields after adding the loan
 			loanAmountTextField.clear();
@@ -171,6 +187,8 @@ public class LoanController {
 		} catch (NumberFormatException e) {
 			System.out.println("Invalid input. Please enter valid numeric values.");
 		}
+
+
 	}
 
 	@FXML
