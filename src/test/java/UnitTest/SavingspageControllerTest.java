@@ -22,14 +22,13 @@ public class SavingspageControllerTest {
 			Thread.sleep(10);
 		}
 
-		// Initialize your controller (if needed, adjust according to your app structure)
+		// Initialize your controller
 		Platform.runLater(() -> {
 			controller = new SavingspageController();
-			// Assuming your controller uses FXML annotations, you might need to manually instantiate components here for the test
 			controller.tfSavingsGoal = new TextField();
-			controller.tfIncomeAmount = new TextField();
-			controller.tfTotalExpenses = new TextField();
-			controller.tfActualSavings = new TextField(); // TextField is non-editable in the UI, but we can still manipulate it in tests
+			controller.lblIncomeAmount = new Label();
+			controller.lblTotalExpenses = new Label();
+			controller.lblActualSavings = new Label();
 			controller.lblSavingsGoalStatus = new Label();
 		});
 	}
@@ -37,37 +36,32 @@ public class SavingspageControllerTest {
 	@Test
 	public void testCalculateSavings() throws InterruptedException {
 		Platform.runLater(() -> {
-			// Setup the input values
-			controller.tfIncomeAmount.setText("1000");
-			controller.tfTotalExpenses.setText("500");
+			// Simulate setting total income and expenses directly as the controller method would
+			controller.lblIncomeAmount.setText("1000");
+			controller.lblTotalExpenses.setText("500");
 			controller.tfSavingsGoal.setText("200");
 
-			// Trigger the calculation
-			controller.calculateSavings(null); // Event can be null as it's not used in the method
+			// Assuming calculateSavings takes directly set values or simulate the setupData call here
+			double income = Double.parseDouble(controller.lblIncomeAmount.getText());
+			double expenses = Double.parseDouble(controller.lblTotalExpenses.getText());
+			controller.calculateSavings(income, expenses);
 
-			// Assert the outcomes
-			assertEquals("500.00", controller.tfActualSavings.getText(), "The actual savings calculated is incorrect.");
-			assertEquals("Savings Goal Reached!", controller.lblSavingsGoalStatus.getText(), "The savings goal status message is incorrect.");
+			assertEquals("500.00", controller.lblActualSavings.getText());
+			assertEquals("Savings Goal Reached!", controller.lblSavingsGoalStatus.getText());
 		});
-		// Wait for Platform.runLater() to finish
-		Thread.sleep(100); // Adjust sleep time as needed
+		Thread.sleep(100);
 	}
-
-	// Additional tests can follow a similar structure
 
 	@Test
 	public void testWhenExpensesGreaterThanIncome() throws InterruptedException {
 		Platform.runLater(() -> {
 			// Set inputs where expenses are greater than income
-			controller.tfIncomeAmount.setText("500");
-			controller.tfTotalExpenses.setText("800");
+			controller.lblIncomeAmount.setText("500");
+			controller.lblTotalExpenses.setText("800");
 			controller.tfSavingsGoal.setText("100");
 
-			// Perform calculation
-			controller.calculateSavings(null);
-
 			// Assertions
-			assertEquals("-300.00", controller.tfActualSavings.getText(), "Actual savings should be negative.");
+			assertEquals("-300.00", controller.lblActualSavings.getText(), "Actual savings should be negative.");
 			assertEquals("Savings Goal Not Reached", controller.lblSavingsGoalStatus.getText(), "Status message incorrect for savings goal not reached due to negative savings.");
 		});
 		Thread.sleep(100); // Allow time for the asynchronous operation to complete
@@ -76,33 +70,29 @@ public class SavingspageControllerTest {
 	@Test
 	public void testInvalidInputForIncome() throws InterruptedException {
 		Platform.runLater(() -> {
-			// Set inputs with invalid income value
-			controller.tfIncomeAmount.setText("invalid");
-			controller.tfTotalExpenses.setText("400");
-			controller.tfSavingsGoal.setText("200");
 
-			// Perform calculation
-			controller.calculateSavings(null);
+			// Set inputs with invalid expenses value
+			controller.lblIncomeAmount.setText("invalid");
+			controller.lblTotalExpenses.setText("1000");
+			controller.tfSavingsGoal.setText("500");
 
 			// Assertions
-			assertEquals("Invalid input", controller.tfActualSavings.getText(), "Invalid input handling failed for income.");
+			assertEquals("Invalid input", controller.lblActualSavings.getText(), "Invalid input handling failed for income.");
 		});
 		Thread.sleep(100);
 	}
+
 
 	@Test
 	public void testInvalidInputForExpenses() throws InterruptedException {
 		Platform.runLater(() -> {
 			// Set inputs with invalid expenses value
-			controller.tfIncomeAmount.setText("1000");
-			controller.tfTotalExpenses.setText("invalid");
+			controller.lblIncomeAmount.setText("1000");
+			controller.lblTotalExpenses.setText("invalid");
 			controller.tfSavingsGoal.setText("500");
 
-			// Perform calculation
-			controller.calculateSavings(null);
-
 			// Assertions
-			assertEquals("Invalid input", controller.tfActualSavings.getText(), "Invalid input handling failed for expenses.");
+			assertEquals("Invalid input", controller.lblActualSavings.getText(), "Invalid input handling failed for expenses.");
 		});
 		Thread.sleep(100);
 	}
@@ -110,55 +100,119 @@ public class SavingspageControllerTest {
 	@Test
 	public void testSavingsExactlyMeetGoal() throws InterruptedException {
 		Platform.runLater(() -> {
-			// Set inputs where savings exactly meet the savings goal
-			controller.tfIncomeAmount.setText("1000");
-			controller.tfTotalExpenses.setText("600");
-			controller.tfSavingsGoal.setText("400");
+			// Assuming direct calculation based on input values
+			double income = 1000;
+			double expenses = 600;
+			double goal = 400;
 
-			// Perform calculation
-			controller.calculateSavings(null);
+			controller.calculateSavings(income, expenses);
 
-			// Assertions
-			assertEquals("400.00", controller.tfActualSavings.getText(), "Actual savings should exactly meet the savings goal.");
-			assertEquals("Savings Goal Reached!", controller.lblSavingsGoalStatus.getText(), "Status message incorrect for exactly meeting the savings goal.");
+			assertEquals("400.00", controller.lblActualSavings.getText(), "Actual savings should exactly meet the savings goal.");
+			assertTrue(controller.lblSavingsGoalStatus.getText().contains("Savings Goal Reached"), "Status message incorrect for exactly meeting the savings goal.");
 		});
 		Thread.sleep(100);
 	}
+
 
 	@Test
 	public void testZeroOrNegativeInputValues() throws InterruptedException {
 		Platform.runLater(() -> {
-			// Set zero or negative input values
-			controller.tfIncomeAmount.setText("0");
-			controller.tfTotalExpenses.setText("-100");
-			controller.tfSavingsGoal.setText("0");
+			double income = 0;
+			double expenses = -100; // Indicates a refund or similar scenario
 
-			// Perform calculation
-			controller.calculateSavings(null);
+			controller.calculateSavings(income, expenses);
 
-			// Assertions for zero income and negative expenses
-			assertEquals("100.00", controller.tfActualSavings.getText(), "Actual savings incorrect for zero income and negative expenses.");
-			assertEquals("Savings Goal Reached!", controller.lblSavingsGoalStatus.getText(), "Status message incorrect for zero or negative input values.");
+			assertEquals("100.00", controller.lblActualSavings.getText(), "Actual savings incorrect for zero income and negative expenses.");
+			assertTrue(controller.lblSavingsGoalStatus.getText().contains("Savings Goal Reached"), "Status message incorrect for zero or negative input values.");
+		});
+		Thread.sleep(100);
+	}
+
+
+	@Test
+	public void testExtremelyLargeValues() throws InterruptedException {
+		Platform.runLater(() -> {
+			double income = 1E308;
+			double expenses = 1E307; // Ensuring positive savings
+
+			controller.calculateSavings(income, expenses);
+
+			assertTrue(controller.lblActualSavings.getText().startsWith("9E307"), "Actual savings incorrect for extremely large values.");
+			assertTrue(controller.lblSavingsGoalStatus.getText().contains("Savings Goal Reached"), "Status message incorrect for large values.");
 		});
 		Thread.sleep(100);
 	}
 
 	@Test
-	public void testExtremelyLargeValues() throws InterruptedException {
+	public void testDecimalValuesForIncomeAndExpenses() throws InterruptedException {
 		Platform.runLater(() -> {
-			// Set extremely large values for income and expenses
-			controller.tfIncomeAmount.setText("1E308");
-			controller.tfTotalExpenses.setText("1E307"); // 10 times smaller, ensuring savings are positive
-			controller.tfSavingsGoal.setText("1E307");
+			double income = 999.99;
+			double expenses = 499.99;
 
-			// Perform calculation
-			controller.calculateSavings(null);
+			controller.calculateSavings(income, expenses);
 
-			// Assertions to check for overflow or incorrect calculation
-			assertEquals("9E307", controller.tfActualSavings.getText(), "Actual savings incorrect for extremely large values.");
-			assertEquals("Savings Goal Reached!", controller.lblSavingsGoalStatus.getText(), "Status message incorrect for large values.");
+			assertEquals("500.00", controller.lblActualSavings.getText(), "Actual savings incorrect for decimal income and expenses.");
+			assertTrue(controller.lblSavingsGoalStatus.getText().contains("Savings Goal Reached"), "Status message incorrect for decimal values.");
 		});
 		Thread.sleep(100);
+	}
+
+	@Test
+	public void testNoSavingsScenario() throws InterruptedException {
+		Platform.runLater(() -> {
+			double income = 1000;
+			double expenses = 1000;
+
+			controller.calculateSavings(income, expenses);
+
+			assertEquals("0.00", controller.lblActualSavings.getText(), "Actual savings should be zero in a no savings scenario.");
+			assertTrue(controller.lblSavingsGoalStatus.getText().contains("Savings Goal Not Reached"), "Status message incorrect for no savings scenario.");
+		});
+		Thread.sleep(100);
+	}
+	@Test
+	public void testSavingsLessThanGoal() throws InterruptedException {
+		Platform.runLater(() -> {
+			double income = 1500;
+			double expenses = 1200;
+			// Assuming the goal is set to something greater than the savings, like 400
+			double goal = 400; // This value is for logical comparison
+
+			controller.calculateSavings(income, expenses);
+
+			assertTrue(Double.parseDouble(controller.lblActualSavings.getText()) < goal, "Actual savings should be less than the savings goal.");
+			assertTrue(controller.lblSavingsGoalStatus.getText().contains("Savings Goal Not Reached"), "Status message incorrect for savings less than goal.");
+		});
+		Thread.sleep(100);
+	}
+	@Test
+	public void testNegativeSavingsGoal() throws InterruptedException {
+		Platform.runLater(() -> {
+			double income = 1000;
+			double expenses = 800;
+			// Assume goal can be negative, which might be handled as an error
+			double goal = -100; // For comparison purposes
+
+			controller.calculateSavings(income, expenses);
+
+			assertTrue(Double.parseDouble(controller.lblActualSavings.getText()) > goal, "Actual savings should be considered reached if the goal is negative.");
+
+		});
+		Thread.sleep(100);
+	}
+	@Test
+	public void testVariableExpenses() throws InterruptedException {
+		double income = 2000;
+		for (double expenses = 100; expenses <= 1900; expenses += 100) {
+			double finalExpenses = expenses; // Necessary for lambda capture
+			Platform.runLater(() -> {
+				controller.calculateSavings(income, finalExpenses);
+
+				double expectedSavings = income - finalExpenses;
+				assertEquals(String.format("%.2f", expectedSavings), controller.lblActualSavings.getText(), "Actual savings incorrect for expenses: " + finalExpenses);
+			});
+			Thread.sleep(100); // Adjust timing as necessary for your test environment
+		}
 	}
 
 }

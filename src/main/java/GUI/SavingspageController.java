@@ -1,5 +1,6 @@
 package GUI;
 
+import GUI.util.ExpenseTreeTableItem;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,19 +10,28 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeItem;
+import models.Category;
+import models.TimePeriod;
+import models.instances.ExpenseInstance;
+import models.instances.IncomeInstance;
+import org.hibernate.Session;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SavingspageController {
 	@FXML
     public TextField tfSavingsGoal;
 
 	@FXML
-	public TextField tfIncomeAmount;
+	public Label lblIncomeAmount;
 
 	@FXML
-	public TextField tfTotalExpenses;
+	public Label lblTotalExpenses;
 
 	@FXML
-	public TextField tfActualSavings;
+	public Label lblActualSavings;
 
 	@FXML
 	public Label lblSavingsGoalStatus;
@@ -35,32 +45,68 @@ public class SavingspageController {
 	@FXML
 	private NumberAxis yAxis;
 
-//    @FXML
-//    private void initialize1() {
-//        // Set the bar chart axes
-//        xAxis.setLabel("Category");
-//        yAxis.setLabel("Value");
-//
-//        // Set the bar chart title (if needed)
-//         barChart.setTitle("Savings Analysis");
-//    }
+private TimePeriod timePeriod;
 
-	@FXML
-	private void initialize() {
-		// Set tfActualSavings non-editable
-		tfActualSavings.setEditable(false);
+	public void setup(TimePeriod tp) {
+		this.timePeriod = tp;
+		initialize();
+		setupData();
+		barChart.getData().clear();
 	}
 
-	@FXML
-	public void calculateSavings(ActionEvent event) {
+	private void setupData() {
+		List<Category> categories;
+		List<TreeItem<ExpenseTreeTableItem>> items = new ArrayList<>();
+		double totalExpenses = 0;
+		double totalIncome = 0;
+
+		try (Session s = App.sf().openSession()) {
+			categories = s.createNamedQuery("getAllCategories", Category.class)
+				.setParameter("user", App.getCurrentUser().getID()).getResultList();
+		}
+
+		for (Category cat : categories) {
+			System.out.println(cat);
+			 //String names = cat.name.getValue();
+
+				List<ExpenseInstance> expenseInstance = App.s().createNamedQuery("getExpenseInstancesForCategory", ExpenseInstance.class)
+					.setParameter("tp", timePeriod.ID.get()).setParameter("cat", cat.ID.get()).getResultList();
+				System.out.println(this.timePeriod.getMonth());
+				for (ExpenseInstance ei : expenseInstance) {
+
+						//String insuranceName = ei.name();
+						double insuranceCost = ei.cost.get();
+
+
+					totalExpenses += insuranceCost;
+				}
+		}
+		List<IncomeInstance> incomes = App.s().createNamedQuery("getIncomesForTimePeriod", IncomeInstance.class)
+			.setParameter("month", timePeriod.getID())
+			.setParameter("user", App.getCurrentUser().getID()).getResultList();
+		System.out.println(this.timePeriod.getMonth());
+		for (IncomeInstance i : incomes){
+
+				double incomegot = i.getAmount();
+			  totalIncome += incomegot;
+
+
+		}
+		    textChange(lblIncomeAmount, Double.toString(totalIncome));
+		    textChange(lblTotalExpenses, Double.toString(totalExpenses));
+		    calculateSavings(totalIncome, totalExpenses);
+	}
+
+
+	public void calculateSavings(double income, double expense) {
 		try {
-			double income = Double.parseDouble(tfIncomeAmount.getText());
-			double expenses = Double.parseDouble(tfTotalExpenses.getText());
-			double savings = income - expenses;
-			tfActualSavings.setText(String.format("%.2f", savings));
+			double curincome = income;
+			double curexpense = expense;
+			double savings = curincome - curexpense;
+			lblActualSavings.setText(String.format("%.2f", savings));
 
 			// Update the bar chart
-			updateBarChart(income, expenses, savings);
+			updateBarChart(savings);
 
 			// Check if savings goal is reached
 			double savingsGoal = Double.parseDouble(tfSavingsGoal.getText());
@@ -74,11 +120,17 @@ public class SavingspageController {
 				lblSavingsGoalStatus.setStyle("-fx-text-fill: red;");
 			}
 		} catch (NumberFormatException e) {
-			tfActualSavings.setText("Invalid input");
+			lblActualSavings.setText("Invalid input");
 		}
 	}
-
-	private void updateBarChart(double income, double expenses, double savings) {
+	@FXML
+	private void handleCalculateAction(ActionEvent event) {
+		// This method is called when the Calculate button is clicked.
+		// Assuming the setupData method calculates and shows the total income and total expenses,
+		// and you want to calculate and compare the savings upon clicking the calculate button.
+		setupData(); // This will calculate the totals and display them.
+	}
+	private void updateBarChart(double savings) {
 		// Clear existing data
 		barChart.getData().clear();
 
@@ -91,4 +143,16 @@ public class SavingspageController {
 		// Add series to the bar chart
 		barChart.getData().add(series);
 	}
+
+	@FXML
+	public void textChange(Label label, String text){
+		label.setText(text);
+	}
+
+	@FXML
+	private void initialize() {
+
+	}
+
+
 }

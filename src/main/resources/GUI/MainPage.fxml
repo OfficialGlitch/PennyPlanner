@@ -96,15 +96,6 @@
                         </AnchorPane>
                     </content>
                   </Tab>
-								 <Tab fx:id="Insurance" closable="false" text="Insurance">
-									 <content>
-										 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-											 <children>
-												 <fx:include fx:id="insurancePage" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" source="Insurance.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-											 </children>
-										 </AnchorPane>
-									 </content>
-								 </Tab>
                </tabs>
             </TabPane>
          </children>
