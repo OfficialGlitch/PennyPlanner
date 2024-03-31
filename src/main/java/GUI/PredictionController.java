@@ -2,15 +2,9 @@ package GUI;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
-import java.io.IOException;
 
 public class PredictionController {
 
@@ -48,7 +42,7 @@ public class PredictionController {
             int years = Integer.parseInt(Years.getText()); // Number of years
             int months = Integer.parseInt(Months.getText()); // Number of years
 
-            double monthlyAddition = Double.parseDouble(MonthlyAdd.getText());; // Monthly addition to the principal balance
+            double monthlyAddition = Double.parseDouble(MonthlyAdd.getText()); // Monthly addition to the principal balance
 
             double r = annualInterestRate / 12; // Monthly interest rate
 
