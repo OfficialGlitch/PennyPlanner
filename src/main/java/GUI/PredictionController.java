@@ -12,8 +12,6 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
-//import javax.swing.*;
-
 public class PredictionController {
 
     @FXML
@@ -37,21 +35,6 @@ public class PredictionController {
 		@FXML
 		private CategoryAxis xAxis;
 
-    @FXML
-    public void initialize() {
-        // Set tfActualSavings non-editable
-//		tfActualSavings.setEditable(false);
-    }
-
-
-    @FXML
-    Label lblSavingsGoalStatus;
-
-    @FXML
-    public void initialize2() {
-        // Initialize the label color to black
-        lblSavingsGoalStatus.setStyle("-fx-text-fill: black;");
-    }
 
     @FXML
     void calculateCompound(ActionEvent event) {
@@ -81,25 +64,7 @@ public class PredictionController {
             }
             LineChart.getData().add(series1);
 
-
-
-
-//			System.out.printf("Future value: $%.2f", futureValue);
-
-
-            // Check if savings goal is reached
-//			double savingsGoal = Double.parseDouble(tfSavingsGoal.getText());
-//			if (savings >= savingsGoal) {
-//				// Set label text to indicate savings goal reached and set color to green
-//				lblSavingsGoalStatus.setText("Savings Goal Reached!");
-//				lblSavingsGoalStatus.setStyle("-fx-text-fill: green;");
-//			} else {
-//				// Set label text to indicate savings goal not reached and set color to red
-//				lblSavingsGoalStatus.setText("Savings Goal Not Reached");
-//				lblSavingsGoalStatus.setStyle("-fx-text-fill: red;");
-//			}
         } catch (NumberFormatException e) {
-//			Double.parseDouble(Amount.setText("Invalid input");
             System.out.println("Invalid Input");
         }
     }
