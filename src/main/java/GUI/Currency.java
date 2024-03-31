@@ -1,34 +1,39 @@
 package GUI;
 
 public enum Currency {
-	INR("rupee",1),
-	USD("dollar", 82.87),
-	GBP("pound", 85.86),
-	EUR("euro", 76.71),
-	CAD("cad dollar",61.06);
+	USD("US Dollar", "USD"),
+	EUR("Euro", "EUR"),
+	INR("Indian Rupee", "INR"),
+	GBP("British Pound", "GBP"),
+	CAD("Canadian Dollar", "CAD"),
+	AUD("Australian Dollar", "AUD"),
+	BGN("Bulgarian Lev", "BGN"),
+	BRL("Brazilian Real", "BRL"),
+	CHF("Swiss Franc", "CHF"),
+	CNY("Chinese Yuan", "CNY"),
+	DKK("Danish Krone", "DKK"),
+	HKD("Hong Kong Dollar", "HKD"),
+	HRK("Croatian Kuna", "HRK"),
+	ILS("Israeli New Shekel", "ILS"),
+	MYR("Malaysian Ringgit", "MYR"),
+	NZD("New Zealand Dollar", "NZD"),
+	PLN("Polish Zloty", "PLN"),
+	RON("Romanian Leu", "RON"),
+	SGD("Singapore Dollar", "SGD");
 
+	private final String description;
+	private final String code;
 
-
-
-	private double rupeeConversionRate;
-
-	private String fullName;
-
-	Currency(String fullName, double rupeeConversionRate) {
-		this.rupeeConversionRate = rupeeConversionRate;
-		this.fullName = fullName;
+	Currency(String description, String code) {
+		this.description = description;
+		this.code = code;
 	}
 
-	public double getRupeeConversionRate() {
-		return rupeeConversionRate;
+	public String getDescription() {
+		return description;
 	}
 
-	public String getFullName() {
-		return fullName;
+	public String getCode() {
+		return code;
 	}
-
-	public String getShortName() {
-		return name();
-	}
-
 }
