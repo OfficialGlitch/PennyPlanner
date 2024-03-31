@@ -265,4 +265,44 @@ public class IncomeTableController implements Initializable
 			}
 		}
 	}
+	@FXML
+	public void deleteIncome(ActionEvent ev) {
+		// Get the selected item from the table
+		IncomeInstance selectedInstance = mainTable.getSelectionModel().getSelectedItem();
+		System.out.println("THIS IS THE INSTANCE: "+selectedInstance);
+		// Check if an item is selected
+		if (selectedInstance != null) {
+			Alert confirmDeleteAlert = new Alert(Alert.AlertType.CONFIRMATION);
+			confirmDeleteAlert.setTitle("Delete Income Source");
+			confirmDeleteAlert.setHeaderText("Confirm deletion");
+			confirmDeleteAlert.setContentText("Are you sure you want to delete this income source?");
+
+			Optional<ButtonType> result = confirmDeleteAlert.showAndWait();
+			if (result.isPresent() && result.get() == ButtonType.OK) {
+				// Perform the deletion in a background task
+				Platform.runLater(() -> {
+					try (Session session = App.sf().openSession()) {
+						var tx = session.beginTransaction();
+						// Corrected HQL query to use proper entity name and parameter binding
+						String hql = "delete from incomes where id = :id";
+						int deletedEntities = session.createQuery(hql)
+							.setParameter("id", selectedInstance.getID())
+							.executeUpdate();
+						System.out.println("Entities deleted: " + deletedEntities); // For debugging
+						tx.commit();
+					}
+					// Update the table view after deletion
+					setRows();
+				});
+			}
+		} else {
+			// If no item is selected, show an alert to the user
+			Alert noSelectionAlert = new Alert(Alert.AlertType.WARNING);
+			noSelectionAlert.setTitle("No Selection");
+			noSelectionAlert.setHeaderText("No Income Source Selected");
+			noSelectionAlert.setContentText("Please select an income source to delete.");
+			noSelectionAlert.showAndWait();
+		}
+	}
+
 }
