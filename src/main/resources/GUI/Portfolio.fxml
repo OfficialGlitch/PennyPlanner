@@ -35,7 +35,7 @@
              <LineChart fx:id="LineChart" prefHeight="256.0" prefWidth="500.0" title="Gains" VBox.vgrow="ALWAYS">
       
                              <xAxis>
-                     <CategoryAxis label="Months" side="BOTTOM" />
+                     <CategoryAxis label="Months" side="BOTTOM" fx:id="x_axis"/>
                  </xAxis>
                  <yAxis>
                      <NumberAxis label="Return" side="LEFT" />

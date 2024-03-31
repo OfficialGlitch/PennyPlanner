@@ -2,6 +2,7 @@ package GUI.Loan;
 
 import GUI.App;
 import GUI.ExpenseTableController;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,18 +45,13 @@ public class PortfolioController {
     private BarChart<String, Number> BarChart;
 
 
-	private TimePeriod timePeriod;
-
 	public void setup(TimePeriod tp) {
-		this.timePeriod = tp;
-		LineChart.getData().clear();
-		BarChart.getData().clear();
 		initialize();
 		setupData(tp, 0);
 
 	}
 	private double setupData(TimePeriod tp, double previous){
-
+		// Get the investment expenses at chosen time
 		List<Category> categories;
 
 		try (Session s = App.sf().openSession()) {
@@ -73,7 +69,7 @@ public class PortfolioController {
 					String investmentName = eI.name();
 
 					addDataToBarChart(investmentName, eI.cost.get());
-
+					// add to running investment expense from that month
 					InvestmentTotal += eI.cost.get();
 				}
 			}
@@ -84,7 +80,7 @@ public class PortfolioController {
 	}
 
 
-
+// Add points to bar chart
 	public void addDataToBarChart(String category, double value) {
 		XYChart.Series<String, Number> series2 = new XYChart.Series<>();
 		series2.getData().add(new XYChart.Data<>(category, value));
@@ -93,6 +89,7 @@ public class PortfolioController {
 		BarChart.setLegendVisible(false);
 	}
 
+// Add points to line chart
 	public void addPointToLineChart(String xValue, Number yValue) {
 		XYChart.Series<String, Number> series = new XYChart.Series<>();
 		series.getData().add(new XYChart.Data<>(xValue, yValue));
@@ -104,31 +101,46 @@ public class PortfolioController {
 	public void textChange(Label label, String text){
 		label.setText(text);
 	}
-
-    @FXML
-    private void initialize() {
-
-        XYChart.Series<String, Number> series1 = new XYChart.Series<>();
-				LineChart.setLegendVisible(false);
-        series1.setName("Gains");
-        series1.getData().add(new XYChart.Data<>("0", 0));
-        LineChart.getData().add(series1);
-    }
 	@FXML
-	public void changeDate(){
+	private void initialize() {
 		LineChart.getData().clear();
 		BarChart.getData().clear();
+		LineChart.setLegendVisible(false);
 
-		int from = Integer.parseInt(fromField.getText());
-		int to = Integer.parseInt(toField.getText());
+	}
 
-		initialize();
-		double totalInvestment = 0;
-		for(int i=from; i<=to; i++){
-			TimePeriod tp = TimePeriod.generateNewMonth((int) i, 2024);
-			double monthlyInvestment = setupData(tp, totalInvestment);
-			totalInvestment += monthlyInvestment;
+	// From-To time specifier
+	@FXML
+	public void changeDate(){
+
+		try{
+			int from = Integer.parseInt(fromField.getText());
+			int to = Integer.parseInt(toField.getText());
+			// invalid month
+			if(to < 0 || from < 0 || to > 12){
+				showAlert("Invalid Input", "Enter Positive value less than or equal to 12");
+			}else{
+				initialize();
+				double totalInvestment = 0;
+				// Get the interval of months
+				for(int i=from; i<=to; i++){
+					// Create new TimePeriod
+					TimePeriod tp = TimePeriod.generateNewMonth(i, 2024);
+					double monthlyInvestment = setupData(tp, totalInvestment);
+					totalInvestment += monthlyInvestment;
+				}
+				textChange(label1, Double.toString(totalInvestment));
+			}
+		}catch (NumberFormatException e) {
+			showAlert("Invalid input", "Enter valid value");
 		}
-		textChange(label1, Double.toString(totalInvestment));
+	}
+
+	private void showAlert(String title, String content) {
+		Alert alert = new Alert(Alert.AlertType.ERROR);
+		alert.setTitle(title);
+		alert.setHeaderText(null);
+		alert.setContentText(content);
+		alert.showAndWait();
 	}
 }
