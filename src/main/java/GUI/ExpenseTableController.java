@@ -78,11 +78,12 @@ public class ExpenseTableController implements Initializable {
 	private Button addExpenseBtn;
 	@FXML
 	private Button addCategoryBtn;
-	
+
+	private static final long REFRESH_INTERVAL_MILLIS = 500;
 	private TimePeriod timePeriod;
 	private final TreeItem<ExpenseTreeTableItem> troot = new TreeItem<>(null);
 	
-	public static final String NAME_COLUMN = "expnse.name";
+	public static final String NAME_COLUMN = "expense.name";
 	public double getActualExpense() {
 		double ret = 0d;
 		for(var it : troot.getChildren()) {
@@ -196,7 +197,7 @@ public class ExpenseTableController implements Initializable {
 		differenceCol.setCellFactory(new GenericTreeTableCellFactory<>(s -> String.format("%.1f", s)));
 		updateRows();
 	}
-	
+
 	void mergeItem(Object o) {
 		Platform.runLater(() -> {
 			try (Session s = App.sf().openSession()) {
@@ -277,7 +278,7 @@ public class ExpenseTableController implements Initializable {
 				};
 			}
 		};
-		service.setPeriod(Duration.millis(500));
+		service.setPeriod(Duration.millis(REFRESH_INTERVAL_MILLIS));
 		service.start();
 	}
 	@FXML

@@ -12,6 +12,8 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 
+import static javafx.collections.FXCollections.emptyObservableList;
+
 @Entity(name = "expenses")
 @Access(AccessType.PROPERTY)
 @NamedQueries({
@@ -103,10 +105,10 @@ public class ExpenseInstance implements ExpenseTreeTableItem {
 	public StringProperty nameProperty() {
 		return expense.get().name;
 	}
-	
+
 	@Override
 	public ObservableList<ExpenseInstance> getExpenseInstances(TimePeriod timePeriod) {
-		return FXCollections.emptyObservableList();
+		return emptyObservableList();
 	}
 	
 	@Override

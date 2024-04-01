@@ -323,12 +323,21 @@ Kennie: Worked on the ITR2 document
 Ahmed: Worked on the ITR2 document
 
 March 11, 2024 - 2:00pm - 5:30pm
-full team meeting including everymember to make the application function and work accordingly.
+full team meeting including every member to make the application function and work accordingly.
 
 March 11, 2024 - 2:00pm - 9:00pm
 Ahmed: Worked on the registration page.
 Ahmed: Completed the ITR2 document.
 Ahmed: Helped members with their user story functionality with the main.
+
+March 14, 2024: 1:00pm - 7:00pm
+Ahmed: Searched through the entire document to find bugs and issues
+Ahmed: Planned out the bug report and every other factor that would need to be templated for teams use.
+
+March 24, 2024:
+Ahmed: Created the document for the team bugs that was submitted on the github.
+Ahmed: Created a template for the team to contribute effectively.
+Ahmed: Assigned the user stories that could be end to end tested.
 
 March 10, 2024 -2:00 pm- 10:00 pm
 Nabeela: Worked on the currency converter page
@@ -348,4 +357,7 @@ Oubai: Updated portfolio page
 Oubai: Test cases for portfolio and prediction page
 Oubai: update Portfolio time-selector
 
+March 30, 2024:
+Ahmed: Reached out to group members to see progress in task.
+Ahmed: created the ITR3 document and implemented all the user stories.
 
