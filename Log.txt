@@ -316,10 +316,19 @@ Kennie: Worked on the ITR2 document
 Ahmed: Worked on the ITR2 document
 
 March 11, 2024 - 2:00pm - 5:30pm
-full team meeting including everymember to make the application function and work accordingly.
+full team meeting including every member to make the application function and work accordingly.
 
 March 11, 2024 - 2:00pm - 9:00pm
 Ahmed: Worked on the registration page.
 Ahmed: Completed the ITR2 document.
 Ahmed: Helped members with their user story functionality with the main.
 
+March 14, 2024: 1:00pm - 7:00pm
+Ahmed: Searched through the entire document to find bugs and issues
+Ahmed: Planned out the bug report and every other factor that would need to be templated for teams use.
+
+
+March 24, 2024:
+Ahmed: Created the document for the team bugs that was submitted on the github.
+Ahmed: Created a template for the team to contribute effectively.
+Ahmed: Assigned the user stories that could be end to end tested.
