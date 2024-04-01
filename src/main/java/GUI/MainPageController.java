@@ -13,6 +13,7 @@ import models.TimePeriod;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class MainPageController implements Initializable {
@@ -55,8 +56,10 @@ public class MainPageController implements Initializable {
 	public void initTabs() {
 		var cal = Calendar.getInstance();
 		for(int i = 0; i < 12; i++) {
+			cal.set(Calendar.DAY_OF_MONTH, 1);
 			cal.set(Calendar.MONTH, i);
-			Tab newTab = new Tab(new SimpleDateFormat("MMMM").format(cal.getTime()));
+			Tab newTab = new Tab(new SimpleDateFormat("MMMM", Locale.CANADA).format(cal.getTime()));
+
 			newTab.setClosable(false);
 			months.getTabs().add(newTab);
 		}

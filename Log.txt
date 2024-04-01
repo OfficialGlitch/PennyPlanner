@@ -348,4 +348,9 @@ Nabeela: Updated currency converter page
 Nabeela: Test cases for currency page
 Nabeela: Filmed interview for Iteration 3
 
+March 30, 2024:
+Ahmed: Reached out to group members to see progress in task.
+Ahmed: created the ITR3 document and implemented all the user stories.
 
+March 31, 2024:
+Ahmed:
