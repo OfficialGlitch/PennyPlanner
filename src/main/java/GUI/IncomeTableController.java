@@ -123,14 +123,75 @@ public class IncomeTableController implements Initializable
 				mergeItem(item);
 			})
 		);
-		actualCol.setCellFactory(new GenericTableCellFactory<>(
-			s -> String.format("%.2f", s),
-			new DoubleStringConverter(),
-			(item, value) -> {
-				item.setAmount(value);
-				mergeItem(item);
-			})
-		);
+
+		actualCol.setCellFactory(column -> new TableCell<IncomeInstance, Double>() {
+			private final TextField textField = new TextField();
+			private final DoubleStringConverter converter = new DoubleStringConverter();
+
+			@Override
+			public void startEdit() {
+				if (!isEmpty()) {
+					super.startEdit();
+					textField.setText(getItem().toString());
+					setText(null);
+					setGraphic(textField);
+					textField.requestFocus();
+				}
+			}
+
+			@Override
+			public void cancelEdit() {
+				super.cancelEdit();
+				setText(converter.toString(getItem()));
+				setGraphic(null);
+			}
+
+			@Override
+			public void updateItem(Double item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty) {
+					setText(null);
+					setGraphic(null);
+				} else if (isEditing()) {
+					setText(null);
+					textField.setText(converter.toString(getItem()));
+					setGraphic(textField);
+				} else {
+					setText(converter.toString(getItem()));
+					setGraphic(null);
+				}
+			}
+
+			@Override
+			public void commitEdit(Double newValue) {
+				// This is where you can perform the validation
+				if (newValue == null || newValue >= 0) {
+					super.commitEdit(newValue);
+					IncomeInstance instance = getTableView().getItems().get(getIndex());
+					instance.setAmount(newValue);
+					mergeItem(instance); // Save the updated instance
+				} else {
+					// Optionally, show an alert dialog to inform the user that negative values are not allowed
+					Alert alert = new Alert(Alert.AlertType.ERROR, "Negative values are not allowed.");
+					alert.showAndWait();
+				}
+			}
+
+			private void createTextField() {
+				textField.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
+				textField.setOnAction(evt -> commitEdit(converter.fromString(textField.getText())));
+				textField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+					if (!newValue) {
+						commitEdit(converter.fromString(textField.getText()));
+					}
+				});
+			}
+
+			{
+				createTextField();
+			}
+		});
+
 		differenceCol.setCellFactory(new GenericTableCellFactory<>(
 			s -> String.format("%.1f", s),
 			new DoubleStringConverter(),
