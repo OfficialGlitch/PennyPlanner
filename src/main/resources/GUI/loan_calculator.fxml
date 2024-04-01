@@ -46,7 +46,7 @@
 						</TableView>
 
 						<Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleDeleteButton" prefHeight="26.0" prefWidth="65.0" text="Delete" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-						<Button fx:id="calculateButton" defaultButton="true" mnemonicParsing="false" onAction="#handleCalculateButton" text="Calculate" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+						<Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSaveButton" text="Save" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" >
 							<font>
 								<Font name="System Bold" size="12.0" />
 							</font>

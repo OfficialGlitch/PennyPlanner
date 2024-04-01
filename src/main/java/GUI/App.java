@@ -78,6 +78,7 @@ public class App extends Application {
 	public static void setCurrentScene(Parent parent) {
 		parent.getStylesheets().clear();
 		parent.getStylesheets().add(Objects.requireNonNull(App.class.getResource("style.css")).toExternalForm());
+		//var current = root.getChildren().getFirst();
 		var current = root.getChildren().getFirst();
 
 		parent.translateXProperty().set(root.getWidth());
