@@ -343,10 +343,19 @@ March 10, 2024 -2:00 pm- 10:00 pm
 Nabeela: Worked on the currency converter page
 Nabeela: Worked on ITR2 document
 
+March 10, 2024 -2:00 pm- 10:00 pm
+Oubai: Worked on the prediction page
+Oubai: Worked on ITR2 document
+
 March 28, 2024 -2:00pm-10:00pm
 Nabeela: Updated currency converter page
 Nabeela: Test cases for currency page
 Nabeela: Filmed interview for Iteration 3
+
+March 28, 2024 -2:00pm-10:00pm
+Oubai: Updated portfolio page
+Oubai: Test cases for portfolio and prediction page
+Oubai: update Portfolio time-selector
 
 March 30, 2024:
 Ahmed: Reached out to group members to see progress in task.
