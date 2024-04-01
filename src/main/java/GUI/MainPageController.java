@@ -66,12 +66,14 @@ public class MainPageController implements Initializable {
 			expenseIncomePageController.setFields(tp);
 			summaryPageController.setup(tp);
 			portfolioPageController.setup(tp);
+			savingsPageController.setup(tp);
 		}));
 		pageTabs.getSelectionModel().selectedIndexProperty().addListener((obs, old, newVal) ->{
 			TimePeriod tp = TimePeriod.generateNewMonth((int) months.getSelectionModel().selectedIndexProperty().getValue() + 1, year);
 			expenseIncomePageController.setFields(tp);
 			summaryPageController.setup(tp);
 			portfolioPageController.setup(tp);
+			savingsPageController.setup(tp);
 		});
 		
 		months.getSelectionModel().select(Calendar.getInstance().get(Calendar.MONTH));

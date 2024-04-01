@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.TextFlow?>
 
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Loan.PortfolioController">
    <children>
@@ -17,10 +26,8 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="Budget" />
+            <Label text="Invested" />
             <Label fx:id="label1" alignment="CENTER" text="0" GridPane.columnIndex="1" />
-            <Label text="Investment" GridPane.rowIndex="1" />
-            <Label fx:id="label2" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
@@ -28,7 +35,7 @@
              <LineChart fx:id="LineChart" prefHeight="256.0" prefWidth="500.0" title="Gains" VBox.vgrow="ALWAYS">
       
                              <xAxis>
-                     <CategoryAxis label="Months" side="BOTTOM" />
+                     <CategoryAxis label="Months" side="BOTTOM" fx:id="x_axis"/>
                  </xAxis>
                  <yAxis>
                      <NumberAxis label="Return" side="LEFT" />
@@ -45,5 +52,10 @@
             <TextFlow prefHeight="34.0" prefWidth="75.0" />
          </children>
       </VBox>
+      <TextField fx:id="fromField" layoutX="264.0" layoutY="37.0" prefHeight="26.0" prefWidth="75.0" text="MM" />
+      <TextField fx:id="toField" layoutX="346.0" layoutY="37.0" prefHeight="26.0" prefWidth="75.0" text="MM" />
+      <Button fx:id="dateBtn" layoutX="432.0" layoutY="37.0" mnemonicParsing="false" text="Enter" onAction="#changeDate"/>
+      <Label layoutX="264.0" layoutY="22.0" text="From" />
+      <Label layoutX="339.0" layoutY="22.0" text="To" />
    </children>
 </AnchorPane>
