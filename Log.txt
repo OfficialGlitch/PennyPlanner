@@ -265,6 +265,13 @@ User Story: Income Table
 * Started working on the Income table
 * Due to technical issues with Javafx, as well as some personal(illness), I was unable to complete my user story for Iteration 1.
 
+Nabeela Ansari
+User Story: Currency Converter
+* Updated the group log file.
+* Created Dummy GUI on figma
+* Started working on the Currency Converter
+* Added test file for currency converter
+* updated the user story
 
 NOTE!!!!:
 Due to merges with the main branch, our code does not run at all. Individually the user stories inside their branches all ran perfectly and displayed a GUI. These can be seen inside our Planning Document for Iteration 1 beside each corresponding User Story. By merging to the main we encountered a problem where our IDE’s displayed a message saying we do not have a main method inside java/GUI/App.java. We will solve this conflict in Iteration 2 ASAP since we can have a basic functioning program if we solve this issue. The issue does seem more structural rather than something being wrong with our code but we will look into this before our Delivery 1 presentation.
@@ -322,4 +329,13 @@ March 11, 2024 - 2:00pm - 9:00pm
 Ahmed: Worked on the registration page.
 Ahmed: Completed the ITR2 document.
 Ahmed: Helped members with their user story functionality with the main.
+
+March 10, 2024 -2:00 pm- 10:00 pm
+Nabeela: Worked on the currency converter page
+Nabeela: Worked on ITR2 document
+
+March 28, 2024 -2:00pm-10:00pm
+Nabeela: Updated currency converter page
+Nabeela: Test cases for currency page
+Nabeela: Filmed interview for Iteration 3
 
