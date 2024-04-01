@@ -38,6 +38,14 @@ The overall aim of our Finance Tracking application is to create a user-friendly
   - Tests
 
 ## ⚡️ Quick start
+### <ins>How to Use</ins>
+Login/Register with a username and password
+User can navigate to different pages using the navigation bar on the Left of the screen
+User can add expenses to the expensetable based on different expense Categories
+The User can track their Invenstments on the Investment page
+They can use the Currency converter to convert between any two currencies
+The User can Calculate their savings on the Savings page.
+The user can Calculate their loans on the Loan calculator page.
 ### <ins>run</ins>
 run the project using the command _**mvn javafx:run**_ on your IDE terminal.
 
