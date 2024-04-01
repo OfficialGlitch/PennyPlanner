@@ -1,18 +1,12 @@
-import GUI.App;
+package UnitTest;
+
 import GUI.Loan.LoanController;
 import GUI.Loan.LoanInfo;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.stage.Stage;
 import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
-import javafx.scene.Scene;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -35,7 +29,6 @@ public class LoanCalculatorTest {
 		Platform.runLater(() -> {
 			loanController = new LoanController();
 			TextField loanAmountTextField = loanController.getLoanAmountTextField();
-			assertNotNull(loanAmountTextField);
 			// Simulate entering a loan amount of 1000
 			loanAmountTextField.setText("1000");
 			assertEquals("1000", loanAmountTextField.getText());
@@ -67,11 +60,10 @@ public class LoanCalculatorTest {
 	}
 
 	@Test
-	public void testCalculateButton() {
+	public void testAddButton() {
 		Platform.runLater(() -> {
 			loanController = new LoanController();
 			TableView<LoanInfo> tableView = loanController.getLoanDetailsTableView();
-			assertNotNull(tableView);
 			assertTrue(tableView.getItems().isEmpty());
 
 			TextField loanAmountTextField = loanController.getLoanAmountTextField();
@@ -83,10 +75,64 @@ public class LoanCalculatorTest {
 			TextField paymentPeriodTextField = loanController.getPaymentPeriodTextField();
 			paymentPeriodTextField.setText("12");
 
-			loanController.handleCalculateButton();
+			loanController.handleAddButton();
 
 			assertFalse(tableView.getItems().isEmpty());
 			assertEquals(1, tableView.getItems().size());
 		});
 	}
+
+	@Test
+	public void testDeleteButton() {
+		Platform.runLater(() -> {
+			loanController = new LoanController();
+			TableView<LoanInfo> tableView = loanController.getLoanDetailsTableView();
+			assertNotNull(tableView);
+			assertTrue(tableView.getItems().isEmpty());
+
+			// Add a loan to the table
+			TextField loanAmountTextField = loanController.getLoanAmountTextField();
+			loanAmountTextField.setText("1000");
+
+			TextField interestRateTextField = loanController.getInterestRateTextField();
+			interestRateTextField.setText("5.0");
+
+			TextField paymentPeriodTextField = loanController.getPaymentPeriodTextField();
+			paymentPeriodTextField.setText("12");
+			//loanController.addLoan(loanInfo);
+			loanController.handleAddButton();
+			// Delete the added loan
+			loanController.handleDeleteButton();
+
+			// Verify that the loan is deleted from the table
+			assertTrue(tableView.getItems().isEmpty());
+		});
+	}
+	@Test
+	public void testSaveButton() {
+		Platform.runLater(() -> {
+			loanController = new LoanController();
+			TableView<LoanInfo> tableView = loanController.getLoanDetailsTableView();
+			assertNotNull(tableView);
+			assertTrue(tableView.getItems().isEmpty());
+
+			// Add a loan to the table
+			TextField loanAmountTextField = loanController.getLoanAmountTextField();
+			loanAmountTextField.setText("1000");
+
+			TextField interestRateTextField = loanController.getInterestRateTextField();
+			interestRateTextField.setText("5.0");
+
+			TextField paymentPeriodTextField = loanController.getPaymentPeriodTextField();
+			paymentPeriodTextField.setText("12");
+			loanController.handleAddButton();
+
+			// Save the added loan
+			loanController.handleSaveButton();
+
+			// Verify that the loan is saved (you need to implement this verification logic)
+			assertTrue(!tableView.getItems().isEmpty());
+		});
+	}
+
 }

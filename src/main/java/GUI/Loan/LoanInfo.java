@@ -7,9 +7,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.util.Objects;
+
 import javafx.beans.property.*;
-import models.TimePeriod;
+
 
 public class LoanInfo implements Serializable{
 	private static final long serialVersionUID = 6130139203999619115L; // Ensure consistent serialization
@@ -19,20 +22,10 @@ public class LoanInfo implements Serializable{
 	private transient SimpleDoubleProperty monthlyPayment;
 	private ObjectProperty<LocalDate> startDate;
 	private ObjectProperty<LocalDate> endDate;
-	private DoubleProperty remainingLoan;
-	public LoanInfo(double loanAmount, double interestRate, int paymentPeriod) {
-		this.loanAmount = new SimpleDoubleProperty(loanAmount);
-		this.interestRate = new SimpleDoubleProperty(interestRate);
-		this.paymentPeriod = new SimpleIntegerProperty(paymentPeriod);
-		this.monthlyPayment = new SimpleDoubleProperty();
+	private transient DoubleProperty remainingLoan;
 
-	}
-	public LoanInfo(double loanAmount, double interestRate, int paymentPeriod, double monthlyPayment) {
-		this.loanAmount = new SimpleDoubleProperty(loanAmount);
-		this.interestRate = new SimpleDoubleProperty(interestRate);
-		this.paymentPeriod = new SimpleIntegerProperty(paymentPeriod);
-		this.monthlyPayment = new SimpleDoubleProperty(monthlyPayment);
-	}
+
+
 	public LoanInfo(double loanAmount, double interestRate, int paymentPeriod, double monthlyPayment, LocalDate startDate, LocalDate endDate) {
 		this.loanAmount = new SimpleDoubleProperty(loanAmount);
 		this.interestRate = new SimpleDoubleProperty(interestRate);
@@ -40,17 +33,22 @@ public class LoanInfo implements Serializable{
 		this.monthlyPayment = new SimpleDoubleProperty(monthlyPayment);
 		this.startDate = new SimpleObjectProperty<>(startDate);
 		this.endDate = new SimpleObjectProperty<>(startDate.plusMonths(paymentPeriod));
+		calculateRemainingLoan();
 	}
-	public LoanInfo(double loanAmount, double interestRate, int paymentPeriod, LocalDate startDate, LocalDate endDate) {
+	public LoanInfo(double loanAmount, double interestRate, int paymentPeriod, LocalDate startDate, LocalDate endDate, double monthlyPayment, double remainingLoan) {
 		this.loanAmount = new SimpleDoubleProperty(loanAmount);
 		this.interestRate = new SimpleDoubleProperty(interestRate);
 		this.paymentPeriod = new SimpleIntegerProperty(paymentPeriod);
-		this.monthlyPayment = new SimpleDoubleProperty();
+		this.monthlyPayment = new SimpleDoubleProperty(monthlyPayment);
 		this.startDate = new SimpleObjectProperty<>(startDate);
 		this.endDate = new SimpleObjectProperty<>(startDate.plusMonths(paymentPeriod));
-		this.remainingLoan = new SimpleDoubleProperty();
-		calculateRemainingLoan(); // Calculate initial remaining loan amount
+		this.remainingLoan = new SimpleDoubleProperty(remainingLoan);
+		this.startDate.addListener((obs, oldDate, newDate) -> {
+			this.startDate.set(newDate);
+			calculateRemainingLoan(); // Recalculate remaining loan when start date changes
+		});
 	}
+
 	public double getLoanAmount() {
 
 		return loanAmount.get();
@@ -60,9 +58,6 @@ public class LoanInfo implements Serializable{
 		return loanAmount;
 	}
 
-	public void setLoanAmount(double loanAmount) {
-		this.loanAmount.set(loanAmount);
-	}
 
 	public double getInterestRate() {
 		return interestRate.get();
@@ -72,9 +67,7 @@ public class LoanInfo implements Serializable{
 		return interestRate;
 	}
 
-	public void setInterestRate(double interestRate) {
-		this.interestRate.set(interestRate);
-	}
+
 	// Custom serialization methods
 	private void writeObject(ObjectOutputStream out) throws IOException {
 		out.defaultWriteObject();
@@ -105,9 +98,6 @@ public class LoanInfo implements Serializable{
 		return paymentPeriod;
 	}
 
-	public void setPaymentPeriod(int paymentPeriod) {
-		this.paymentPeriod.set(paymentPeriod);
-	}
 	public DoubleProperty monthlyPaymentProperty() {
 		return monthlyPayment;
 	}
@@ -144,26 +134,56 @@ public class LoanInfo implements Serializable{
 	public double calculateRemainingLoan() {
 		LocalDate currentDate = LocalDate.now();
 		if (currentDate.isBefore(endDate.get())) {
-			int monthsElapsed = (int) startDate.get().until(currentDate).toTotalMonths();
-			double remainingAmount = monthlyPayment.get() * (paymentPeriod.get() - monthsElapsed);
-			return remainingAmount >= 0 ? remainingAmount : 0;
+			LocalDate date = startDate.get();
+			double remainingAmount;
+			double totalInterest = (monthlyPayment.get() * paymentPeriod.get()) - loanAmount.get();
+			remainingAmount = loanAmount.get() + totalInterest;
+			while (date.isBefore(currentDate)) {
+				double monthlyInterest = remainingAmount * (interestRate.get() /100 / 12.0);
+				remainingAmount -= (monthlyPayment.get() - monthlyInterest);
+				date = date.plusMonths(1); // Move to the next month
+			}
+			DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+			return Double.parseDouble(decimalFormat.format(remainingAmount >= 0 ? remainingAmount : 0));
+
 		} else {
 			return 0; // Loan fully paid off
 		}
 	}
-	// Getter and setter for remaining loan property
+
 	public double getRemainingLoan() {
+		if (remainingLoan == null) {
+			remainingLoan = new SimpleDoubleProperty();
+		}
 		return remainingLoan.get();
 	}
 
-	public DoubleProperty remainingLoanProperty() {
-		return remainingLoan;
-	}
-
+	// Setter method for remainingLoan property
 	public void setRemainingLoan(double remainingLoan) {
+		if (this.remainingLoan == null) {
+			this.remainingLoan = new SimpleDoubleProperty();
+		}
 		this.remainingLoan.set(remainingLoan);
 	}
 
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		LoanInfo loanInfo = (LoanInfo) o;
+		return Double.compare(loanInfo.getLoanAmount(), getLoanAmount()) == 0 &&
+			Double.compare(loanInfo.getInterestRate(), getInterestRate()) == 0 &&
+			loanInfo.getPaymentPeriod() == getPaymentPeriod() &&
+			Double.compare(loanInfo.getMonthlyPayment(), getMonthlyPayment()) == 0 &&
+			Double.compare(loanInfo.getRemainingLoan(), getRemainingLoan()) == 0 &&
+			Objects.equals(getStartDate(), loanInfo.getStartDate()) &&
+			Objects.equals(getEndDate(), loanInfo.getEndDate());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getLoanAmount(), getInterestRate(), getPaymentPeriod(), getMonthlyPayment(), getStartDate(), getEndDate(), getRemainingLoan());
+	}
 }
 
