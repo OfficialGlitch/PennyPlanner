@@ -20,9 +20,12 @@ The overall aim of our Finance Tracking application is to create a user-friendly
   	-ITR 1 (Updated) 
   - ITR 2
   	- Video link
+  - ITR 3
+   - Second Customer Interview
 - TakeHomeTeamassesment
   - Bug reports
-  - Assigned User stories for end-to-end(E2E) testing.  
+  - Assigned User stories for end-to-end(E2E) testing.
+- Addressing Reported Issues 
 - code
   - LoginGUI
   - Expense Table with functionality
@@ -30,6 +33,8 @@ The overall aim of our Finance Tracking application is to create a user-friendly
   - Stub DataBase
   - Investment page
   - saving calculator
+  - Loan Calculator
+  - Currency Converter
   - Tests
 
 ## ⚡️ Quick start
