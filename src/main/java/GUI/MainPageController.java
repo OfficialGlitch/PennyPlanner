@@ -53,7 +53,6 @@ public class MainPageController implements Initializable {
 		year = nyear;
 	}
 	public void initTabs() {
-		months.getTabs().clear();
 		var cal = Calendar.getInstance();
 		for(int i = 0; i < 12; i++) {
 			cal.set(Calendar.MONTH, i);
