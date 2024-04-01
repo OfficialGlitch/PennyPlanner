@@ -361,3 +361,7 @@ March 30, 2024:
 Ahmed: Reached out to group members to see progress in task.
 Ahmed: created the ITR3 document and implemented all the user stories.
 
+March 29, 2024:
+Kennie: Modified savings page
+Kennie: test cases for modified savings page
+Kennie: Draft of IT3 Document
