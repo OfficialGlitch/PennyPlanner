@@ -334,7 +334,11 @@ March 14, 2024: 1:00pm - 7:00pm
 Ahmed: Searched through the entire document to find bugs and issues
 Ahmed: Planned out the bug report and every other factor that would need to be templated for teams use.
 
-March 24, 2024:
+March 20, 2024: 2hrs
+Ahmed: Attempt to get the team together and make individuals contribute equally
+Ahmed: Checking on assigned user stories and progress.
+
+March 24, 2024 1:00pm - 5:00pm:
 Ahmed: Created the document for the team bugs that was submitted on the github.
 Ahmed: Created a template for the team to contribute effectively.
 Ahmed: Assigned the user stories that could be end to end tested.
@@ -365,3 +369,8 @@ Kennie: Draft of IT3 Document
 March 30, 2024:
 Ahmed: Reached out to group members to see progress in task.
 Ahmed: created the ITR3 document and implemented all the user stories.
+
+March 31, 2024 2:00pm-11:59:pm:
+Ahmed: Worked on the project and ITR3 feature untill submission.
+Ahmed: Fixed different bugs in the project (not in the bug report) for the demo on april 1st.
+Ahmed: Organized files and refactoring.
