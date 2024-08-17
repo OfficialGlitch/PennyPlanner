@@ -44,7 +44,7 @@ public class App extends Application {
 			DataGenerator.generate();
 		FXMLLoader rootLoader = loadFXML("Root");
 		root = rootLoader.load();
-		var scene = new Scene(root, 1000, 700);
+		var scene = new Scene(root, 900, 700);
 		scene.setUserAgentStylesheet(getClass().getResource("style.css").toString());
 		Parent p = loadFXML("Login").load();
 		root.getChildren().add(p);
