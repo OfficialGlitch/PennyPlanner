@@ -21,8 +21,8 @@ public class MainPageController implements Initializable {
 	private ExpenseIncomeController expenseIncomePageController;
 	@FXML
 	private LoanController loanCalculatorController;
-	@FXML
-	private PortfolioController portfolioPageController;
+//	@FXML
+//	private PortfolioController portfolioPageController;
 	@FXML
 	private SummaryPageController summaryPageController;
 	@FXML
@@ -67,14 +67,14 @@ public class MainPageController implements Initializable {
 			TimePeriod tp = TimePeriod.generateNewMonth((int) newValue + 1, year);
 			expenseIncomePageController.setFields(tp);
 			summaryPageController.setup(tp);
-			portfolioPageController.setup(tp);
+//			portfolioPageController.setup(tp);
 			savingsPageController.setup(tp);
 		}));
 		pageTabs.getSelectionModel().selectedIndexProperty().addListener((obs, old, newVal) ->{
 			TimePeriod tp = TimePeriod.generateNewMonth((int) months.getSelectionModel().selectedIndexProperty().getValue() + 1, year);
 			expenseIncomePageController.setFields(tp);
 			summaryPageController.setup(tp);
-			portfolioPageController.setup(tp);
+//			portfolioPageController.setup(tp);
 			savingsPageController.setup(tp);
 		});
 		

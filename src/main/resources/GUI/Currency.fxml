@@ -18,7 +18,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="300.0" prefWidth="500.0" stylesheets="app.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ConvertCurrency">
+<AnchorPane prefHeight="300.0" prefWidth="500.0" stylesheets="app.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ConvertCurrency">
 	<children>
 		<VBox spacing="10.0" AnchorPane.bottomAnchor="283.0" AnchorPane.leftAnchor="445.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<children>
@@ -27,7 +27,7 @@
 						<Font name="Roboto" size="62.0" />
 					</font>
 				</Label>
-				<HBox alignment="BOTTOM_CENTER" prefHeight="150.0" prefWidth="425.0" spacing="5.0" stylesheets="@app.css">
+				<HBox alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="425.0" spacing="5.0" stylesheets="@app.css">
 					<children>
 						<Label prefHeight="19.0" prefWidth="101.0" text="Input Amount:">
 							<font>
@@ -40,7 +40,7 @@
 							</effect></ComboBox>
 					</children>
 				</HBox>
-				<HBox alignment="CENTER" prefHeight="104.0" prefWidth="421.0" spacing="5.0" stylesheets="@app.css">
+				<HBox alignment="CENTER_RIGHT" prefHeight="104.0" prefWidth="421.0" spacing="5.0" stylesheets="@app.css">
 					<children>
 						<Label prefHeight="19.0" prefWidth="110.0" text="Output Amount:">
 							<font>
@@ -103,6 +103,6 @@
 				<NumberAxis fx:id="yAxis" label="Conversion Rate" />
 			</yAxis>
 		</LineChart>
-      <Button id="refreshrate" layoutX="333.0" layoutY="429.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" text="Refresh Rates" onAction="#handlerefresh" />
+      <Button id="refreshrate" layoutX="333.0" layoutY="429.0" mnemonicParsing="false" onAction="#handlerefresh" prefHeight="26.0" prefWidth="150.0" text="Refresh Rates" />
 	</children>
 </AnchorPane>

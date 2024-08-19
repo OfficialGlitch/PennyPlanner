@@ -119,7 +119,7 @@ public class SummaryPageController implements Initializable{
 
 	public void addPointToLineChart(String xValue, Number yValue, String type) {
 		if (type.equals("E")){
-			XYChart.Series<String, Number> expensesSeries = (XYChart.Series<String, Number>) LineGraph.getData().get(0);
+			XYChart.Series<String,Number> expensesSeries = (XYChart.Series<String,Number>)LineGraph.getData().get(0);
 			expensesSeries.getData().add(new XYChart.Data<>(xValue, yValue));
 
 			XYChart.Data<String, Number> newDataPoint = expensesSeries.getData().get(expensesSeries.getData().size() - 1);
@@ -148,52 +148,17 @@ public class SummaryPageController implements Initializable{
 		ObservableList<PieChart.Data> pieChartData = PieChart.getData();
 		PieChart.Data data = new PieChart.Data(category, value);
 		pieChartData.add(data);
-//        PieChart.Data slice1 = new PieChart.Data(category, value);
-//
+//		pieChartData.add(data);
+//    PieChart.Data slice1 = new PieChart.Data(category, value);
+
 		if (colour.equals("E")){
 			data.getNode().setStyle("-fx-pie-color: #ff0000;"); // Red
 		}else {
 			data.getNode().setStyle("-fx-pie-color: #00ff00;"); // Green
 		}
-//
-//        PieChart.getData().addAll(slice1);
-	}
+//		PieChart.getData().clear();
+//		PieChart.getData().addAll(pieChartData);
 
-	public void addStubData() {
-//        Database d = new Database();
-
-		// EXAMPLE FUNCTIONS
-
-		// Adding Person 1
-		ArrayList<Object> added = new ArrayList<Object>();
-
-		added.add(1);added.add("JOHN");added.add("password");
-
-		ArrayList<Object> Expenses = new ArrayList<Object>();
-		Expenses.add(20.1);Expenses.add(40.0);Expenses.add(30.0);Expenses.add(10.0);added.add(Expenses);
-
-		ArrayList<Object> Incomes = new ArrayList<Object>();
-		Incomes.add(100.0);Incomes.add(120.0);added.add(Incomes);
-
-		ArrayList<Object> Investments = new ArrayList<Object>();
-		Investments.add(100.1);Investments.add(200.1);added.add(Investments);
-
-//        d.addPerson(added);
-
-		addPointToLineChart("Jan", (double)Expenses.get(0), "E");
-		addPointToLineChart("Feb", (double)Expenses.get(1), "E");
-		addPointToLineChart("Mar", (double)Expenses.get(2), "E");
-		addPointToLineChart("Apr", (double)Expenses.get(3), "E");
-
-		addPointToLineChart("Jan", (double)Incomes.get(0), "I");
-		addPointToLineChart("Feb", 0, "I");
-		addPointToLineChart("Mar", (double)Incomes.get(1), "I");
-		addPointToLineChart("Apr", 0, "I");
-
-		addDataToPieChart("Total Expenses: " + (double)Expenses.get(0), (double)Expenses.get(0), "E");
-		addDataToPieChart("Total Income: " + (double)Incomes.get(0), (double)Incomes.get(0), "I");
-
-		runToolTip();
 	}
 
 	private void runToolTip(){

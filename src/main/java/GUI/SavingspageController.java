@@ -36,8 +36,8 @@ public class SavingspageController {
 	@FXML
 	public Label lblSavingsGoalStatus;
 
-	@FXML
-	private BarChart<String, Number> barChart;
+//	@FXML
+//	private BarChart<String, Number> barChart;
 
 	@FXML
 	private CategoryAxis xAxis;
@@ -51,7 +51,7 @@ private TimePeriod timePeriod;
 		this.timePeriod = tp;
 		initialize();
 		setupData();
-		barChart.getData().clear();
+//		barChart.getData().clear();
 	}
 
 	private void setupData() {
@@ -132,7 +132,7 @@ private TimePeriod timePeriod;
 	}
 	private void updateBarChart(double savings) {
 		// Clear existing data
-		barChart.getData().clear();
+//		barChart.getData().clear();
 
 		// Create series for the bar chart
 		XYChart.Series<String, Number> series = new XYChart.Series<>();
@@ -141,7 +141,7 @@ private TimePeriod timePeriod;
 
 
 		// Add series to the bar chart
-		barChart.getData().add(series);
+//		barChart.getData().add(series);
 	}
 
 	@FXML
