@@ -21,24 +21,23 @@ public class AddExpenseTypeDialog {
 	@FXML
 	private TextField nameField;
 	private List<Category> categories;
-	
+
 	@FXML
 	public void initialize() {
-		categories = App.sf().openSession().createNamedQuery("getAllCategories", Category.class)
-			.setParameter("user", App.getCurrentUser().getID()).getResultList();
+		categories = App.sf().openSession().createNamedQuery("getAllCategories", Category.class).setParameter("user", App.getCurrentUser().getID()).getResultList();
 		categoryPicker.getItems().setAll(categories);
 		categoryPicker.setConverter(new StringConverter<>() {
 			@Override
 			public String toString(Category object) {
 				return object != null ? object.getName() : "";
 			}
+
 			@Override
 			public Category fromString(String string) {
-				return categoryPicker.getItems().stream().filter(object ->
-					object.getName().equals(string)).findFirst().orElse(null);
+				return categoryPicker.getItems().stream().filter(object -> object.getName().equals(string)).findFirst().orElse(null);
 			}
 		});
-		
+
 		categoryPicker.setOnKeyPressed(t -> {
 			categoryPicker.hide();
 		});
@@ -48,22 +47,19 @@ public class AddExpenseTypeDialog {
 					categoryPicker.show();
 				}
 				return;
-			} else if (event.getCode() == KeyCode.ENTER)
-				return;
-			if (event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.LEFT || event.getCode().equals(KeyCode.SHIFT) || event.getCode().equals(KeyCode.CONTROL)
-				|| event.isControlDown() || event.getCode() == KeyCode.HOME
-				|| event.getCode() == KeyCode.END || event.getCode() == KeyCode.TAB) {
+			} else if (event.getCode() == KeyCode.ENTER) return;
+			if (event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.LEFT || event.getCode().equals(KeyCode.SHIFT) || event.getCode().equals(KeyCode.CONTROL) || event.isControlDown() || event.getCode() == KeyCode.HOME || event.getCode() == KeyCode.END || event.getCode() == KeyCode.TAB) {
 				return;
 			}
-			
+
 			categoryPicker.getItems().clear();
 			categoryPicker.getItems().addAll(filterItems(categoryPicker.getEditor().getText()));
-			if(!categoryPicker.getItems().isEmpty()) {
+			if (!categoryPicker.getItems().isEmpty()) {
 				categoryPicker.show();
 			}
 		});
 	}
-	
+
 	private ObservableList<Category> filterItems(String input) {
 		ObservableList<Category> filtered = FXCollections.observableArrayList();
 		Pattern regex = Pattern.compile(".*?" + input + ".*?");
@@ -79,7 +75,7 @@ public class AddExpenseTypeDialog {
 		}
 		return filtered;
 	}
-	
+
 	public Expense getData() {
 		Expense e = new Expense();
 		e.setName(nameField.getText());

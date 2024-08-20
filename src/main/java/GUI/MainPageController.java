@@ -1,6 +1,5 @@
 package GUI;
 
-import GUI.Loan.*;
 import javafx.beans.value.WeakChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,10 +19,6 @@ public class MainPageController implements Initializable {
 	@FXML
 	private ExpenseIncomeController expenseIncomePageController;
 	@FXML
-	private LoanController loanCalculatorController;
-//	@FXML
-//	private PortfolioController portfolioPageController;
-	@FXML
 	private SummaryPageController summaryPageController;
 	@FXML
 	private SavingspageController savingsPageController;
@@ -33,8 +28,7 @@ public class MainPageController implements Initializable {
 	private Tab savingsTab;
 	@FXML
 	private Tab portfolioTab;
-	@FXML
-	private Tab loanTab;
+
 	@FXML
 	private TabPane pageTabs;
 	@FXML

@@ -30,7 +30,6 @@ import models.TimePeriod;
 import models.instances.ExpenseInstance;
 import models.money.Expense;
 import org.hibernate.Session;
-import GUI.Loan.LoanController;
 
 import java.io.IOException;
 import java.net.URL;
