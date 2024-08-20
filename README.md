@@ -2,7 +2,7 @@
 By: Ahmed Ali
 
 ### 🔎 Project Scope 
-Our Finance Tracking application aims to create a user-friendly digital platform enabling individuals to monitor and manage personal finances, including savings, expenses and budgeting manually.
+This Finance Tracking application aims to create a user-friendly digital platform enabling individuals to monitor and manage personal finances, including savings, expenses and budgeting manually.
 
 ### Project include:
 - UML.pdf
