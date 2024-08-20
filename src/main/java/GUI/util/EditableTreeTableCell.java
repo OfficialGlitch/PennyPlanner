@@ -1,17 +1,13 @@
 package GUI.util;
 
-import GUI.App;
 import GUI.ExpenseTableController;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeTableView;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.util.StringConverter;
-import javafx.util.converter.DefaultStringConverter;
-import models.instances.ExpenseInstance;
+
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;

@@ -1,7 +1,5 @@
 package GUI.util;
 
-import GUI.ExpenseTableController;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;

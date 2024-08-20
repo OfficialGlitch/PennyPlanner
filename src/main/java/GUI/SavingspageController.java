@@ -66,15 +66,10 @@ private TimePeriod timePeriod;
 		}
 
 		for (Category cat : categories) {
-			System.out.println(cat);
-			 //String names = cat.name.getValue();
 
 				List<ExpenseInstance> expenseInstance = App.s().createNamedQuery("getExpenseInstancesForCategory", ExpenseInstance.class)
 					.setParameter("tp", timePeriod.ID.get()).setParameter("cat", cat.ID.get()).getResultList();
-				System.out.println(this.timePeriod.getMonth());
 				for (ExpenseInstance ei : expenseInstance) {
-
-						//String insuranceName = ei.name();
 						double insuranceCost = ei.cost.get();
 
 
@@ -84,7 +79,6 @@ private TimePeriod timePeriod;
 		List<IncomeInstance> incomes = App.s().createNamedQuery("getIncomesForTimePeriod", IncomeInstance.class)
 			.setParameter("month", timePeriod.getID())
 			.setParameter("user", App.getCurrentUser().getID()).getResultList();
-		System.out.println(this.timePeriod.getMonth());
 		for (IncomeInstance i : incomes){
 
 				double incomegot = i.getAmount();
